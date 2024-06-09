@@ -1,0 +1,19 @@
+{
+  "displayName": "Level Generator (xNode)",
+  "name": "com.elmortem.levelgenerator",
+  "version": "1.0.5",
+  "unity": "2019.3",
+  "description": "Node-based level generator.",
+  "keywords": [
+    "world",
+    "generator",
+    "generation",
+    "level",
+    "level generator",
+    "world generator",
+    "procedure",
+    "procedure generator",
+    "xNode"
+  ],
+  "category": "Utility"
+}
