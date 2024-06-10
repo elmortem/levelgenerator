@@ -5,17 +5,17 @@ using XNodeEditor;
 
 namespace LevelGenerator.Editor.Points
 {
-	[CustomNodeEditor(typeof(RandomPointsNode))]
-	public class RandomPointsNodeEditor : NodeEditor
+	[CustomNodeEditor(typeof(AroundPointsNode))]
+	public class AroundPointsNodeEditor : NodeEditor
 	{
-		private RandomPointsNode _node;
+		private AroundPointsNode _node;
 		
 		public override void OnBodyGUI()
 		{
 			base.OnBodyGUI();
 
 			if(_node == null)
-				_node = (RandomPointsNode)target;
+				_node = (AroundPointsNode)target;
 
 			var color = GUI.color;
 			GUI.color = Color.blue;

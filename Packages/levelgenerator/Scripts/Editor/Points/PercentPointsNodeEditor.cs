@@ -5,17 +5,17 @@ using XNodeEditor;
 
 namespace LevelGenerator.Editor.Points
 {
-	[CustomNodeEditor(typeof(RandomPointsNode))]
-	public class RandomPointsNodeEditor : NodeEditor
+	[CustomNodeEditor(typeof(PercentPointsNode))]
+	public class PercentPointsNodeEditor : NodeEditor
 	{
-		private RandomPointsNode _node;
+		private PercentPointsNode _node;
 		
 		public override void OnBodyGUI()
 		{
 			base.OnBodyGUI();
 
 			if(_node == null)
-				_node = (RandomPointsNode)target;
+				_node = (PercentPointsNode)target;
 
 			var color = GUI.color;
 			GUI.color = Color.blue;

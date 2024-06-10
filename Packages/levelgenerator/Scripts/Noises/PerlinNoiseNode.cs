@@ -4,11 +4,14 @@ namespace LevelGenerator.Noises
 {
 	public class PerlinNoiseNode : GenNode
 	{
-		public NoiseData NoiseData;
-		[Output] public NoiseData Data;
+		public PerlinNoiseData NoiseData;
+		[Output] public PerlinNoiseData Data;
 		
 		public override object GetValue(NodePort port) 
 		{
+			if(port == null)
+				return null;
+			
 			if (port.fieldName == nameof(Data))
 			{
 				return NoiseData;

@@ -10,6 +10,10 @@ namespace LevelGenerator.Bounds.Datas
 
 		private Vector3 _min;
 		private Vector3 _max;
+		
+		public override Vector3 Min => _min;
+
+		public override Vector3 Max => _max;
 
 		public void Calc()
 		{
@@ -32,10 +36,7 @@ namespace LevelGenerator.Bounds.Datas
 				_max.z = Mathf.Max(_max.z, Includes[i].Max.z);
 			}
 		}
-
-		public override Vector3 Min => _min;
-
-		public override Vector3 Max => _max;
+		
 		public override bool InBounds(Vector3 point)
 		{
 			foreach (var bound in Excludes)
@@ -51,6 +52,14 @@ namespace LevelGenerator.Bounds.Datas
 			}
 
 			return false;
+		}
+
+		public override IEnumerable<BoundData> GetBounds()
+		{
+			foreach (var data in Includes)
+			{
+				yield return data;
+			}
 		}
 	}
 }

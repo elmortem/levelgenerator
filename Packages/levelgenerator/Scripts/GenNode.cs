@@ -5,9 +5,12 @@ namespace LevelGenerator
 	public class GenNode : Node
 	{
 #if UNITY_EDITOR
-		private void OnValidate()
+		protected virtual bool IsChanged() => true;
+		
+		protected virtual void OnValidate()
 		{
-			ApplyChange();
+			if (IsChanged())
+				ApplyChange();
 		}
 		
 		private void ChildrenApplyChange()

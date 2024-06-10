@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using LevelGenerator.Bounds.Datas;
 using LevelGenerator.NodeGizmos;
 using LevelGenerator.Utility;
@@ -17,6 +18,7 @@ namespace LevelGenerator.Points
 		public int MaxIterations = 1000000;
 
 		private int _lastSeed = -1;
+		private int _lastCount = -1;
 		private List<Vector3> _points;
 		private GizmosOptions _gizmosOptions;
 		
@@ -52,6 +54,9 @@ namespace LevelGenerator.Points
 
 		public override object GetValue(NodePort port) 
 		{
+			if(port == null)
+				return null;
+			
 			if (port.fieldName == nameof(Points))
 			{
 				CalcPoints();
@@ -63,7 +68,14 @@ namespace LevelGenerator.Points
 
 		private void CalcPoints(bool force = false)
 		{
-			if(!force && _lastSeed == Seed && _points != null && _points.Count == Count)
+			var port = GetInputPort(nameof(BoundData));
+			if (port == null || !port.IsConnected)
+			{
+				_points = null;
+				return;
+			}
+			
+			if((!force || LockCalc) && _lastSeed == Seed && _lastCount == Count && _points != null)
 				return;
 
 			if (_points == null)
@@ -71,27 +83,51 @@ namespace LevelGenerator.Points
 			else
 				_points.Clear();
 			
-			var bounds = GetInputValue(nameof(BoundData), BoundData);
-			if(bounds == null)
+			var bound = GetInputValue(nameof(BoundData), BoundData);
+			if(bound == null)
 				return;
 
 			_gizmosOptions = null;
 
 			_lastSeed = Seed;
+			_lastCount = Count;
+			
 			var lastState = Random.state;
 			Random.InitState(_lastSeed);
-			var min = bounds.Min;
-			var max = bounds.Max;
-			
+
+			var volumeMax = 0f;
+			var boundsList = bound.GetBounds().ToList();
+			foreach (var boundItem in boundsList)
+			{
+				volumeMax += boundItem.Volume;
+			}
+
+			foreach (var boundItem in boundsList)
+			{
+				int boundCount = Mathf.RoundToInt(Count * boundItem.Volume / volumeMax);
+				CalcPoints(boundItem, boundCount);
+			}
+
+			Random.state = lastState;
+		}
+
+		private void CalcPoints(BoundData bound, int count)
+		{
+			var min = bound.Min;
+			var max = bound.Max;
+
+			var genCount = 0;
 			var _tryCount = 0;
-			while(_points.Count < Count && _tryCount++ < MaxIterations)
+			while(genCount < count && _tryCount++ < MaxIterations)
 			{
 				var point = new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y),
 					Random.Range(min.z, max.z));
-				if(bounds.InBounds(point))
+				if (bound.InBounds(point))
+				{
 					_points.Add(point);
+					genCount++;
+				}
 			}
-			Random.state = lastState;
 		}
 		
 		private void UpdateGizmosOptions()
@@ -119,13 +155,17 @@ namespace LevelGenerator.Points
 			
 			var pointsPort = GetOutputPort(nameof(Points));
 			var points = (List<Vector3>)GetValue(pointsPort);
+			if (points == null || points.Count <= 0)
+				return;
 
 			var pos = transform.position;
 			
 			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
-			foreach (var point in points)
+			var maxCount = Mathf.Min(10000, points.Count);
+			for (int i = 0; i < maxCount; i++)
 			{
-				Gizmos.DrawSphere(pos + point, 0.2f);
+				var point = points[i];
+				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
 			}
 		}
 #endif

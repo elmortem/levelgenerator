@@ -1,10 +1,11 @@
 using LevelGenerator.Points;
+using UnityEditor;
 using UnityEngine;
 using XNodeEditor;
 
 namespace LevelGenerator.Editor.Points
 {
-	[NodeEditor.CustomNodeEditor(typeof(RemoveIntersectPointsNode))]
+	[CustomNodeEditor(typeof(RemoveIntersectPointsNode))]
 	public class RemoveIntersectPointsNodeEditor : NodeEditor
 	{
 		private RemoveIntersectPointsNode _node;
@@ -25,6 +26,12 @@ namespace LevelGenerator.Editor.Points
 			GUILayout.EndHorizontal();
 			
 			GUI.color = color;
+			
+			EditorGUILayout.BeginHorizontal();
+			_node.ShowPreview = EditorGUILayout.Toggle( _node.ShowPreview, GUILayout.Width(12), GUILayout.Height(12));
+			_node.LockCalc = EditorGUILayout.Toggle(_node.LockCalc, GUILayout.Width(12), GUILayout.Height(12));
+			GUILayout.FlexibleSpace();
+			EditorGUILayout.EndHorizontal();
 		}
 	}
 }

@@ -5,27 +5,34 @@ namespace LevelGenerator.Vectors
 	public class SimpleVectorsNode : BaseVectorsNode
 	{
 		public Vector3 Euler = Vector3.forward;
+		public Vector3 Scale = Vector3.one;
 
-
-		
 		protected override void CalcResults(bool force = false)
 		{
-			var pointsList = GetInputValues(nameof(Points), Points);
-			if (pointsList == null || pointsList.Length == 0)
+			var port = GetInputPort(nameof(Points));
+			if (port == null || !port.IsConnected)
 			{
-				_results.Clear();
+				_results = null;
 				return;
 			}
-
-			if (!force)
+			
+			if ((!force || LockCalc) && _results != null)
 				return;
 			
-			_results.Clear();
+			var pointsList = GetInputValues(nameof(Points), Points);
+			if (pointsList == null || pointsList.Length == 0)
+				return;
+
+			if (_results == null)
+				_results = new();
+			else
+				_results.Clear();
+			
 			foreach (var points in pointsList)
 			{
 				for (int i = 0; i < points.Count; i++)
 				{
-					_results.Add(new VectorData { Point = points[i], Euler = Euler, Scale = Vector3.one });
+					_results.Add(new VectorData { Point = points[i], Euler = Euler, Scale = Scale });
 				}
 			}
 		}

@@ -1,19 +1,27 @@
 using LevelGenerator.Bounds.Datas;
+using LevelGenerator.NodeGizmos;
 using LevelGenerator.Utility;
 using UnityEngine;
 using XNode;
 
 namespace LevelGenerator.Bounds
 {
-	public class BoxBoundsNode : PreviewNode
+	public class BoxBoundsNode : PreviewNode, IGizmosOptionsProvider
 	{
 		public UnityEngine.Bounds Bounds;
+		[Header("Gizmos")] 
+		public GizmosOptions GizmosOptions;
 		[Output(typeConstraint = TypeConstraint.Inherited)] public BoundData Result;
-		
+
 		private BoxBoundData _result;
+		
+		public GizmosOptions GetGizmosOptions() => GizmosOptions;
 		
 		public override object GetValue(NodePort port) 
 		{
+			if(port == null)
+				return null;
+			
 			if (port.fieldName == nameof(Result))
 			{
 				if (_result == null)
@@ -28,7 +36,7 @@ namespace LevelGenerator.Bounds
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			Gizmos.color = Color.white.SetAlpha(0.5f);
+			Gizmos.color = GizmosOptions.Color;
 			Gizmos.DrawWireCube(transform.TransformPoint(Bounds.center), Bounds.size);
 		}
 #endif

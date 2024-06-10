@@ -2,7 +2,6 @@ using LevelGenerator.Bounds.Datas;
 using LevelGenerator.NodeGizmos;
 using LevelGenerator.Noises;
 using UnityEngine;
-using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator.Bounds
@@ -10,13 +9,13 @@ namespace LevelGenerator.Bounds
 	public class NoiseBoundsNode : PreviewNode, IGizmosOptionsProvider
 	{
 		[Input(connectionType = ConnectionType.Override)] public BoundData BoundData;
-		[Input(connectionType = ConnectionType.Override)] public NoiseData NoiseData;
+		[Input(connectionType = ConnectionType.Override), SerializeReference] public NoiseData NoiseData;
 		
 		public float MinValue = 0.5f;
 		public float MaxValue = 1f;
 		public bool Is2D = true;
 
-		[Header("Giamos")] 
+		[Header("Gizmos")] 
 		public GizmosOptions GizmosOptions;
 		
 		[Output] public BoundData Result;
@@ -45,6 +44,9 @@ namespace LevelGenerator.Bounds
 
 		public override object GetValue(NodePort port)
 		{
+			if(port == null)
+				return null;
+			
 			if (port.fieldName == nameof(Result))
 			{
 				CalcResult();

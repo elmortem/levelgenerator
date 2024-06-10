@@ -10,6 +10,8 @@ namespace LevelGenerator.Instancers
 
 		public List<GameObject> Objects = new();
 
+		public int ObjectsCount => Objects.Count;
+
 		private void Add(GameObject prefab, Vector3 point, Quaternion rotation, Vector3 scale)
 		{
 			var go = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(prefab, Parent);

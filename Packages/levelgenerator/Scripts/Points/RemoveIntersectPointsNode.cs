@@ -58,17 +58,24 @@ namespace LevelGenerator.Points
 
 		private void CalcPoints(bool force = false)
 		{
+			var port = GetInputPort(nameof(Points));
+			if (port == null || !port.IsConnected)
+			{
+				_results = null;
+				return;
+			}
+			
 			if(!force && _results != null)
 				return;
 
+			var pointsList = GetInputValues(nameof(Points), Points);
+			if(pointsList == null || pointsList.Length <= 0)
+				return;
+			
 			if (_results == null)
 				_results = new();
 			else
 				_results.Clear();
-			
-			var pointsList = GetInputValues(nameof(Points), Points);
-			if(pointsList == null || pointsList.Length <= 0)
-				return;
 
 			_gizmosOptions = null;
 			
@@ -78,7 +85,8 @@ namespace LevelGenerator.Points
 			{
 				foreach (var otherPoints in otherPointsList)
 				{
-					_otherPoints.AddRange(otherPoints);
+					if(otherPoints != null && otherPoints.Count > 0)
+						_otherPoints.AddRange(otherPoints);
 				}
 			}
 
@@ -139,13 +147,15 @@ namespace LevelGenerator.Points
 		{
 			UpdateGizmosOptions();
 			
-			var pointsPort = GetOutputPort(nameof(Results));
-			var points = (List<Vector3>)GetValue(pointsPort);
-
+			var resultsPort = GetOutputPort(nameof(Results));
+			var results = (List<Vector3>)GetValue(resultsPort);
+			if(results == null || results.Count <= 0)
+				return;
+			
 			var pos = transform.position;
 			
 			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
-			foreach (var point in points)
+			foreach (var point in results)
 			{
 				Gizmos.DrawWireSphere(pos + point, Radius);
 			}

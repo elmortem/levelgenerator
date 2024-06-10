@@ -11,5 +11,6 @@ namespace LevelGenerator.NodeGizmos
 		public int BoundPoints = 100;
 		public bool DrawIncorrects = true;
 		public Color Color = Color.white;
+		public float PointSize = 0.3f;
 	}
 }

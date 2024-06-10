@@ -8,10 +8,10 @@ namespace LevelGenerator.Vectors
 {
 	public abstract class BaseVectorsNode : PreviewNode
 	{
-		[Input] public List<Vector3> Points;
+		[Input(typeConstraint = TypeConstraint.Inherited)] public List<Vector3> Points;
 		[Output] public List<VectorData> Results;
 
-		protected List<VectorData> _results = new();
+		protected List<VectorData> _results;
 		private GizmosOptions _gizmosOptions;
 		
 		public override void OnCreateConnection(NodePort from, NodePort to)
@@ -34,6 +34,9 @@ namespace LevelGenerator.Vectors
 		
 		public override object GetValue(NodePort port)
 		{
+			if(port == null)
+				return null;
+			
 			if (port.fieldName == nameof(Results))
 			{
 				MainCalcResults();
@@ -45,7 +48,7 @@ namespace LevelGenerator.Vectors
 
 		private void MainCalcResults(bool force = false)
 		{
-			if(!force)
+			if((!force || LockCalc) && _results != null)
 				return;
 
 			_gizmosOptions = null;
@@ -76,7 +79,7 @@ namespace LevelGenerator.Vectors
 
 			var pos = transform.position;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white.SetAlpha(0.5f);
+			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
 			foreach (var vec in vectors)
 			{
 				var q = Quaternion.Euler(vec.Euler);

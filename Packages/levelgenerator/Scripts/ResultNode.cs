@@ -13,6 +13,8 @@ namespace LevelGenerator
 		
 		private bool _changed = false;
 		private IInstancer _instancer;
+
+		public int ObjectsCount => _instancer?.ObjectsCount ?? 0;
 		
 		public bool Changed
 		{
@@ -52,6 +54,9 @@ namespace LevelGenerator
 				{
 					_instancer.AddInstances(instances);
 				}
+
+				if (AutoGenerate && _instancer.ObjectsCount > 10000)
+					AutoGenerate = false;
 
 				_changed = false;
 			}

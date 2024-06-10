@@ -8,11 +8,12 @@ namespace LevelGenerator.Instances
 	public class SimpleInstancesNode : GenNode
 	{
 		[Input] public List<VectorData> Vectors;
+		public bool Enabled = true;
 		[Output] public List<InstanceData> Results = new();
 		
 		public GameObject Prefab;
 
-		private List<InstanceData> _results = new();
+		private List<InstanceData> _results;
 
 		public override void OnCreateConnection(NodePort from, NodePort to)
 		{
@@ -34,6 +35,9 @@ namespace LevelGenerator.Instances
 
 		public override object GetValue(NodePort port)
 		{
+			if(port == null)
+				return null;
+			
 			if (port.fieldName == nameof(Results))
 			{
 				CalcResults();
@@ -45,14 +49,21 @@ namespace LevelGenerator.Instances
 
 		private void CalcResults(bool force = false)
 		{
-			if(!force && _results.Count == Vectors.Count)
+			if(!force && _results != null)
 				return;
 			
-			var vectors = GetInputValue(nameof(Vectors), Vectors);
+			if (_results == null)
+				_results = new();
+			else
+				_results.Clear();
+			
+			if(!Enabled)
+				return;
+			
 			if (Prefab == null)
 				return;
 			
-			_results.Clear();
+			var vectors = GetInputValue(nameof(Vectors), Vectors);
 			for (int i = 0; i < vectors.Count; i++)
 			{
 				_results.Add(new InstanceData { Prefab = Prefab, Vector = vectors[i] });
