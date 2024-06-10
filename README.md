@@ -1,7 +1,7 @@
 # Level Generator
 
 [![color:ff69b4](https://img.shields.io/badge/licence-MIT-blue)](https://opensource.org/license/mit)
-![color:ff69b4](https://img.shields.io/badge/Unity-2019.3.x-red)
+![color:ff69b4](https://img.shields.io/badge/Unity-2022.3.x-red)
 
 Node-based (xNode) procedural level generator.
 
