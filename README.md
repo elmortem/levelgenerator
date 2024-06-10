@@ -30,6 +30,8 @@ Create GameObject on scene and add component LevelGeneratorSceneGraph and compon
 
 Open graph asset by double click and add nodes by right click. Connect nodes and finish all your work in Result node.
 
+Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more info.
+
 ## Screenshot
 
 <img src="screenshot.png" width="600">
