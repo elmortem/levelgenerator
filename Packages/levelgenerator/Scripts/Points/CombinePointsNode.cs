@@ -32,7 +32,9 @@ namespace LevelGenerator.Points
 
 		protected override void CalcResults(bool force = false)
 		{
-			if ((!force || LockCalc) && _results != null)
+			if(LockCalc && _results != null)
+				return;
+			if (!force && _results != null)
 				return;
 
 			if (_results == null)

@@ -54,6 +54,7 @@ namespace LevelGenerator
 				{
 					_instancer.AddInstances(instances);
 				}
+				_instancer.RaiseChange();
 
 				if (AutoGenerate && _instancer.ObjectsCount > 10000)
 					AutoGenerate = false;
@@ -64,7 +65,11 @@ namespace LevelGenerator
 
 		public void Clear()
 		{
-			_instancer?.RemoveAll();
+			if (_instancer != null)
+			{
+				_instancer.RemoveAll();
+				_instancer.RaiseChange();
+			}
 		}
 	}
 }

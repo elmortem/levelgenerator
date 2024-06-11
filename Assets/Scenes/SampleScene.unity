@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000, guid: f1722e4c69b39a143900c450299879a5, type: 2}
   LevelInstancer: {fileID: 499705914}
+  ShowGizmosOnObjects: 1
   ResultNode: {fileID: -4449902368008301868, guid: f1722e4c69b39a143900c450299879a5, type: 2}
 --- !u!4 &499705916
 Transform:

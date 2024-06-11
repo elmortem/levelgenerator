@@ -59,6 +59,8 @@ namespace LevelGenerator.Bounds
 
 		private void CalcResult(bool force = false)
 		{
+			if(LockCalc && _result != null)
+				return;
 			if (!force && _result != null)
 				return;
 

@@ -41,7 +41,9 @@ namespace LevelGenerator.Points
 				return;
 			}
 			
-			if ((!force || LockCalc) && Mathf.Approximately(_lastPercent, Percent) && _results != null)
+			if(LockCalc && _results != null)
+				return;
+			if (!force && Mathf.Approximately(_lastPercent, Percent) && _results != null)
 				return;
 
 			var pointsList = GetInputValues(nameof(Points), Points);

@@ -5,7 +5,7 @@ using XNode;
 
 namespace LevelGenerator.Instances
 {
-	public class SimpleInstancesNode : GenNode
+	public class SimpleInstancesNode : PreviewNode
 	{
 		[Input] public List<VectorData> Vectors;
 		public bool Enabled = true;
@@ -49,6 +49,8 @@ namespace LevelGenerator.Instances
 
 		private void CalcResults(bool force = false)
 		{
+			if(LockCalc && _results != null)
+				return;
 			if(!force && _results != null)
 				return;
 			

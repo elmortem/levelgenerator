@@ -10,19 +10,29 @@ namespace LevelGenerator
 		protected virtual void OnValidate()
 		{
 			if (IsChanged())
+			{
 				ApplyChange();
+			}
 		}
 		
 		private void ChildrenApplyChange()
 		{
 			foreach (var port in Ports)
 			{
-				if (port.IsOutput && port.Connection != null)
+				if (port.IsOutput && port.IsConnected)
 				{
-					if(port.Connection.node is GenNode genNode)
-						genNode.ApplyChange();
+					foreach (var connection in port.GetConnections())
+					{
+						if(connection.node is GenNode genNode)
+							genNode.ApplyChange();
+					}
 				}
 			}
+		}
+		
+		public void RaiseChanged()
+		{
+			ApplyChange();
 		}
 
 		protected virtual void ApplyChange()

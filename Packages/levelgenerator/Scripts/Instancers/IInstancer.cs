@@ -8,5 +8,6 @@ namespace LevelGenerator.Instancers
 		int ObjectsCount { get; }
 		void AddInstances(List<InstanceData> instances);
 		void RemoveAll();
+		void RaiseChange();
 	}
 }

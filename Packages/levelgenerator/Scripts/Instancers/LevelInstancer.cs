@@ -40,5 +40,12 @@ namespace LevelGenerator.Instancers
 			}
 			Objects.Clear();
 		}
+
+		public void RaiseChange()
+		{
+#if UNITY_EDITOR
+			UnityEditor.EditorUtility.SetDirty(gameObject);
+#endif
+		}
 	}
 }

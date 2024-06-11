@@ -65,6 +65,8 @@ namespace LevelGenerator.Points
 				return;
 			}
 			
+			if(LockCalc && _results != null)
+				return;
 			if(!force && _results != null)
 				return;
 

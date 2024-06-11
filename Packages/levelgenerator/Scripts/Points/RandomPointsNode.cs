@@ -75,7 +75,9 @@ namespace LevelGenerator.Points
 				return;
 			}
 			
-			if((!force || LockCalc) && _lastSeed == Seed && _lastCount == Count && _points != null)
+			if(LockCalc && _points != null)
+				return;
+			if(!force && _lastSeed == Seed && _lastCount == Count && _points != null)
 				return;
 
 			if (_points == null)

@@ -26,14 +26,17 @@ namespace LevelGenerator.Utility
 		{
 			foreach (var port in node.Ports)
 			{
-				if (port.IsInput && port.Connection != null)
+				if (port.IsInput && port.IsConnected)
 				{
-					if (port.Connection.node is T item)
-						yield return item;
-					
-					foreach (var itemNode in port.Connection.node.GetNodeInParent<T>())
+					foreach (var connection in port.GetConnections())
 					{
-						yield return itemNode;
+						if (connection.node is T item)
+							yield return item;
+						
+						foreach (var itemNode in connection.node.GetNodeInParent<T>())
+						{
+							yield return itemNode;
+						}
 					}
 				}
 			}

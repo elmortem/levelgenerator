@@ -29,7 +29,12 @@ namespace LevelGenerator.Editor.Points
 			
 			EditorGUILayout.BeginHorizontal();
 			_node.ShowPreview = EditorGUILayout.Toggle( _node.ShowPreview, GUILayout.Width(12), GUILayout.Height(12));
+			EditorGUI.BeginChangeCheck();
 			_node.LockCalc = EditorGUILayout.Toggle(_node.LockCalc, GUILayout.Width(12), GUILayout.Height(12));
+			if (EditorGUI.EndChangeCheck())
+			{
+				_node.RaiseChanged();
+			}
 			GUILayout.FlexibleSpace();
 			EditorGUILayout.EndHorizontal();
 		}

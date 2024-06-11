@@ -16,7 +16,9 @@ namespace LevelGenerator.Vectors
 				return;
 			}
 			
-			if ((!force || LockCalc) && _results != null)
+			if(LockCalc && _results != null)
+				return;
+			if (!force && _results != null)
 				return;
 			
 			var pointsList = GetInputValues(nameof(Points), Points);
