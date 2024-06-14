@@ -9,11 +9,11 @@ namespace LevelGenerator.Instances
 	{
 		[Input] public List<VectorData> Vectors;
 		public bool Enabled = true;
-		[Output] public List<InstanceData> Results = new();
+		[Output] public List<GameObjectInstanceData> Results = new();
 		
 		public GameObject Prefab;
 
-		private List<InstanceData> _results;
+		private List<GameObjectInstanceData> _results;
 
 		public override void OnCreateConnection(NodePort from, NodePort to)
 		{
@@ -68,7 +68,7 @@ namespace LevelGenerator.Instances
 			var vectors = GetInputValue(nameof(Vectors), Vectors);
 			for (int i = 0; i < vectors.Count; i++)
 			{
-				_results.Add(new InstanceData { Prefab = Prefab, Vector = vectors[i] });
+				_results.Add(new GameObjectInstanceData { Prefab = Prefab, Vector = vectors[i] });
 			}
 		}
 	}

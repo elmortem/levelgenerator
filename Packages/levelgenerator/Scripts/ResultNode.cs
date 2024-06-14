@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using LevelGenerator.Instancers;
 using LevelGenerator.Instances;
 using XNode;
@@ -49,10 +50,13 @@ namespace LevelGenerator
 			if (_instancer != null)
 			{
 				Clear();
-				var instancesList = GetInputValues<List<InstanceData>>(nameof(Instances), null);
+				var instancesList = GetInputValues<object>(nameof(Instances), null);
 				foreach (var instances in instancesList)
 				{
-					_instancer.AddInstances(instances);
+					if (instances is IEnumerable<object> enumerable)
+					{
+						_instancer.AddInstances(enumerable.Cast<InstanceData>().ToList());
+					}
 				}
 				_instancer.RaiseChange();
 

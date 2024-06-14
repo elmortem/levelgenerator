@@ -1,0 +1,25 @@
+{
+    "name": "LevelGenerator-Splines-Editor",
+    "rootNamespace": "LevelGenerator.Splines",
+    "references": [
+        "LevelGenerator",
+        "LevelGenerator-Editor",
+        "LevelGenerator-Splines",
+        "Unity.Splines",
+        "Unity.Splines.Editor",
+        "XNode",
+        "XNodeEditor",
+        "Unity.Mathematics"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

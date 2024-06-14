@@ -24,15 +24,7 @@ namespace LevelGenerator.Editor
 				_node.Clear();
 			}
 			
-			var color = GUI.color;
-			GUI.color = Color.blue;
-			
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			GUILayout.Label("Objects: " + _node.ObjectsCount);
-			GUILayout.EndHorizontal();
-			
-			GUI.color = color;
+			NodeEditorGUI.DrawResult("Objects",_node.ObjectsCount);
 		}
 	}
 }

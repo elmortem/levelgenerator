@@ -12,7 +12,7 @@ namespace LevelGenerator.Instancers
 
 		public int ObjectsCount => Objects.Count;
 
-		private void Add(GameObject prefab, Vector3 point, Quaternion rotation, Vector3 scale)
+		private void AddGameObject(GameObject prefab, Vector3 point, Quaternion rotation, Vector3 scale)
 		{
 			var go = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(prefab, Parent);
 			go.transform.localPosition = point;
@@ -27,7 +27,11 @@ namespace LevelGenerator.Instancers
 			{
 				foreach (var data in instances)
 				{
-					Add(data.Prefab, data.Vector.Point, Quaternion.Euler(data.Vector.Euler), data.Vector.Scale);
+					if (data is GameObjectInstanceData goData)
+					{
+						AddGameObject(goData.Prefab, goData.Vector.Point, Quaternion.Euler(goData.Vector.Euler),
+							goData.Vector.Scale);
+					}
 				}
 			}
 		}

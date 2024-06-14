@@ -5,9 +5,8 @@ using UnityEngine;
 namespace LevelGenerator.Instances
 {
 	[Serializable]
-	public struct InstanceData
+	public class InstanceData
 	{
-		public GameObject Prefab;
-		public VectorData Vector;
+		
 	}
 }

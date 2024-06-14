@@ -19,19 +19,7 @@ namespace LevelGenerator.Editor
 			if (_node == null)
 				_node = (PreviewNode)target;
 
-			EditorGUILayout.BeginHorizontal();
-			//new Rect(12, 12, 12, 12)
-			_node.ShowPreview = EditorGUILayout.Toggle( _node.ShowPreview, GUILayout.Width(12), GUILayout.Height(12));
-			//new Rect(12 + 12 + 6, 12, 12, 12)
-			EditorGUI.BeginChangeCheck();
-			_node.LockCalc = EditorGUILayout.Toggle(_node.LockCalc, GUILayout.Width(12), GUILayout.Height(12));
-			if (EditorGUI.EndChangeCheck())
-			{
-				if(!_node.LockCalc)
-					_node.RaiseChanged();
-			}
-			GUILayout.FlexibleSpace();
-			EditorGUILayout.EndHorizontal();
+			NodeEditorGUI.DrawPreviewAndLock(_node);
 		}
 	}
 }

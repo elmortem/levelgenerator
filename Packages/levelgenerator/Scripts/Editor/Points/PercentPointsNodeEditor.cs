@@ -17,26 +17,9 @@ namespace LevelGenerator.Editor.Points
 			if(_node == null)
 				_node = (PercentPointsNode)target;
 
-			var color = GUI.color;
-			GUI.color = Color.blue;
-			
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			GUILayout.Label("Results: " + _node.PointsCount);
-			GUILayout.EndHorizontal();
-			
-			GUI.color = color;
-			
-			EditorGUILayout.BeginHorizontal();
-			_node.ShowPreview = EditorGUILayout.Toggle( _node.ShowPreview, GUILayout.Width(12), GUILayout.Height(12));
-			EditorGUI.BeginChangeCheck();
-			_node.LockCalc = EditorGUILayout.Toggle(_node.LockCalc, GUILayout.Width(12), GUILayout.Height(12));
-			if (EditorGUI.EndChangeCheck())
-			{
-				_node.RaiseChanged();
-			}
-			GUILayout.FlexibleSpace();
-			EditorGUILayout.EndHorizontal();
+			NodeEditorGUI.DrawResult("Results",_node.PointsCount);
+
+			NodeEditorGUI.DrawPreviewAndLock(_node);
 		}
 	}
 }

@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using LevelGenerator.Instancers;
 using UnityEngine;
-using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator
@@ -12,7 +10,7 @@ namespace LevelGenerator
 	public class LevelGeneratorSceneGraph : SceneGraph<LevelGeneratorGraph>
 	{
 #if UNITY_EDITOR
-		public LevelInstancer LevelInstancer;
+		public Component Instancer;
 		public bool ShowGizmosOnObjects;
 		
 		[HideInInspector]
@@ -62,7 +60,7 @@ namespace LevelGenerator
 				return;
 
 			ResultNode = (ResultNode)graph.nodes.Find(p => p is ResultNode);
-			ResultNode.SetInstancer(LevelInstancer);
+			ResultNode.SetInstancer((IInstancer)Instancer);
 		}
 
 		private void UpdateInstancer()
@@ -134,8 +132,8 @@ namespace LevelGenerator
 			if(Application.isPlaying)
 				return;
 
-			if (LevelInstancer == null)
-				LevelInstancer = GetComponent<LevelInstancer>();
+			if (Instancer == null)
+				Instancer = (Component)GetComponent<IInstancer>();
 			
 			UpdateResultNode();
 			UpdateInstancer();

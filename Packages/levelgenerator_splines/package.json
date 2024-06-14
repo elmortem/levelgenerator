@@ -1,0 +1,21 @@
+{
+  "displayName": "Splines Addon for Level Generator (xNode)",
+  "name": "com.elmortem.levelgenerator_splines",
+  "version": "0.0.1",
+  "unity": "2022.3",
+  "description": "Splines support for node-based procedural level generator.",
+  "keywords": [
+    "spline",
+    "splines",
+    "world",
+    "generator",
+    "generation",
+    "level",
+    "level generator",
+    "world generator",
+    "procedural",
+    "procedural generator",
+    "xNode"
+  ],
+  "category": "Utility"
+}

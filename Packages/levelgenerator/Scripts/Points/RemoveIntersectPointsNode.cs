@@ -154,13 +154,7 @@ namespace LevelGenerator.Points
 			if(results == null || results.Count <= 0)
 				return;
 			
-			var pos = transform.position;
-			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
-			foreach (var point in results)
-			{
-				Gizmos.DrawWireSphere(pos + point, Radius);
-			}
+			BasePointsNode.DrawWirePoints(results, Radius, transform, _gizmosOptions);
 		}
 #endif
 	}

@@ -8,5 +8,10 @@ namespace LevelGenerator.Utility
 		{
 			return new Vector3(u.x * v.x, u.y * v.y, u.z * v.z);
 		}
+		
+		public static Vector3 SwapYZ(this Vector3 v)
+		{
+			return new Vector3(v.x, v.z, v.y);
+		}
 	}
 }

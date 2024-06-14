@@ -11,11 +11,20 @@ Node-based (xNode) procedural level generator.
 
 Install xNode from https://github.com/siccity/xNode
 
-### Package
+### Packages
+
+#### Level Generator
 
 Installation as a unity module via a git link in PackageManager or direct editing of `Packages/manifest' is supported.json:
 ```
 "com.elmortem.levelgenerator": "https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator",
+```
+
+#### Splines Addon
+Support splines for generate points and SpriteShapeInstanceData for make SpriteShapes
+
+```
+"com.elmortem.levelgenerator_splines": "https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_splines",
 ```
 
 ## LevelGeneratorGraph asset
@@ -30,7 +39,7 @@ Create GameObject on scene and add component LevelGeneratorSceneGraph and compon
 
 Open graph asset by double click and add nodes by right click. Connect nodes and finish all your work in Result node.
 
-Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more info.
+Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more info (in progress...).
 
 ## Screenshot
 
