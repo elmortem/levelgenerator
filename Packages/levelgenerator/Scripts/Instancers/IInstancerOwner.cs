@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace LevelGenerator.Instancers
 {
 	public interface IInstancerOwner
 	{
-		void SetInstancer(IInstancer instancer);
+		void SetInstancers(IEnumerable<IInstancer> instancers);
 	}
 }

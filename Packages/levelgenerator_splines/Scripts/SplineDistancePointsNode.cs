@@ -34,6 +34,9 @@ namespace LevelGenerator.Splines
 
 		protected override void CalcResults(bool force = false)
 		{
+			if (Distance < 0.0001f)
+				return;
+			
 			if(LockCalc && Points != null)
 				return;
 			if (!force && Mathf.Approximately(_lastDistance, Distance) && Points != null)

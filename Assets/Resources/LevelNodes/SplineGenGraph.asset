@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Result
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 2712, y: 1240}
+  position: {x: 3448, y: 1624}
   ports:
     keys:
     - Instances
@@ -26,6 +26,9 @@ MonoBehaviour:
       connections:
       - fieldName: Results
         node: {fileID: -608914156806456793}
+        reroutePoints: []
+      - fieldName: Results
+        node: {fileID: 6521916099421645054}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -1123,8 +1126,10 @@ MonoBehaviour:
       Knots:
         m_KnotsLink: []
     SpriteShape: {fileID: 11400000, guid: 1d7c6a0c6ffcfec4b9ac6c9ab1597479, type: 2}
+    Height: 10
   Name: Road
   SpriteShape: {fileID: 11400000, guid: 1d7c6a0c6ffcfec4b9ac6c9ab1597479, type: 2}
+  Height: 10
 --- !u!114 &-594883785701023600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,6 +1169,9 @@ MonoBehaviour:
       connections:
       - fieldName: SplineContainer
         node: {fileID: -608914156806456793}
+        reroutePoints: []
+      - fieldName: SplineContainer
+        node: {fileID: 895346266860671523}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -1988,6 +1996,133 @@ MonoBehaviour:
   - {fileID: 5913239994717330027}
   - {fileID: -594883785701023600}
   - {fileID: -608914156806456793}
+  - {fileID: 7471958502266687259}
+  - {fileID: 8610004300098886983}
+  - {fileID: 895346266860671523}
+  - {fileID: 3100811070947047503}
+  - {fileID: 6521916099421645054}
+--- !u!114 &895346266860671523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430815af24e84c2ebeed8a3209ae9655, type: 3}
+  m_Name: Remove Points Near Spline
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2209.3965, y: 2020.7524}
+  ports:
+    keys:
+    - Points
+    - SplineContainer
+    - Results
+    values:
+    - _fieldName: Points
+      _node: {fileID: 895346266860671523}
+      _typeQualifiedName: System.Collections.Generic.List`1[[UnityEngine.Vector3,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Points
+        node: {fileID: 8610004300098886983}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: SplineContainer
+      _node: {fileID: 895346266860671523}
+      _typeQualifiedName: LevelGenerator.Splines.SplineContainerData, LevelGenerator-Splines,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Result
+        node: {fileID: -594883785701023600}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Results
+      _node: {fileID: 895346266860671523}
+      _typeQualifiedName: System.Collections.Generic.List`1[[UnityEngine.Vector3,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Points
+        node: {fileID: 3100811070947047503}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  ShowPreview: 1
+  LockCalc: 1
+  Points: []
+  SplineContainer:
+    Splines: []
+    Knots:
+      m_KnotsLink: []
+  Distance: 5
+  Results: []
+--- !u!114 &3100811070947047503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fffed3ee739248f4a986d34632e22fb7, type: 3}
+  m_Name: Random Vectors
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2536, y: 2040}
+  ports:
+    keys:
+    - Points
+    - Results
+    values:
+    - _fieldName: Points
+      _node: {fileID: 3100811070947047503}
+      _typeQualifiedName: System.Collections.Generic.List`1[[UnityEngine.Vector3,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Results
+        node: {fileID: 895346266860671523}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Results
+      _node: {fileID: 3100811070947047503}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Vectors.VectorData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Vectors
+        node: {fileID: 6521916099421645054}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  ShowPreview: 0
+  LockCalc: 1
+  Points: []
+  Results: []
+  EulerMin: {x: -5, y: 0, z: -5}
+  EulerMax: {x: 5, y: 360, z: 5}
+  ScaleMin: {x: 1, y: 1, z: 1}
+  ScaleMax: {x: 1, y: 2, z: 1}
+  LockScale: 0
+  Seed: 68777750
 --- !u!114 &5913239994717330027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,6 +2214,57 @@ MonoBehaviour:
   - {x: 35.362114, y: 0.000003702517, z: 15.585236}
   - {x: 38.593174, y: 0.00000257748, z: 9.577391}
   - {x: 38.70427, y: 0.00000029130916, z: 1.0223242}
+--- !u!114 &6521916099421645054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83b7f8cf2984c139af328d4c8d3a0ff, type: 3}
+  m_Name: Simple Instances
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2824, y: 2040}
+  ports:
+    keys:
+    - Vectors
+    - Results
+    values:
+    - _fieldName: Vectors
+      _node: {fileID: 6521916099421645054}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Vectors.VectorData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Results
+        node: {fileID: 3100811070947047503}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Results
+      _node: {fileID: 6521916099421645054}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Instances
+        node: {fileID: -4449902368008301868}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  ShowPreview: 0
+  LockCalc: 1
+  Vectors: []
+  Enabled: 1
+  Results: []
+  Prefab: {fileID: 4389714111392263400, guid: da3ad5004c0661649bb70e6925939409, type: 3}
 --- !u!114 &6868062837480633948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2336,3 +2522,94 @@ MonoBehaviour:
         m_Data: []
     Knots:
       m_KnotsLink: []
+--- !u!114 &7471958502266687259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e9ffefe5aa4a518e2d33c50ac403b4, type: 3}
+  m_Name: Box Bounds
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1485.8281, y: 2154.6387}
+  ports:
+    keys:
+    - Result
+    values:
+    - _fieldName: Result
+      _node: {fileID: 7471958502266687259}
+      _typeQualifiedName: LevelGenerator.Bounds.Datas.BoundData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: BoundData
+        node: {fileID: 8610004300098886983}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 1
+      _dynamic: 0
+  ShowPreview: 1
+  LockCalc: 1
+  Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 100, y: 0, z: 100}
+  GizmosOptions:
+    NoiseHeight: 10
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+--- !u!114 &8610004300098886983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7437e36df8ca40e89ecced7f322b5d47, type: 3}
+  m_Name: Random Points
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1800, y: 2136}
+  ports:
+    keys:
+    - BoundData
+    - Points
+    values:
+    - _fieldName: BoundData
+      _node: {fileID: 8610004300098886983}
+      _typeQualifiedName: LevelGenerator.Bounds.Datas.BoundData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Result
+        node: {fileID: 7471958502266687259}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Points
+      _node: {fileID: 8610004300098886983}
+      _typeQualifiedName: System.Collections.Generic.List`1[[UnityEngine.Vector3,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Points
+        node: {fileID: 895346266860671523}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  ShowPreview: 0
+  LockCalc: 1
+  Points: []
+  Count: 10000
+  Seed: 238747125
+  MaxIterations: 1000000

@@ -13,9 +13,9 @@ namespace LevelGenerator
 		public bool AutoGenerate = true;
 		
 		private bool _changed = false;
-		private IInstancer _instancer;
+		private IEnumerable<IInstancer> _instancers;
 
-		public int ObjectsCount => _instancer?.ObjectsCount ?? 0;
+		public int ObjectsCount => _instancers?.Sum(p => p.ObjectsCount) ?? 0;
 		
 		public bool Changed
 		{
@@ -23,9 +23,9 @@ namespace LevelGenerator
 			set => _changed = value;
 		}
 
-		public void SetInstancer(IInstancer instancer)
+		public void SetInstancers(IEnumerable<IInstancer> instancers)
 		{
-			_instancer = instancer;
+			_instancers = instancers;
 		}
 
 		public override void OnCreateConnection(NodePort from, NodePort to)
@@ -47,7 +47,7 @@ namespace LevelGenerator
 
 		public void Generate()
 		{
-			if (_instancer != null)
+			if (_instancers != null)
 			{
 				Clear();
 				var instancesList = GetInputValues<object>(nameof(Instances), null);
@@ -55,12 +55,20 @@ namespace LevelGenerator
 				{
 					if (instances is IEnumerable<object> enumerable)
 					{
-						_instancer.AddInstances(enumerable.Cast<InstanceData>().ToList());
+						foreach (var instancer in _instancers)
+						{
+							if(instancer.TryAddInstances(enumerable.Cast<InstanceData>()))
+								break;
+						}
 					}
 				}
-				_instancer.RaiseChange();
 
-				if (AutoGenerate && _instancer.ObjectsCount > 10000)
+				foreach (var instancer in _instancers)
+				{
+					instancer.RaiseChange();
+				}
+
+				if (AutoGenerate && ObjectsCount > 10000)
 					AutoGenerate = false;
 
 				_changed = false;
@@ -69,10 +77,13 @@ namespace LevelGenerator
 
 		public void Clear()
 		{
-			if (_instancer != null)
+			if (_instancers != null)
 			{
-				_instancer.RemoveAll();
-				_instancer.RaiseChange();
+				foreach (var instancer in _instancers)
+				{
+					instancer.RemoveAll();
+					instancer.RaiseChange();
+				}
 			}
 		}
 	}

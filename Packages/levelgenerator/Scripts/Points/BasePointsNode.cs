@@ -46,9 +46,11 @@ namespace LevelGenerator.Points
 			Gizmos.color = gizmosOptions?.Color ?? Color.white;
 
 			Gizmos.matrix = transform.localToWorldMatrix;
-			
-			foreach (var point in points)
+
+			var maxCount = Mathf.Min(10000, points.Count);
+			for (int i = 0; i < maxCount; i++)
 			{
+				var point = points[i];
 				Gizmos.DrawSphere(point, radius);
 			}
 

@@ -34,7 +34,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Results
       _node: {fileID: -7882006619556555493}
-      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
         LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections:
@@ -545,7 +545,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Results
       _node: {fileID: -1799625277036568347}
-      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
         LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections:
@@ -596,7 +596,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Results
       _node: {fileID: -1320350355317019428}
-      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
         LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections:
@@ -1067,7 +1067,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Results
       _node: {fileID: 1536047669524532547}
-      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
         LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections:
@@ -1187,7 +1187,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Results
       _node: {fileID: 2452913255713452801}
-      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
         LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections:
@@ -1494,7 +1494,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Results
       _node: {fileID: 5052849507556923544}
-      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
         LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections:
@@ -1856,7 +1856,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Results
       _node: {fileID: 6501981471741936283}
-      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.GameObjectInstanceData,
         LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections:

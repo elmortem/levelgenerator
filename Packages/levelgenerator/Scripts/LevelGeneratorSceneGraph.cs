@@ -10,7 +10,7 @@ namespace LevelGenerator
 	public class LevelGeneratorSceneGraph : SceneGraph<LevelGeneratorGraph>
 	{
 #if UNITY_EDITOR
-		public Component Instancer;
+		public Component[] Instancers;
 		public bool ShowGizmosOnObjects;
 		
 		[HideInInspector]
@@ -60,7 +60,7 @@ namespace LevelGenerator
 				return;
 
 			ResultNode = (ResultNode)graph.nodes.Find(p => p is ResultNode);
-			ResultNode.SetInstancer((IInstancer)Instancer);
+			ResultNode.SetInstancers(Instancers.Cast<IInstancer>().ToList());
 		}
 
 		private void UpdateInstancer()
@@ -132,8 +132,8 @@ namespace LevelGenerator
 			if(Application.isPlaying)
 				return;
 
-			if (Instancer == null)
-				Instancer = (Component)GetComponent<IInstancer>();
+			if (Instancers == null || Instancers.Length == 0)
+				Instancers = GetComponents<IInstancer>().Cast<Component>().ToArray();
 			
 			UpdateResultNode();
 			UpdateInstancer();
