@@ -104,14 +104,14 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
-			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<Vector3>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
+			
+			UpdateGizmosOptions();
 
-			BasePointsNode.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
 		}
 #endif
 	}

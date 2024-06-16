@@ -60,7 +60,8 @@ namespace LevelGenerator
 				return;
 
 			ResultNode = (ResultNode)graph.nodes.Find(p => p is ResultNode);
-			ResultNode.SetInstancers(Instancers.Cast<IInstancer>().ToList());
+			if(ResultNode != null)
+				ResultNode.SetInstancers(Instancers.Cast<IInstancer>().ToList());
 		}
 
 		private void UpdateInstancer()

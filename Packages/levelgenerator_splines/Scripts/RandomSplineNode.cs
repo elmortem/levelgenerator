@@ -2,6 +2,7 @@ using System;
 using LevelGenerator.NodeGizmos;
 using LevelGenerator.Points;
 using LevelGenerator.Splines.Utilities;
+using LevelGenerator.Utility;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -138,8 +139,8 @@ namespace LevelGenerator.Splines
 				
 			Gizmos.color = GizmosOptions.Color;
 			SplinesGizmoUtility.DrawGizmos(result, transform);
-			BasePointsNode.DrawPoint(StartPoint, GizmosOptions.PointSize, transform, GizmosOptions);
-			BasePointsNode.DrawPoint(FinishPoint, GizmosOptions.PointSize, transform, GizmosOptions);
+			GizmosUtility.DrawPoint(StartPoint, GizmosOptions.PointSize, transform, GizmosOptions);
+			GizmosUtility.DrawPoint(FinishPoint, GizmosOptions.PointSize, transform, GizmosOptions);
 		}
 #endif
 	}

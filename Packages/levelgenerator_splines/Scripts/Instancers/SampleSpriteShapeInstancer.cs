@@ -19,11 +19,6 @@ namespace LevelGenerator.Splines.Instancers
 		
 		public int ObjectsCount => Objects.Count;
 
-		private void Update()
-		{
-			Debug.Log(Objects);
-		}
-
 		private void AddSpriteShape(SpriteShapeInstanceData data)
 		{
 			foreach (var spline in data.SplineContainer.Splines)

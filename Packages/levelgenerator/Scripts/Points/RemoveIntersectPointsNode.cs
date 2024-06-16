@@ -154,7 +154,7 @@ namespace LevelGenerator.Points
 			if(results == null || results.Count <= 0)
 				return;
 			
-			BasePointsNode.DrawWirePoints(results, Radius, transform, _gizmosOptions);
+			GizmosUtility.DrawWirePoints(results, Radius, transform, _gizmosOptions);
 		}
 #endif
 	}

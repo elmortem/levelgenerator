@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using LevelGenerator.Utility;
 using UnityEngine;
 using XNode;
 
@@ -82,8 +83,8 @@ namespace LevelGenerator.Points
 				return;
 			
 			UpdateGizmosOptions();
-			
-			DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+
+			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
 		}
 #endif
 	}

@@ -749,7 +749,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bfa77e1d9f541b4ab143038d682c81d, type: 3}
-  m_Name: GenGraph
+  m_Name: BoundsGenGraph
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -4449902368008301868}

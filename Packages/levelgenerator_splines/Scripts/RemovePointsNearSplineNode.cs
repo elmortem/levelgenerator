@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using LevelGenerator.Points;
+using LevelGenerator.Utility;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Splines;
@@ -164,8 +165,8 @@ namespace LevelGenerator.Splines
 				return;
 			
 			UpdateGizmosOptions();
-			
-			DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+
+			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
 
 			if (_pointsCache.Count > 0)
 			{

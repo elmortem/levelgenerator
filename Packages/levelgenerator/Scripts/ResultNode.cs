@@ -51,14 +51,17 @@ namespace LevelGenerator
 			{
 				Clear();
 				var instancesList = GetInputValues<object>(nameof(Instances), null);
-				foreach (var instances in instancesList)
+				if (instancesList != null && instancesList.Length > 0)
 				{
-					if (instances is IEnumerable<object> enumerable)
+					foreach (var instances in instancesList)
 					{
-						foreach (var instancer in _instancers)
+						if (instances != null && instances is IEnumerable<object> enumerable)
 						{
-							if(instancer.TryAddInstances(enumerable.Cast<InstanceData>()))
-								break;
+							foreach (var instancer in _instancers)
+							{
+								if (instancer.TryAddInstances(enumerable.Cast<InstanceData>()))
+									break;
+							}
 						}
 					}
 				}
