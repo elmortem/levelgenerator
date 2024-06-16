@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using LevelGenerator.Instances;
+using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator.Splines
 {
 	public abstract class SplineInstanceNode<TInstanceData> : PreviewCalcNode where TInstanceData : InstanceData
 	{
-		[Input] public SplineContainerData SplineContainer;
+		[FormerlySerializedAs("SplineContainer")]
+		[Input] public SplineContainerData SplineContainers;
 		[Output] public List<TInstanceData> Results;
 
 		public override object GetValue(NodePort port)

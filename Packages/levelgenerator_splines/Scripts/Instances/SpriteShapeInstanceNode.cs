@@ -17,19 +17,26 @@ namespace LevelGenerator.Splines
 				return;
 			if(!force && Results != null)
 				return;
+
+			var splineContainers = GetInputValues(nameof(SplineContainers), SplineContainers);
+			if(splineContainers == null || splineContainers.Length <= 0)
+				return;
 			
 			if(Results == null)
 				Results = new();
 			else
 				Results.Clear();
 
-			Results.Add(new SpriteShapeInstanceData
+			foreach (var splineContainer in splineContainers)
 			{
-				Name = Name,
-				SplineContainer = GetInputValue(nameof(SplineContainer), SplineContainer),
-				SpriteShape = SpriteShape,
-				Height = Height
-			});
+				Results.Add(new SpriteShapeInstanceData
+				{
+					Name = Name,
+					SplineContainer = splineContainer,
+					SpriteShape = SpriteShape,
+					Height = Height
+				});
+			}
 		}
 	}
 }

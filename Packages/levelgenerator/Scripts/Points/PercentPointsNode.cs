@@ -11,9 +11,11 @@ namespace LevelGenerator.Points
 		[Input] public List<Vector3> Points = new();
 		public float Percent = 0.5f;
 		[Output] public List<Vector3> Results = new();
+		[Output] public List<Vector3> RemovedPoints = new();
 
 		private float _lastPercent = -1;
 		private List<Vector3> _results;
+		private List<Vector3> _removedPoints;
 		private GizmosOptions _gizmosOptions;
 
 		public int PointsCount => _results?.Count ?? 0;
@@ -28,6 +30,11 @@ namespace LevelGenerator.Points
 				CalcResults();
 				return _results;
 			}
+			else if (port.fieldName == nameof(RemovedPoints))
+			{
+				CalcResults();
+				return _removedPoints;
+			}
 
 			return null;
 		}
@@ -38,6 +45,7 @@ namespace LevelGenerator.Points
 			if (port == null || !port.IsConnected)
 			{
 				_results = null;
+				_removedPoints = null;
 				return;
 			}
 			
@@ -54,15 +62,23 @@ namespace LevelGenerator.Points
 				_results = new();
 			else
 				_results.Clear();
+			
+			if (_removedPoints == null)
+				_removedPoints = new();
+			else
+				_removedPoints.Clear();
 
 			_lastPercent = Percent;
 
 			foreach (var points in pointsList)
 			{
 				var count = Mathf.RoundToInt(points.Count * Percent);
-				for (int i = 0; i < count; i++)
+				for (int i = 0; i < points.Count; i++)
 				{
-					_results.Add(points[i]);
+					if(i < count)
+						_results.Add(points[i]);
+					else
+						_removedPoints.Add(points[i]);
 				}
 			}
 		}
@@ -95,15 +111,7 @@ namespace LevelGenerator.Points
 			if(results == null || results.Count <= 0)
 				return;
 
-			var pos = transform.position;
-			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
-			var maxCount = Mathf.Min(10000, results.Count);
-			for (int i = 0; i < maxCount; i++)
-			{
-				var point = results[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
-			}
+			BasePointsNode.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
 		}
 #endif
 	}

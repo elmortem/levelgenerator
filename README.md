@@ -5,6 +5,10 @@
 
 Node-based (xNode) procedural level generator.
 
+## Warning
+
+I'm still looking for an ideal and fast data structure for the generator, so everything may change completely in the near future. For example, now I don’t like that the points are generated from BoundData. I would like BoundData to limit points after they are created (see BoundContainPointsNode). And I want to link the creation of points to surfaces, such as Plane, Terrain, Mesh, etc. Also, now the points are just Vector3, and the normal appears at the last stage in the descendants of the BaseVectorsNode node. This is not correct and will be redone. A separate structure will be created for the point, containing the point itself and a normal taken from the surface. And BaseVectorsNode will be converted into nodes that provide only a scale or something else... Perhaps the scale should also be immediately added to the structure of points so that nodes such as RemoveIntersectPointsNode can take it into account for better calculation of the intersection of points. In general, everything can change, if there are comments - welcome to Issues. Thank you.
+
 ## Installation
 
 ### Dependencies

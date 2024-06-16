@@ -56,5 +56,16 @@ namespace LevelGenerator.Points
 
 			Gizmos.matrix = Matrix4x4.identity;
 		}
+		
+		public static void DrawPoint(Vector3 point, float radius, Transform transform, GizmosOptions gizmosOptions)
+		{
+			Gizmos.color = gizmosOptions?.Color ?? Color.white;
+
+			Gizmos.matrix = transform.localToWorldMatrix;
+
+			Gizmos.DrawSphere(point, radius);
+
+			Gizmos.matrix = Matrix4x4.identity;
+		}
 	}
 }

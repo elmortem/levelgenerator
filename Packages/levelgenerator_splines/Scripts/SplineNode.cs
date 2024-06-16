@@ -58,8 +58,13 @@ namespace LevelGenerator.Splines
 			}
 			else
 			{
+				var resultsPort = GetOutputPort(nameof(Result));
+				var result = (SplineContainerData)GetValue(resultsPort);
+				if(result == null)
+					return;
+				
 				Gizmos.color = GizmosOptions.Color;
-				SplinesGizmoUtility.DrawGizmos(Result, transform);
+				SplinesGizmoUtility.DrawGizmos(result, transform);
 			}
 		}
 #endif

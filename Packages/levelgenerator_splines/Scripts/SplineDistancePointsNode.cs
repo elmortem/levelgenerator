@@ -3,7 +3,6 @@ using LevelGenerator.Points;
 using UnityEngine;
 using UnityEngine.Splines;
 using XNode;
-using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Splines
 {
