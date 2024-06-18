@@ -4,6 +4,7 @@ using UnityEngine;
 namespace LevelGenerator.Bounds.Datas
 {
 	[Serializable]
+	[Obsolete]
 	public class BoxBoundData : BoundData
 	{
 		public UnityEngine.Bounds Bounds;

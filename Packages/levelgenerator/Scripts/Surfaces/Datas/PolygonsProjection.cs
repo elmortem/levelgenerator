@@ -9,9 +9,9 @@ namespace LevelGenerator.Surfaces.Datas
     {
         private Mesh _mesh;
         private Vector3 _offset;
-        private MeshSurfaceNormalMode _normalMode;
+        private SurfaceNormalMode _normalMode;
 
-        public PolygonsProjection(Mesh mesh, Vector3 offset, MeshSurfaceNormalMode normalMode)
+        public PolygonsProjection(Mesh mesh, Vector3 offset, SurfaceNormalMode normalMode)
         {
             _mesh = mesh;
             _offset = offset;
@@ -37,7 +37,7 @@ namespace LevelGenerator.Surfaces.Datas
                 var point = new PointData
                 {
                     Position = centroid + _offset,
-                    Normal = NormalUtility.GetNormal(_normalMode, centroid, _offset, normal),
+                    Normal = NormalUtility.GetNormal(_normalMode, centroid, _offset, normal, normal),
                     Scale = Vector3.one
                 };
                 points.Add(point);
@@ -69,7 +69,7 @@ namespace LevelGenerator.Surfaces.Datas
                     var point = new PointData
                     {
                         Position = centroid + _offset,
-                        Normal = NormalUtility.GetNormal(_normalMode, centroid, _offset, normal),
+                        Normal = NormalUtility.GetNormal(_normalMode, centroid, _offset, normal, normal),
                         Scale = Vector3.one
                     };
                     points.Add(point);

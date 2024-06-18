@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LevelGenerator.Points;
+using LevelGenerator.Utility;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,8 @@ namespace LevelGenerator.Surfaces.Datas
 	{
 		public TerrainData Terrain;
 		public Vector3 Offset = Vector3.zero;
+		[NodeEnum]
+		public SurfaceNormalMode NormalNode;
 
 		public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
 		{
@@ -34,6 +37,48 @@ namespace LevelGenerator.Surfaces.Datas
 					GetRandomPoints(points, count, seed);
 					break;
 			}
+		}
+		
+		public override void ProjectionPoints(List<PointData> points, ProjectionPointMode mode, List<PointData> results)
+		{
+		    var terrainData = Terrain;
+		    var terrainSize = terrainData.size;
+		    var heightmapWidth = terrainData.heightmapResolution;
+		    var heightmapHeight = terrainData.heightmapResolution;
+		    var heights = terrainData.GetHeights(0, 0, heightmapWidth, heightmapHeight);
+
+		    foreach (var point in points)
+		    {
+		        var newPoint = point;
+		        int terrainX = 0, terrainZ = 0;
+		        float height = 0f;
+
+		        switch (mode)
+		        {
+		            case ProjectionPointMode.Normal:
+		                var direction = point.Normal.normalized;
+		                var projectedPoint = newPoint.Position + direction * (terrainSize.y - newPoint.Position.y) / direction.y;
+		                terrainX = Mathf.Clamp((int)((projectedPoint.x - Offset.x) / terrainSize.x * heightmapWidth), 0, heightmapWidth - 1);
+		                terrainZ = Mathf.Clamp((int)((projectedPoint.z - Offset.z) / terrainSize.z * heightmapHeight), 0, heightmapHeight - 1);
+		                height = heights[terrainZ, terrainX] * terrainSize.y + Offset.y;
+		                break;
+
+		            case ProjectionPointMode.Surface:
+		                terrainX = Mathf.Clamp((int)((point.Position.x - Offset.x) / terrainSize.x * heightmapWidth), 0, heightmapWidth - 1);
+		                terrainZ = Mathf.Clamp((int)((point.Position.z - Offset.z) / terrainSize.z * heightmapHeight), 0, heightmapHeight - 1);
+		                height = heights[terrainZ, terrainX] * terrainSize.y + Offset.y;
+		                break;
+		        }
+
+		        if (terrainX >= 0 && terrainX < heightmapWidth && terrainZ >= 0 && terrainZ < heightmapHeight)
+		        {
+		            newPoint.Position = new Vector3(point.Position.x, height, point.Position.z);
+		            var terrainNormal = terrainData.GetInterpolatedNormal((float)terrainX / heightmapWidth, (float)terrainZ / heightmapHeight);
+		            newPoint.Normal = NormalUtility.GetNormal(NormalNode, newPoint.Position, Offset, point.Normal, terrainNormal);
+
+		            results.Add(newPoint);
+		        }
+		    }
 		}
 
 		private void GetRegularPoints(List<PointData> points, int count)

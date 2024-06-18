@@ -5,14 +5,6 @@ using UnityEngine;
 
 namespace LevelGenerator.Surfaces.Datas
 {
-    public enum MeshSurfaceNormalMode
-    {
-        Default,
-        Up,
-        ToCenter,
-        FromCenter
-    }
-
     public enum MeshProjectionMode
     {
         Sphere,
@@ -26,7 +18,9 @@ namespace LevelGenerator.Surfaces.Datas
     {
         public Mesh Mesh;
         public Vector3 Offset = Vector3.zero;
-        public MeshSurfaceNormalMode NormalMode = MeshSurfaceNormalMode.Default;
+        [NodeEnum]
+        public SurfaceNormalMode NormalMode = SurfaceNormalMode.Default;
+        [NodeEnum]
         public MeshProjectionMode ProjectionMode = MeshProjectionMode.Sphere;
 
         public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
@@ -56,19 +50,25 @@ namespace LevelGenerator.Surfaces.Datas
                     break;
             }
         }
+        
+        public override void ProjectionPoints(List<PointData> points, ProjectionPointMode mode, List<PointData> results)
+        {
+            Debug.Log("Not supported yet.");
+            results.AddRange(points);
+        }
 
         private void GetSurfacePoints(List<PointData> points, int count)
         {
             switch (ProjectionMode)
             {
                 case MeshProjectionMode.Sphere:
-                    new SphereProjection(Mesh, Offset, NormalMode).GetRegularSurfacePoints(points, count);
+                    new MeshSphereProjection(Mesh, Offset, NormalMode).GetRegularSurfacePoints(points, count);
                     break;
                 case MeshProjectionMode.Box:
-                    new BoxProjection(Mesh, Offset, NormalMode).GetRegularSurfacePoints(points, count);
+                    new MeshBoxProjection(Mesh, Offset, NormalMode).GetRegularSurfacePoints(points, count);
                     break;
                 case MeshProjectionMode.Vertices:
-                    new VerticesProjection(Mesh, Offset, NormalMode).GetSurfacePoints(points, count);
+                    new MeshVerticesProjection(Mesh, Offset, NormalMode).GetSurfacePoints(points, count);
                     break;
                 case MeshProjectionMode.Polygons:
                     new PolygonsProjection(Mesh, Offset, NormalMode).GetSurfacePoints(points, count);
@@ -81,10 +81,10 @@ namespace LevelGenerator.Surfaces.Datas
             switch (ProjectionMode)
             {
                 case MeshProjectionMode.Sphere:
-                    new SphereProjection(Mesh, Offset, NormalMode).GetRegularVolumePoints(points, count);
+                    new MeshSphereProjection(Mesh, Offset, NormalMode).GetRegularVolumePoints(points, count);
                     break;
                 case MeshProjectionMode.Box:
-                    new BoxProjection(Mesh, Offset, NormalMode).GetRegularVolumePoints(points, count);
+                    new MeshBoxProjection(Mesh, Offset, NormalMode).GetRegularVolumePoints(points, count);
                     break;
             }
         }
@@ -94,13 +94,13 @@ namespace LevelGenerator.Surfaces.Datas
             switch (ProjectionMode)
             {
                 case MeshProjectionMode.Sphere:
-                    new SphereProjection(Mesh, Offset, NormalMode).GetRandomSurfacePoints(points, count, seed);
+                    new MeshSphereProjection(Mesh, Offset, NormalMode).GetRandomSurfacePoints(points, count, seed);
                     break;
                 case MeshProjectionMode.Box:
-                    new BoxProjection(Mesh, Offset, NormalMode).GetRandomSurfacePoints(points, count, seed);
+                    new MeshBoxProjection(Mesh, Offset, NormalMode).GetRandomSurfacePoints(points, count, seed);
                     break;
                 case MeshProjectionMode.Vertices:
-                    new VerticesProjection(Mesh, Offset, NormalMode).GetRandomSurfacePoints(points, count, seed);
+                    new MeshVerticesProjection(Mesh, Offset, NormalMode).GetRandomSurfacePoints(points, count, seed);
                     break;
                 case MeshProjectionMode.Polygons:
                     new PolygonsProjection(Mesh, Offset, NormalMode).GetRandomSurfacePoints(points, count, seed);
@@ -113,10 +113,10 @@ namespace LevelGenerator.Surfaces.Datas
             switch (ProjectionMode)
             {
                 case MeshProjectionMode.Sphere:
-                    new SphereProjection(Mesh, Offset, NormalMode).GetRandomVolumePoints(points, count, seed);
+                    new MeshSphereProjection(Mesh, Offset, NormalMode).GetRandomVolumePoints(points, count, seed);
                     break;
                 case MeshProjectionMode.Box:
-                    new BoxProjection(Mesh, Offset, NormalMode).GetRandomVolumePoints(points, count, seed);
+                    new MeshBoxProjection(Mesh, Offset, NormalMode).GetRandomVolumePoints(points, count, seed);
                     break;
             }
         }

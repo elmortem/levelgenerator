@@ -4,13 +4,16 @@ using LevelGenerator.Points;
 using LevelGenerator.Surfaces.Datas;
 using LevelGenerator.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator.Surfaces
 {
 	public class TerrainSurfaceNode : PreviewCalcNode, IGizmosOptionsProvider
 	{
+		[FormerlySerializedAs("Surface")]
 		public TerrainSurfaceData Terrain;
+		[NodeEnum]
 		public SurfacePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
@@ -18,6 +21,7 @@ namespace LevelGenerator.Surfaces
 		public GizmosOptions GizmosOptions;
 		
 		[Output] public List<PointData> Results;
+		[Output] public TerrainSurfaceData Surface;
 
 		private SurfacePointMode _lastPointMode;
 		private int _lastCount;
@@ -39,6 +43,10 @@ namespace LevelGenerator.Surfaces
 			{
 				CalcResults();
 				return _results;
+			}
+			if (port.fieldName == nameof(Surface))
+			{
+				return Terrain;
 			}
 			
 			return null;
@@ -73,7 +81,7 @@ namespace LevelGenerator.Surfaces
 			if (results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, GizmosOptions.PointSize, transform, GizmosOptions);
+			GizmosUtility.DrawPoints(results, GizmosOptions, transform);
 		}
 #endif
 	}

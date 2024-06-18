@@ -47,10 +47,36 @@ namespace LevelGenerator.Utility
 
 			Gizmos.matrix = Matrix4x4.identity;
 		}
-
-		public static void DrawPoints(List<PointData> points, float radius, Transform transform, GizmosOptions gizmosOptions)
+		
+		public static void DrawWirePoints(List<PointData> points, float radius, Color color, Transform transform)
 		{
-			Gizmos.color = gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = color;
+
+			Gizmos.matrix = transform.localToWorldMatrix;
+			
+			var maxCount = Mathf.Min(10000, points.Count);
+			for (int i = 0; i < maxCount; i++)
+			{
+				var point = points[i];
+				Gizmos.DrawWireSphere(point.Position, radius * point.Scale.Avarage());
+			}
+
+			Gizmos.matrix = Matrix4x4.identity;
+		}
+
+		public static void DrawPoints(List<PointData> points, GizmosOptions gizmosOptions, Transform transform)
+		{
+			DrawPoints(points, 
+				gizmosOptions?.PointSize ?? 0.2f, 
+				gizmosOptions?.DrawNormals ?? true, 
+				gizmosOptions?.DrawRotation ?? true,
+				gizmosOptions?.Color ?? Color.white, 
+				transform);
+		}
+
+		public static void DrawPoints(List<PointData> points, float radius, bool drawNormals, bool drawRotation, Color color, Transform transform)
+		{
+			Gizmos.color = color;
 
 			Gizmos.matrix = transform.localToWorldMatrix;
 
@@ -59,9 +85,15 @@ namespace LevelGenerator.Utility
 			{
 				var point = points[i];
 				Gizmos.DrawSphere(point.Position, radius);
-				
-				if(gizmosOptions?.DrawNormals ?? true)
-					Gizmos.DrawLine(point.Position, point.Position + point.Normal);
+        
+				if(drawNormals)
+					Gizmos.DrawLine(point.Position, point.Position + point.Normal * 2f);
+
+				if (drawRotation)
+				{
+					Vector3 rotationVector = Quaternion.Euler(0, point.Angle, 0) * Vector3.forward;
+					Gizmos.DrawLine(point.Position, point.Position + rotationVector);
+				}
 			}
 
 			Gizmos.matrix = Matrix4x4.identity;

@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!154 &336819378
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -739,8 +739,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
+  - {fileID: 987977845}
   - {fileID: 499705916}
   - {fileID: 752746881}
   - {fileID: 961787541}
-  - {fileID: 987977845}
   - {fileID: 336819380}

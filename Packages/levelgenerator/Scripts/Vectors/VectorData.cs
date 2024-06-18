@@ -4,6 +4,7 @@ using UnityEngine;
 namespace LevelGenerator.Vectors
 {
 	[Serializable]
+	[Obsolete]
 	public struct VectorData
 	{
 		public Vector3 Point;

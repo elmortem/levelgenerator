@@ -11,6 +11,7 @@ namespace LevelGenerator.Surfaces
 	public class MeshSurfaceNode : PreviewCalcNode, IGizmosOptionsProvider
 	{
 		public MeshSurfaceData Mesh;
+		[NodeEnum]
 		public SurfacePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
@@ -75,7 +76,7 @@ namespace LevelGenerator.Surfaces
 			if (results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, GizmosOptions.PointSize, transform, GizmosOptions);
+			GizmosUtility.DrawPoints(results, GizmosOptions, transform);
 		}
 #endif
 	}

@@ -5,17 +5,17 @@ using XNodeEditor;
 
 namespace LevelGenerator.Editor.Points
 {
-	[CustomNodeEditor(typeof(RemoveIntersectPointsNode))]
+	[CustomNodeEditor(typeof(OldRemoveIntersectPointsNode))]
 	public class RemoveIntersectPointsNodeEditor : NodeEditor
 	{
-		private RemoveIntersectPointsNode _node;
+		private OldRemoveIntersectPointsNode _node;
 		
 		public override void OnBodyGUI()
 		{
 			base.OnBodyGUI();
 
 			if(_node == null)
-				_node = (RemoveIntersectPointsNode)target;
+				_node = (OldRemoveIntersectPointsNode)target;
 
 			NodeEditorGUI.DrawResult("Results",_node.PointsCount);
 

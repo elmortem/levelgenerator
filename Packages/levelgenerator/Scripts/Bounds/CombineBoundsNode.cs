@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using LevelGenerator.Bounds.Datas;
 using LevelGenerator.NodeGizmos;
@@ -8,6 +9,7 @@ using XNode;
 
 namespace LevelGenerator.Bounds
 {
+	[Obsolete]
 	public class CombineBoundsNode : PreviewNode, IGizmosOptionsProvider
 	{
 		[Input] public BoundData Includes;

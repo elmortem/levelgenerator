@@ -75,7 +75,6 @@ namespace LevelGenerator.Splines
 			if (_result == null)
 			{
 				_result = new SplineContainerData();
-				
 			}
 
 			if (_result.Splines.Count <= 0)

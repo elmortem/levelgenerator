@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using LevelGenerator.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 using XNode;
+using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Points
 {
@@ -11,19 +14,32 @@ namespace LevelGenerator.Points
 		Mult,
 		Set
 	}
+
+	[Serializable]
+	public class ChangeScaleItem
+	{
+		[NodeEnum]
+		public ChangeScaleMode Mode = ChangeScaleMode.Set;
+		[FormerlySerializedAs("ScaleMin")] public Vector3 Min = Vector3.one;
+		[FormerlySerializedAs("ScaleMax")] public Vector3 Max = Vector3.one;
+		[FormerlySerializedAs("LockScale")] public bool Lock = true;
+	}
 	
 	public class ChangeScaleNode : BasePointsNode
 	{
-		[Input] public List<PointData> Points;
+		[Input] public List<PointData> Points = new();
+		[NodeEnum]
 		public ChangeScaleMode Mode = ChangeScaleMode.Set;
 		public Vector3 ScaleMin = Vector3.one;
 		public Vector3 ScaleMax = Vector3.one;
+		public bool LockScale = true;
 		public int Seed = -1;
-		[Output] public List<PointData> Results;
+		[Output] public List<PointData> Results = new()                ;
 
 		private ChangeScaleMode _lastMode;
 		private Vector3 _lastScaleMin;
 		private Vector3 _lastScaleMax;
+		private bool _lastLockScale;
 		private int _lastSeed;
 		private List<PointData> _results;
 
@@ -41,7 +57,7 @@ namespace LevelGenerator.Points
 			if (port.fieldName == nameof(Results))
 			{
 				CalcResults();
-				return _results;
+				return _results ?? Results;
 			}
 
 			return null;
@@ -58,7 +74,7 @@ namespace LevelGenerator.Points
 			
 			if (LockCalc && _results != null)
 				return;
-			if (!force && _lastScaleMin == ScaleMin && _lastScaleMax == ScaleMax && _lastSeed == Seed && _results != null)
+			if (!force && _lastMode == Mode && _lastScaleMin == ScaleMin && _lastScaleMax == ScaleMax && _lastSeed == Seed && _results != null)
 				return;
 			
 			var pointsList = GetInputValues(nameof(Points), Points);
@@ -74,6 +90,7 @@ namespace LevelGenerator.Points
 			
 			_lastScaleMin = ScaleMin;
 			_lastScaleMax = ScaleMax;
+			_lastLockScale = LockScale;
 			_lastSeed = Seed;
 
 			var state = Random.state;
@@ -85,16 +102,23 @@ namespace LevelGenerator.Points
 			{
 				foreach (var point in points)
 				{
-					var scale = equalScale ? ScaleMin : Vector3.Lerp(ScaleMin, ScaleMax, Random.Range(0f, 1f));
-					
 					var newPoint = point;
+					
+					var rndX = Random.Range(ScaleMin.x, ScaleMax.x);
+					var scale = equalScale 
+						? ScaleMin 
+						: LockScale 
+							? new Vector3(rndX, rndX, rndX)
+							: new Vector3(rndX, Random.Range(ScaleMin.y, ScaleMax.y), Random.Range(ScaleMin.z, ScaleMax.z));
+					
 					if(Mode == ChangeScaleMode.Add)
 						newPoint.Scale += scale;
 					else if(Mode == ChangeScaleMode.Mult)
 						newPoint.Scale = newPoint.Scale.Mult(scale);
 					else if (Mode == ChangeScaleMode.Set)
 						newPoint.Scale = scale;
-					_results.Add(point);
+					
+					_results.Add(newPoint);
 				}
 			}
 
@@ -102,16 +126,27 @@ namespace LevelGenerator.Points
 		}
 
 #if UNITY_EDITOR
+		protected override void OnValidate()
+		{
+			base.OnValidate();
+
+			if (LockScale)
+			{
+				ScaleMin.y = ScaleMin.z = ScaleMin.x;
+				ScaleMax.y = ScaleMax.z = ScaleMax.x;
+			}
+		}
+
 		public override void DrawGizmos(Transform transform)
 		{
+			UpdateGizmosOptions();
+			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
-			
-			UpdateGizmosOptions();
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
 		}
 #endif
 	}

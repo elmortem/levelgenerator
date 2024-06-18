@@ -30,20 +30,42 @@ namespace LevelGenerator.Instancers
 			var instanceDatas = instances.ToList();
 			if (!instanceDatas.Any())
 				return true;
-			
-			if (instanceDatas.First() is not GameObjectInstanceData)
-				return false;
-			
-			foreach (var data in instanceDatas)
+
+			if (instanceDatas.First() is OldGameObjectInstanceData)
 			{
-				if (data is GameObjectInstanceData goData)
+				foreach (var data in instanceDatas)
 				{
-					AddGameObject(goData.Prefab, goData.Vector.Point, Quaternion.Euler(goData.Vector.Euler),
-						goData.Vector.Scale);
+					if (data is OldGameObjectInstanceData goData)
+					{
+						AddGameObject(goData.Prefab, goData.Vector.Point, Quaternion.Euler(goData.Vector.Euler),
+							goData.Vector.Scale);
+					}
 				}
+
+				return true;
+			}
+			
+			if (instanceDatas.First() is GameObjectInstanceData)
+			{
+				foreach (var data in instanceDatas)
+				{
+					if (data is GameObjectInstanceData goData)
+					{
+						var normal = goData.Point.Normal;
+						var angleY = goData.Point.Angle;
+
+						Quaternion rot = Quaternion.FromToRotation(Vector3.up, normal);
+						Quaternion yRotation = Quaternion.Euler(0, angleY, 0);
+						rot *= yRotation;
+						
+						AddGameObject(goData.Prefab, goData.Point.Position, rot, goData.Point.Scale);
+					}
+				}
+
+				return true;
 			}
 
-			return true;
+			return false;
 		}
 
 		public void RemoveAll()

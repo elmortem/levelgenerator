@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace LevelGenerator.Bounds.Datas
 {
+	[Obsolete]
 	public class SphereBoundData : BoundData
 	{
 		public Vector3 Offset;

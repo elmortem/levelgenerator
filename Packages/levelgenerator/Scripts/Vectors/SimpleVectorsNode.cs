@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace LevelGenerator.Vectors
 {
+	[Obsolete]
 	public class SimpleVectorsNode : BaseVectorsNode
 	{
 		public Vector3 Euler = Vector3.forward;

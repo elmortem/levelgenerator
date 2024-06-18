@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Vectors
 {
+	[Obsolete]
 	public class RandomVectorsNode : BaseVectorsNode
 	{
 		public Vector3 EulerMin = Vector3.zero;

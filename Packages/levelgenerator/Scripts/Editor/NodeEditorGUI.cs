@@ -18,6 +18,19 @@ namespace LevelGenerator.Editor
 			GUILayout.FlexibleSpace();
 			EditorGUILayout.EndHorizontal();
 		}
+		
+		public static void DrawLock(PreviewNode node)
+		{
+			EditorGUILayout.BeginHorizontal();
+			EditorGUI.BeginChangeCheck();
+			node.LockCalc = EditorGUILayout.Toggle(node.LockCalc, GUILayout.Width(12), GUILayout.Height(12));
+			if (EditorGUI.EndChangeCheck())
+			{
+				node.RaiseChanged();
+			}
+			GUILayout.FlexibleSpace();
+			EditorGUILayout.EndHorizontal();
+		}
 
 		public static void DrawResult(string title, object value)
 		{

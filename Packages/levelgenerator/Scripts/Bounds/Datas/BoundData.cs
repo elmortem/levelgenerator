@@ -5,6 +5,7 @@ using UnityEngine;
 namespace LevelGenerator.Bounds.Datas
 {
 	[Serializable]
+	[Obsolete]
 	public class BoundData
 	{
 		public virtual Vector3 Min { get; }

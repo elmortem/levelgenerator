@@ -1,41 +1,21 @@
 using System.Collections.Generic;
+using LevelGenerator.Points;
 using LevelGenerator.Vectors;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
-using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator.Instances
 {
-	[MovedFrom("LevelGenerator.Instances")]
-	public class GameObjectsNode : PreviewNode
+	public class GameObjectsNode : PreviewCalcNode
 	{
-		[Input] public List<VectorData> Vectors;
+		[Input] public List<PointData> Points;
 		public bool Enabled = true;
 		[Output] public List<GameObjectInstanceData> Results = new();
 		
 		public GameObject Prefab;
 
 		private List<GameObjectInstanceData> _results;
-
-		public override void OnCreateConnection(NodePort from, NodePort to)
-		{
-			if(to.IsInput)
-				CalcResults(true);
-		}
-
-		public override void OnRemoveConnection(NodePort port)
-		{
-			if(port.IsInput)
-				CalcResults(true);
-		}
-
-		protected override void ApplyChange()
-		{
-			CalcResults(true);
-			base.ApplyChange();
-		}
-
+		
 		public override object GetValue(NodePort port)
 		{
 			if(port == null)
@@ -50,7 +30,7 @@ namespace LevelGenerator.Instances
 			return null;
 		}
 
-		private void CalcResults(bool force = false)
+		protected override void CalcResults(bool force = false)
 		{
 			if(LockCalc && _results != null)
 				return;
@@ -68,10 +48,16 @@ namespace LevelGenerator.Instances
 			if (Prefab == null)
 				return;
 			
-			var vectors = GetInputValue(nameof(Vectors), Vectors);
-			for (int i = 0; i < vectors.Count; i++)
+			var pointsList = GetInputValues(nameof(Points), Points);
+			if(pointsList == null || pointsList.Length <= 0)
+				return;
+
+			foreach (var points in pointsList)
 			{
-				_results.Add(new GameObjectInstanceData { Prefab = Prefab, Vector = vectors[i] });
+				foreach (var point in points)
+				{
+					_results.Add(new GameObjectInstanceData { Prefab = Prefab, Point = point });
+				}
 			}
 		}
 	}

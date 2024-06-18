@@ -1,3 +1,4 @@
+using System;
 using LevelGenerator.Bounds.Datas;
 using LevelGenerator.NodeGizmos;
 using LevelGenerator.Noises;
@@ -6,6 +7,7 @@ using XNode;
 
 namespace LevelGenerator.Bounds
 {
+	[Obsolete]
 	public class NoiseBoundsNode : PreviewNode, IGizmosOptionsProvider
 	{
 		[Input(connectionType = ConnectionType.Override)] public BoundData BoundData;

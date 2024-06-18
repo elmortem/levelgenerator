@@ -1,3 +1,4 @@
+using System;
 using LevelGenerator.Bounds.Datas;
 using LevelGenerator.NodeGizmos;
 using UnityEngine;
@@ -5,6 +6,7 @@ using XNode;
 
 namespace LevelGenerator.Bounds
 {
+	[Obsolete]
 	public class SphereBoundsNode : PreviewNode, IGizmosOptionsProvider
 	{
 		public Vector3 Offset;

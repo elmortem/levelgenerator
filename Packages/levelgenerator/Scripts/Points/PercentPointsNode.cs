@@ -8,14 +8,14 @@ namespace LevelGenerator.Points
 {
 	public class PercentPointsNode : PreviewCalcNode, IGizmosOptionsProvider
 	{
-		[Input] public List<Vector3> Points = new();
+		[Input] public List<PointData> Points = new();
 		public float Percent = 0.5f;
-		[Output] public List<Vector3> Results = new();
-		[Output] public List<Vector3> RemovedPoints = new();
+		[Output] public List<PointData> Results = new();
+		[Output] public List<PointData> RemovedPoints = new();
 
 		private float _lastPercent = -1;
-		private List<Vector3> _results;
-		private List<Vector3> _removedPoints;
+		private List<PointData> _results;
+		private List<PointData> _removedPoints;
 		private GizmosOptions _gizmosOptions;
 
 		public int PointsCount => _results?.Count ?? 0;
@@ -28,12 +28,12 @@ namespace LevelGenerator.Points
 			if (port.fieldName == nameof(Results))
 			{
 				CalcResults();
-				return _results;
+				return _results ?? Results;
 			}
 			else if (port.fieldName == nameof(RemovedPoints))
 			{
 				CalcResults();
-				return _removedPoints;
+				return _removedPoints ?? RemovedPoints;
 			}
 
 			return null;
@@ -104,14 +104,14 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
+			UpdateGizmosOptions();
+			
 			var resultsPort = GetOutputPort(nameof(Results));
-			var results = (List<Vector3>)GetValue(resultsPort);
+			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
-			
-			UpdateGizmosOptions();
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
 		}
 #endif
 	}

@@ -19,6 +19,7 @@ namespace LevelGenerator.Surfaces.Datas
     {
         public Vector3 Offset = Vector3.zero;
         public float Radius = 50f;
+        [NodeEnum]
         public SphereSurfaceNormalMode NormalMode = SphereSurfaceNormalMode.Up;
 
         public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
@@ -41,6 +42,12 @@ namespace LevelGenerator.Surfaces.Datas
                     GetRandomVolumePoints(points, count, seed);
                     break;
             }
+        }
+        
+        public override void ProjectionPoints(List<PointData> points, ProjectionPointMode mode, List<PointData> results)
+        {
+            Debug.Log("Not supported yet.");
+            results.AddRange(points);
         }
 
         private void GetRegularSurfacePoints(List<PointData> points, int count)

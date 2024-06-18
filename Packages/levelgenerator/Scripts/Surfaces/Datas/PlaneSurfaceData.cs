@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LevelGenerator.Points;
+using LevelGenerator.Utility;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,7 +12,9 @@ namespace LevelGenerator.Surfaces.Datas
 	{
 		public Vector3 Up = Vector3.up;
 		public Vector3 Offset = Vector3.zero;
-		public Vector2 Size = new Vector2(100, 100);
+		public Vector2 Size = new(100, 100);
+		[NodeEnum]
+		public SurfaceNormalMode NormalNode;
 		
 		public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
 		{
@@ -31,6 +34,81 @@ namespace LevelGenerator.Surfaces.Datas
 			}
 		}
 		
+		public override void ProjectionPoints(List<PointData> points, ProjectionPointMode mode, List<PointData> results)
+		{
+			if (points == null || points.Count <= 0)
+				return;
+			
+			switch (mode)
+			{
+				case ProjectionPointMode.Normal:
+					ProjectionPointsNormal(points, results);
+					break;
+				case ProjectionPointMode.ToCenter:
+					ProjectionPointsToCenter(points, results);
+					break;
+				case ProjectionPointMode.Surface:
+					ProjectionPointsSurface(points, results);
+					break;
+			}
+		}
+
+		private void ProjectionPointsNormal(List<PointData> points, List<PointData> results)
+		{
+			foreach (var point in points)
+			{
+				var direction = point.Normal.normalized;
+				var inverseRotation = Quaternion.Inverse(Quaternion.FromToRotation(Vector3.up, Up));
+				var localPoint = inverseRotation * (point.Position - Offset);
+
+				if (localPoint.x >= -Size.x / 2 && localPoint.x <= Size.x / 2 &&
+				    localPoint.z >= -Size.y / 2 && localPoint.z <= Size.y / 2)
+				{
+					localPoint.y = 0;
+
+					var worldPoint = Quaternion.FromToRotation(Vector3.up, Up) * localPoint + Offset;
+
+					// Apply projection along the normal
+					var projectedPoint = worldPoint + direction * localPoint.y;
+
+					var p = new PointData
+					{
+						Position = projectedPoint,
+						Normal = point.Normal,
+						Scale = point.Scale
+					};
+					results.Add(p);
+				}
+			}
+		}
+
+		private void ProjectionPointsToCenter(List<PointData> points, List<PointData> results)
+		{
+			Debug.LogWarning("Not need supported for Plane.");
+		}
+		
+		private void ProjectionPointsSurface(List<PointData> points, List<PointData> results)
+		{
+			foreach (var point in points)
+			{
+				var newPoint = point;
+				var localPoint = Quaternion.Inverse(Quaternion.FromToRotation(Vector3.up, Up)) * (point.Position - Offset);
+
+				if (localPoint.x >= -Size.x / 2 && localPoint.x <= Size.x / 2 &&
+				    localPoint.z >= -Size.y / 2 && localPoint.z <= Size.y / 2)
+				{
+					localPoint.y = 0;
+
+					var worldPoint = Quaternion.FromToRotation(Vector3.up, Up) * localPoint + Offset;
+
+					newPoint.Position = worldPoint;
+					newPoint.Normal =
+						NormalUtility.GetNormal(NormalNode, worldPoint, Offset, point.Normal, Up.normalized);
+					results.Add(newPoint);
+				}
+			}
+		}
+
 		private void GetRegularPoints(List<PointData> points, int count)
 		{
 			var k = Size.y / Size.x;
@@ -57,10 +135,13 @@ namespace LevelGenerator.Surfaces.Datas
 						z = -half.y + j * hstep + Offset.y
 					};
 
+					pos = rot * pos;
+					var up = Up.normalized;
+
 					var point = new PointData
 					{
-						Position = rot * pos,
-						Normal = Up.normalized,
+						Position = pos,
+						Normal = NormalUtility.GetNormal(NormalNode, pos, Offset, up, up),
 						Scale = Vector3.one
 					};
 					points.Add(point);
@@ -84,11 +165,14 @@ namespace LevelGenerator.Surfaces.Datas
 					y = 0f,
 					z = -half.y + Random.Range(0, Size.y) + Offset.y
 				};
+
+				pos = rot * pos;
+				var up = Up.normalized;
 				
 				var point = new PointData
 				{
-					Position = rot * pos,
-					Normal = Up,
+					Position = pos,
+					Normal = NormalUtility.GetNormal(NormalNode, pos, Offset, Vector3.up, up),
 					Scale = Vector3.one
 				};
 				points.Add(point);

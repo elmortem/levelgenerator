@@ -46,10 +46,16 @@ namespace LevelGenerator.Splines.Instancers
 			var s = controller.spline;
 			s.isOpenEnded = true;
 			s.Clear();
+
+			var minZ = float.MaxValue;
+			var maxZ = float.MinValue;
+			
 			for (int i = 0; i < spline.Count; i++)
 			{
 				Vector3 pos = spline[i].Position;
 				pos = pos.SwapYZ();
+				minZ = Mathf.Min(minZ, pos.z);
+				maxZ = Mathf.Max(maxZ, pos.z);
 				s.InsertPointAt(i, pos);
 				
 				s.SetTangentMode(i, ShapeTangentMode.Continuous);
@@ -65,6 +71,10 @@ namespace LevelGenerator.Splines.Instancers
 					s.SetLeftTangent(i, -tangent);
 				}
 			}
+
+			var p = controller.transform.localPosition;
+			p.y = (minZ + maxZ) * 0.5f;
+			controller.transform.localPosition = p;
 		}
 		
 		public bool TryAddInstances(IEnumerable<InstanceData> instances)

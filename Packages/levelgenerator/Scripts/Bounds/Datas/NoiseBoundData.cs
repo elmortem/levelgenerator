@@ -1,8 +1,10 @@
+using System;
 using LevelGenerator.Noises;
 using UnityEngine;
 
 namespace LevelGenerator.Bounds.Datas
 {
+	[Obsolete]
 	public class NoiseBoundData : BoundData
 	{
 		public NoiseData Data;

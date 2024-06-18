@@ -5,8 +5,11 @@ using UnityEngine;
 namespace LevelGenerator.Noises
 {
 	[Serializable]
-	public abstract class NoiseData
+	public class NoiseData
 	{
-		public abstract float GetValue(float x, float y); // => 0.5f;
+		public virtual float GetValue(float x, float y)
+		{
+			return (x + y) - Mathf.FloorToInt(x + y);
+		}
 	}
 }

@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using LevelGenerator.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 using XNode;
+using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Points
 {
@@ -11,15 +14,25 @@ namespace LevelGenerator.Points
 		Mult,
 		Set
 	}
+
+	[Serializable]
+	public class ChangeNormalItem
+	{
+		[NodeEnum]
+		public ChangeNormalMode Mode = ChangeNormalMode.Set;
+		[FormerlySerializedAs("NormalMin")] public Vector3 Min = Vector3.up;
+		[FormerlySerializedAs("NormalMax")] public Vector3 Max = Vector3.up;
+	}
 	
 	public class ChangeNormalNode : BasePointsNode
 	{
-		[Input] public List<PointData> Points;
+		[Input] public List<PointData> Points = new();
+		[NodeEnum]
 		public ChangeNormalMode Mode = ChangeNormalMode.Set;
 		public Vector3 NormalMin = Vector3.up;
 		public Vector3 NormalMax = Vector3.up;
 		public int Seed = -1;
-		[Output] public List<PointData> Results;
+		[Output] public List<PointData> Results = new();
 
 		private ChangeNormalMode _lastMode;
 		private Vector3 _lastNormalMin;
@@ -41,7 +54,7 @@ namespace LevelGenerator.Points
 			if (port.fieldName == nameof(Results))
 			{
 				CalcResults();
-				return _results;
+				return _results ?? Results;
 			}
 
 			return null;
@@ -72,6 +85,7 @@ namespace LevelGenerator.Points
 
 			_gizmosOptions = null;
 			
+			_lastMode = Mode;
 			_lastNormalMin = NormalMin;
 			_lastNormalMax = NormalMax;
 			_lastSeed = Seed;
@@ -85,8 +99,10 @@ namespace LevelGenerator.Points
 			{
 				foreach (var point in points)
 				{
-					var normal = equalNormals ? NormalMin : Vector3.Lerp(NormalMin, NormalMax, Random.Range(0f, 1f));
-					
+					var normal = equalNormals 
+						? NormalMin
+						: new Vector3(Random.Range(NormalMin.x, NormalMax.x), Random.Range(NormalMin.y, NormalMax.y), Random.Range(NormalMin.z, NormalMax.z));
+
 					var newPoint = point;
 					if(Mode == ChangeNormalMode.Add)
 						newPoint.Normal += normal;
@@ -96,7 +112,7 @@ namespace LevelGenerator.Points
 						newPoint.Normal = normal;
 					
 					newPoint.Normal.Normalize();
-					_results.Add(point);
+					_results.Add(newPoint);
 				}
 			}
 
@@ -106,14 +122,14 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
+			UpdateGizmosOptions();
+			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
-			
-			UpdateGizmosOptions();
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
 		}
 #endif
 	}

@@ -8,20 +8,24 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Points
 {
-	public class AroundPointsNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class AroundPointsNode : BasePointsNode
 	{
-		[Input] public List<Vector3> Points = new();
+		[Input] public List<PointData> Points = new();
 		public float RadiusMin = 0.5f;
 		public float RadiusMax = 1f;
 		public int CountMin = 1;
 		public int CountMax = 5;
+		public Vector3 AxesMult = new(1f, 0f, 1f);
 		public int Seed = -1;
-		public Vector3 AxesMult = new Vector3(1f, 0f, 1f);
-		[Output] public List<Vector3> Results = new();
-
-		private int _lastSeed = -1;
-		private List<Vector3> _results;
-		private GizmosOptions _gizmosOptions;
+		[Output] public List<PointData> Results = new();
+		
+		private float _lastRadiusMin;
+		private float _lastRadiusMax;
+		private int _lastCountMin;
+		private int _lastCountMax;
+		private Vector3 _lastAxesMult;
+		private int _lastSeed;
+		private List<PointData> _results;
 		
 		public int PointsCount => _results?.Count ?? 0;
 
@@ -39,7 +43,7 @@ namespace LevelGenerator.Points
 			if (port.fieldName == nameof(Results))
 			{
 				CalcResults();
-				return _results;
+				return _results ?? Results;
 			}
 
 			return null;
@@ -49,7 +53,7 @@ namespace LevelGenerator.Points
 		{
 			if(LockCalc && _results != null)
 				return;
-			if (!force && _lastSeed == Seed && _results != null)
+			if (!force && Mathf.Approximately(_lastRadiusMin, RadiusMin) && Mathf.Approximately(_lastRadiusMax, RadiusMax) && _lastCountMin == CountMin && _lastCountMax == CountMax && _lastSeed == Seed && _results != null)
 				return;
 
 			if (_results == null)
@@ -60,6 +64,8 @@ namespace LevelGenerator.Points
 			var pointsList = GetInputValues(nameof(Points), Points);
 			if (pointsList == null || pointsList.Length == 0)
 				return;
+
+			_gizmosOptions = null;
 
 			var state = Random.state;
 			_lastSeed = Seed;
@@ -72,33 +78,21 @@ namespace LevelGenerator.Points
 					var count = Random.Range(CountMin, CountMax);
 					for (int j = 0; j < count; j++)
 					{
-						var center = points[i];
-						var point = center + Random.insideUnitSphere.Mult(AxesMult).normalized *
+						var center = points[i].Position;
+						var newPosition = center + Random.insideUnitSphere.Mult(AxesMult).normalized *
 							Random.Range(RadiusMin, RadiusMax);
-						_results.Add(point);
+						_results.Add(new PointData
+						{
+							Position = newPosition,
+							Normal = Vector3.up,
+							Scale = Vector3.one,
+							Angle = 0f
+						});
 					}
 				}
 			}
 
 			Random.state = state;
-		}
-		
-		private void UpdateGizmosOptions()
-		{
-			if (_gizmosOptions == null)
-			{
-				foreach (var provider in this.GetNodeInParent<IGizmosOptionsProvider>())
-				{
-					_gizmosOptions = provider.GetGizmosOptions();
-					break;
-				}
-			}
-		}
-		
-		public GizmosOptions GetGizmosOptions()
-		{
-			UpdateGizmosOptions();
-			return _gizmosOptions;
 		}
 
 #if UNITY_EDITOR
@@ -107,19 +101,11 @@ namespace LevelGenerator.Points
 			UpdateGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
-			var results = (List<Vector3>)GetValue(resultsPort);
+			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			var pos = transform.position;
-			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
-			var maxCount = Mathf.Min(10000, results.Count);
-			for (int i = 0; i < maxCount; i++)
-			{
-				var point = results[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
-			}
+			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
 		}
 #endif
 	}

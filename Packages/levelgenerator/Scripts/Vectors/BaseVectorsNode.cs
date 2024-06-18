@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using LevelGenerator.NodeGizmos;
 using LevelGenerator.Utility;
@@ -6,6 +7,7 @@ using XNode;
 
 namespace LevelGenerator.Vectors
 {
+	[Obsolete]
 	public abstract class BaseVectorsNode : PreviewNode
 	{
 		[Input(typeConstraint = TypeConstraint.Inherited)] public List<Vector3> Points;

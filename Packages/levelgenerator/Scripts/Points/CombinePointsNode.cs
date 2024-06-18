@@ -8,10 +8,10 @@ namespace LevelGenerator.Points
 {
 	public class CombinePointsNode : PreviewCalcNode, IGizmosOptionsProvider
 	{
-		[Input] public List<Vector3> Points;
-		[Output] public List<Vector3> Results;
+		[Input] public List<PointData> Points = new();
+		[Output] public List<PointData> Results = new();
 		
-		private List<Vector3> _results;
+		private List<PointData> _results;
 		private GizmosOptions _gizmosOptions;
 
 		public int PointsCount => _results?.Count ?? 0;
@@ -24,7 +24,7 @@ namespace LevelGenerator.Points
 			if (port.fieldName == nameof(Results))
 			{
 				CalcResults();
-				return _results;
+				return _results ?? Results;
 			}
 
 			return null;
@@ -32,6 +32,13 @@ namespace LevelGenerator.Points
 
 		protected override void CalcResults(bool force = false)
 		{
+			var port = GetInputPort(nameof(Points));
+			if (port == null || !port.IsConnected)
+			{
+				_results = null;
+				return;
+			}
+			
 			if(LockCalc && _results != null)
 				return;
 			if (!force && _results != null)
@@ -76,19 +83,11 @@ namespace LevelGenerator.Points
 			UpdateGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
-			var results = (List<Vector3>)GetValue(resultsPort);
+			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
-
-			var pos = transform.position;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
-			var maxCount = Mathf.Min(10000, results.Count);
-			for (int i = 0; i < maxCount; i++)
-			{
-				var point = results[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
-			}
+			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
 		}
 #endif
 	}

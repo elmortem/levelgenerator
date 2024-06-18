@@ -1,21 +1,19 @@
 using LevelGenerator.Points;
-using UnityEditor;
-using UnityEngine;
 using XNodeEditor;
 
 namespace LevelGenerator.Editor.Points
 {
-	[CustomNodeEditor(typeof(RandomPointsNode))]
+	[CustomNodeEditor(typeof(OldRandomPointsNode))]
 	public class RandomPointsNodeEditor : NodeEditor
 	{
-		private RandomPointsNode _node;
+		private OldRandomPointsNode _node;
 		
 		public override void OnBodyGUI()
 		{
 			base.OnBodyGUI();
 
 			if(_node == null)
-				_node = (RandomPointsNode)target;
+				_node = (OldRandomPointsNode)target;
 
 			NodeEditorGUI.DrawResult("Results",_node.PointsCount);
 

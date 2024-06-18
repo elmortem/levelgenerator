@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace LevelGenerator.Bounds.Datas
 {
+	[Obsolete]
 	public class CombineBoundData : BoundData
 	{
 		public List<BoundData> Includes = new();

@@ -1,5 +1,5 @@
 using System;
-using LevelGenerator.Vectors;
+using LevelGenerator.Points;
 using UnityEngine;
 
 namespace LevelGenerator.Instances
@@ -8,6 +8,6 @@ namespace LevelGenerator.Instances
 	public class GameObjectInstanceData : InstanceData
 	{
 		public GameObject Prefab;
-		public VectorData Vector;
+		public PointData Point;
 	}
 }

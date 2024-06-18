@@ -13,5 +13,10 @@ namespace LevelGenerator.Utility
 		{
 			return new Vector3(v.x, v.z, v.y);
 		}
+		
+		public static float Avarage(this Vector3 v)
+		{
+			return (v.x + v.y + v.z) / 3f;
+		}
 	}
 }

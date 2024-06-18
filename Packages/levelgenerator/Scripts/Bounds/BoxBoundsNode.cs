@@ -1,3 +1,4 @@
+using System;
 using LevelGenerator.Bounds.Datas;
 using LevelGenerator.NodeGizmos;
 using LevelGenerator.Utility;
@@ -6,6 +7,7 @@ using XNode;
 
 namespace LevelGenerator.Bounds
 {
+	[Obsolete]
 	public class BoxBoundsNode : PreviewNode, IGizmosOptionsProvider
 	{
 		public UnityEngine.Bounds Bounds;

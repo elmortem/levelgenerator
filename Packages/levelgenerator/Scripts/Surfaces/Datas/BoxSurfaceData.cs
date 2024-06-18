@@ -18,7 +18,8 @@ namespace LevelGenerator.Surfaces.Datas
 	public class BoxSurfaceData : BaseSurfaceData
 	{
 		public Vector3 Offset = Vector3.zero;
-		public Vector3 Size = new Vector3(100f, 100f, 100f);
+		public Vector3 Size = new(100f, 100f, 100f);
+		[NodeEnum]
 		public BoxSurfaceNormalMode NormalMode = BoxSurfaceNormalMode.Up;
 		
 		public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
@@ -41,6 +42,12 @@ namespace LevelGenerator.Surfaces.Datas
 					GetRandomVolumePoints(points, count, seed);
 					break;
 			}
+		}
+
+		public override void ProjectionPoints(List<PointData> points, ProjectionPointMode mode, List<PointData> results)
+		{
+			Debug.Log("Not supported yet.");
+			results.AddRange(points);
 		}
 
 		private void GetRegularSurfacePoints(List<PointData> points, int count)

@@ -1,6 +1,4 @@
 using LevelGenerator.Points;
-using UnityEditor;
-using UnityEngine;
 using XNodeEditor;
 
 namespace LevelGenerator.Editor.Points
