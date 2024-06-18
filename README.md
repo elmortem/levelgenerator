@@ -47,8 +47,10 @@ Open graph asset by double click and add nodes by right click. Connect nodes and
 
 Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more info (in progress...).
 
-## Screenshot
+## Screenshots
 
+<img src="screenshot2.png" width="600">
+<img src="screenshot3.png" width="600">
 <img src="screenshot.png" width="600">
 
 ### Other
