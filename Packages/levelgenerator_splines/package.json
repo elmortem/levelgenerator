@@ -1,7 +1,8 @@
 {
   "displayName": "Splines Addon for Level Generator (xNode)",
   "name": "com.elmortem.levelgenerator_splines",
-  "version": "0.1.0",
+  "author": "Makar Osokin",
+  "version": "0.1.1",
   "unity": "2022.3",
   "description": "Splines support for node-based procedural level generator.",
   "keywords": [

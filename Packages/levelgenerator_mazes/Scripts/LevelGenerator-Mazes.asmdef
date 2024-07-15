@@ -1,0 +1,21 @@
+{
+    "name": "LevelGenerator-Mazes",
+    "rootNamespace": "LevelGenerator.Mazes",
+    "references": [
+        "XNode",
+        "LevelGenerator",
+        "Unity.Mathematics",
+        "TriangulationDelone",
+        "LevelGenerator-Splines",
+        "Unity.Splines"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

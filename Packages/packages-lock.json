@@ -1,7 +1,20 @@
 {
   "dependencies": {
+    "com.elmortem.delone": {
+      "version": "https://github.com/elmortem/triangulation-delone.git?path=Packages/triangulation-delone",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d8e3eb90e69c5740e2c5156e3fa55a714525be94"
+    },
     "com.elmortem.levelgenerator": {
       "version": "file:levelgenerator",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.elmortem.levelgenerator_mazes": {
+      "version": "file:levelgenerator_mazes",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}

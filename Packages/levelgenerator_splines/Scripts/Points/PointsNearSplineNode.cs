@@ -52,15 +52,16 @@ namespace LevelGenerator.Splines.Points
 			if (port == null || !port.IsConnected)
 			{
 				_farPoints = null;
+				_nearPoints = null;
 				return;
 			}
 
 			if (Distance < 0.0001f)
 				return;
 
-			if (LockCalc && _farPoints != null)
+			if (LockCalc && _farPoints != null && _nearPoints != null)
 				return;
-			if (!force && Mathf.Approximately(_lastDistance, Distance) && _farPoints != null)
+			if (!force && Mathf.Approximately(_lastDistance, Distance) && _farPoints != null && _nearPoints != null)
 				return;
 
 			if (_farPoints == null)

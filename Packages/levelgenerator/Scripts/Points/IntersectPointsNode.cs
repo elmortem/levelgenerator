@@ -163,8 +163,8 @@ namespace LevelGenerator.Points
 				if (results == null || results.Count <= 0)
 					return;
 				
-				GizmosUtility.DrawPoints(_nearPoints, _gizmosOptions.PointSize, _gizmosOptions.DrawNormals,
-					_gizmosOptions.DrawRotation, Color.red, transform);
+				GizmosUtility.DrawPoints(_nearPoints, _gizmosOptions?.PointSize ?? 0.2f, _gizmosOptions?.DrawNormals??false,
+					_gizmosOptions?.DrawRotation??false, Color.red, transform);
 			}
 		}
 #endif

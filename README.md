@@ -17,20 +17,37 @@ BoundData is obsolete too. Use Surface for make points. Now support Plane, Box, 
 
 Install xNode from https://github.com/siccity/xNode
 
+For **Maze Addon** install Triangulation Delone from https://github.com/elmortem/triangulation-delone
+
 ### Packages
 
 #### Level Generator
 
-Installation as a unity module via a git link in PackageManager or direct editing of `Packages/manifest' is supported.json:
+Installation as a unity module via a git link in PackageManager:
+```
+https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator
+```
+Or direct editing of `Packages/manifest' is supported.json:
 ```
 "com.elmortem.levelgenerator": "https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator",
 ```
 
 #### Splines Addon
 Support splines for generate points and SpriteShapeInstanceData for make SpriteShapes
-
+```
+https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_splines
+```
 ```
 "com.elmortem.levelgenerator_splines": "https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_splines",
+```
+
+#### Maze Addon
+Support maze generator (using Minimum Spanning Tree) for generate maze - Graph, Splines, Points. Implement grid maze and point cloud maze (using triangulation Delone).
+```
+https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_mazes
+```
+```
+"com.elmortem.levelgenerator_mazes": "https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_mazes",
 ```
 
 ## LevelGeneratorGraph asset
@@ -49,9 +66,9 @@ Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more
 
 ## Screenshots
 
-<img src="screenshot2.png" width="600">
-<img src="screenshot3.png" width="600">
-<img src="screenshot.png" width="600">
+<img src="screenshot2.png" width="400"><img src="screenshot3.png" width="400">
+<img src="screenshot.png" width="400"><img src="screenshot4.png" width="400">
+<img src="screenshot5.png" width="400">
 
 ### Other
 

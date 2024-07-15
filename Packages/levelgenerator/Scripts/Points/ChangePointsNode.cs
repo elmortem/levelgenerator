@@ -116,6 +116,9 @@ namespace LevelGenerator.Points
 			
 			foreach (var points in pointsList)
 			{
+				if(points == null)
+					continue;
+				
 				foreach (var point in points)
 				{
 					var newPoint = point;
