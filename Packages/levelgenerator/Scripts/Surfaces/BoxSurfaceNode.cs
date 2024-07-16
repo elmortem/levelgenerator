@@ -8,15 +8,13 @@ using XNode;
 
 namespace LevelGenerator.Surfaces
 {
-	public class BoxSurfaceNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class BoxSurfaceNode : PreviewCalcNode
 	{
 		public BoxSurfaceData Box;
 		[NodeEnum]
 		public SurfacePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
-		[Header("Gizmos")]
-		public GizmosOptions GizmosOptions;
 		
 		[Output] public List<PointData> Results;
 
@@ -64,12 +62,12 @@ namespace LevelGenerator.Surfaces
 			Box.GetPoints(_results, PointMode, Count, Seed);
 		}
 
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
-
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			Gizmos.color = GizmosOptions.Color;
+			var gizmosOptions = GetGizmosOptions();
+			
+			Gizmos.color = gizmosOptions.Color;
 			Gizmos.DrawWireCube(transform.position + Box.Offset, Box.Size);
 			
 			var resultsPort = GetOutputPort(nameof(Results));
@@ -77,7 +75,7 @@ namespace LevelGenerator.Surfaces
 			if (results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, GizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

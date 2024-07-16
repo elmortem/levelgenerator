@@ -1,22 +1,18 @@
 using System;
 using System.Linq;
 using LevelGenerator.Bounds.Datas;
-using LevelGenerator.NodeGizmos;
-using LevelGenerator.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator.Bounds
 {
 	[Obsolete]
-	public class CombineBoundsNode : PreviewNode, IGizmosOptionsProvider
+	public class CombineBoundsNode : PreviewNode
 	{
 		[Input] public BoundData Includes;
 		[Input] public BoundData Excludes;
 		[Output] public BoundData Result;
 
-		private GizmosOptions _gizmosOptions;
 		private CombineBoundData _result;
 
 		public override void OnCreateConnection(NodePort from, NodePort to)
@@ -59,31 +55,13 @@ namespace LevelGenerator.Bounds
 			if (!force && _result != null)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 				
 			if (_result == null)
 				_result = new CombineBoundData();
 			_result.Includes = GetInputValues(nameof(Includes), Includes).ToList();
 			_result.Excludes = GetInputValues(nameof(Excludes), Excludes).ToList();
 			_result.Calc();
-		}
-		
-		private void UpdateGizmosOptions()
-		{
-			if (_gizmosOptions == null)
-			{
-				foreach (var provider in this.GetNodeInParent<IGizmosOptionsProvider>())
-				{
-					_gizmosOptions = provider.GetGizmosOptions();
-					break;
-				}
-			}
-		}
-		
-		public GizmosOptions GetGizmosOptions()
-		{
-			UpdateGizmosOptions();
-			return _gizmosOptions;
 		}
 
 #if UNITY_EDITOR
@@ -93,12 +71,12 @@ namespace LevelGenerator.Bounds
 			if (result == null)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var center = result.Min + (result.Max - result.Min) * 0.5f;
 			var size = result.Max - result.Min;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			Gizmos.DrawWireCube(transform.TransformPoint(center), size);
 		}
 #endif

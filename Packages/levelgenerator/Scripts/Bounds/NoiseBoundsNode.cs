@@ -8,7 +8,7 @@ using XNode;
 namespace LevelGenerator.Bounds
 {
 	[Obsolete]
-	public class NoiseBoundsNode : PreviewNode, IGizmosOptionsProvider
+	public class NoiseBoundsNode : PreviewNode
 	{
 		[Input(connectionType = ConnectionType.Override)] public BoundData BoundData;
 		[Input(connectionType = ConnectionType.Override), SerializeReference] public NoiseData NoiseData;
@@ -16,15 +16,10 @@ namespace LevelGenerator.Bounds
 		public float MinValue = 0.5f;
 		public float MaxValue = 1f;
 		public bool Is2D = true;
-
-		[Header("Gizmos")] 
-		public GizmosOptions GizmosOptions;
 		
 		[Output] public BoundData Result;
 
 		private NoiseBoundData _result;
-		
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
 		
 		public override void OnCreateConnection(NodePort from, NodePort to)
 		{
@@ -85,10 +80,12 @@ namespace LevelGenerator.Bounds
 				return;
 			if(!_result.Is2D && Mathf.Approximately(_result.BoundData.Max.z - _result.BoundData.Min.z, 0f))
 				return;
+			
+			var gizmosOptions = GetGizmosOptions();
 
-			for (int i = 0; i < GizmosOptions.BoundPoints; i++)
+			for (int i = 0; i < gizmosOptions.BoundPoints; i++)
 			{
-				for (int j = 0; j < GizmosOptions.BoundPoints; j++)
+				for (int j = 0; j < gizmosOptions.BoundPoints; j++)
 				{
 					var pointY = _result.Is2D 
 						? _result.BoundData.Min.y 
@@ -100,17 +97,17 @@ namespace LevelGenerator.Bounds
 						pointY);
 					var value = _result.Data.GetValue(point.x, point.y);
 					if(value >= _result.MinValue && value <= _result.MaxValue)
-						Gizmos.color = GizmosOptions.Color;
+						Gizmos.color = gizmosOptions.Color;
 					else
 					{
-						if(!GizmosOptions.DrawIncorrects)
+						if(!gizmosOptions.DrawIncorrects)
 							continue;
 						Gizmos.color = Color.red;
 					}
 
 					var height = _result.Is2D
-						? new Vector3(point.x, point.y, value * GizmosOptions.NoiseHeight)
-						: new Vector3(point.x, value * GizmosOptions.NoiseHeight, point.y);
+						? new Vector3(point.x, point.y, value * gizmosOptions.NoiseHeight)
+						: new Vector3(point.x, value * gizmosOptions.NoiseHeight, point.y);
 					Gizmos.DrawCube(transform.position + height, new Vector3(0.2f, 0.2f, 0.2f));
 				}
 			}

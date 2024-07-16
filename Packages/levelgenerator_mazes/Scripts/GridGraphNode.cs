@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using LevelGenerator.Mazes.Graphs;
 using LevelGenerator.Mazes.Utilities;
-using LevelGenerator.NodeGizmos;
 using LevelGenerator.Points;
 using LevelGenerator.Utility;
 using UnityEngine;
@@ -9,13 +8,11 @@ using XNode;
 
 namespace LevelGenerator.Mazes
 {
-	public class GridGraphNode :  PreviewCalcNode, IGizmosOptionsProvider
+	public class GridGraphNode :  PreviewCalcNode, IPointCount
 	{
 		public int Width = 10;
 		public int Height = 10;
 		public float CellSize = 1f;
-		[Header("Gizmos")]
-		public GizmosOptions GizmosOptions = new();
 		public bool ShowCenterPoints;
 		[Output] public Graph Result;
 		[Output] public List<PointData> CenterPoints;
@@ -25,6 +22,8 @@ namespace LevelGenerator.Mazes
 		private float _lastCellSize = -1;
 		private Graph _result;
 		private List<PointData> _centerPoints;
+		
+		public int PointsCount => _centerPoints?.Count ?? 0;
 		
 		public override object GetValue(NodePort port)
 		{
@@ -47,9 +46,9 @@ namespace LevelGenerator.Mazes
 		
 		protected override void CalcResults(bool force = false)
 		{
-			if (LockCalc && _result != null && _centerPoints != null)
+			if (LockCalc && _result != null && _result.Edges.Count > 0 && _centerPoints != null)
 				return;
-			if (!force && _result != null && _centerPoints != null && Mathf.Approximately(_lastCellSize, CellSize) && _lastWidth == Width && _lastHeight == Height)
+			if (!force && _result != null && _result.Edges.Count > 0 && _centerPoints != null && Mathf.Approximately(_lastCellSize, CellSize) && _lastWidth == Width && _lastHeight == Height)
 				return;
 			
 			_lastCellSize = CellSize;
@@ -83,12 +82,12 @@ namespace LevelGenerator.Mazes
 				}
 			}
 		}
-
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
 		
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
+			var gizmosOptions = GetGizmosOptions();
+			
 			var graphPort = GetOutputPort(nameof(Result));
 			var result = (Graph)GetValue(graphPort);
 			if (result == null)
@@ -99,7 +98,7 @@ namespace LevelGenerator.Mazes
 			if (centerPoints == null || centerPoints.Count <= 0)
 				return;
 			
-			Gizmos.color = GizmosOptions.Color;
+			Gizmos.color = gizmosOptions.Color;
 			Gizmos.matrix = transform.localToWorldMatrix;
 			
 			GraphGizmos.DrawGraph(result);
@@ -108,7 +107,7 @@ namespace LevelGenerator.Mazes
 			
 			if (ShowCenterPoints)
 			{
-				GizmosUtility.DrawPoints(centerPoints, GizmosOptions.PointSize * 2f, false, false, Color.cyan, transform);
+				GizmosUtility.DrawPoints(centerPoints, gizmosOptions.PointSize * 2f, false, false, Color.cyan, transform);
 			}
 		}
 #endif

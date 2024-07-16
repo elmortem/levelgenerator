@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Splines
 {
-	public class ChangeSplineNode : BasePointsNode
+	public class ChangeSplineNode : PreviewCalcNode
 	{
 		[Input(connectionType = ConnectionType.Override)] public SplineContainerData SplineContainer;
 		public ChangePositionItem Position;
@@ -64,7 +64,7 @@ namespace LevelGenerator.Splines
 			else
 				_result.Splines.Clear();
 			
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			_lastMode = Position.Mode;
 			_lastMin = Position.Min;
@@ -76,7 +76,7 @@ namespace LevelGenerator.Splines
 			
 			foreach (var spline in splineContainer.Splines)
 			{
-				var position = Position.Min == Position.Max 
+				var positionValue = Position.Min == Position.Max 
 					? (float3)Position.Min 
 					: new float3(
 						Random.Range(Position.Min.x, Position.Max.x),
@@ -89,9 +89,9 @@ namespace LevelGenerator.Splines
 					var knot = spline[i];
 					var pos = knot.Position;
 					if (Position.Mode == ChangePositionMode.Add)
-						pos += position;
+						pos += positionValue;
 					else if(Position.Mode == ChangePositionMode.Mult)
-						pos *= position;
+						pos *= positionValue;
 					var newKnot = new BezierKnot(pos , knot.TangentIn, knot.TangentOut, knot.Rotation);
 					newSpline.Add(newKnot, spline.GetTangentMode(i));
 				}
@@ -104,14 +104,14 @@ namespace LevelGenerator.Splines
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultPort = GetOutputPort(nameof(Result));
 			var result = (SplineContainerData)GetValue(resultPort);
 			if(result == null)
 				return;
 
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			SplinesGizmoUtility.DrawGizmos(result, transform);
 		}
 #endif

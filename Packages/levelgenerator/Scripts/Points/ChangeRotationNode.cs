@@ -24,7 +24,7 @@ namespace LevelGenerator.Points
 		[FormerlySerializedAs("AngleMax")] public float Max = 360f;
 	}
 	
-	public class ChangeRotationNode : BasePointsNode
+	public class ChangeRotationNode : PreviewCalcNode
 	{
 		[Input] public List<PointData> Points = new();
 		[NodeEnum]
@@ -83,7 +83,7 @@ namespace LevelGenerator.Points
 			else
 				_results.Clear();
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			_lastMode = Mode;
 			_lastAngleMin = AngleMin;
@@ -119,14 +119,14 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

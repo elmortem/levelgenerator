@@ -9,7 +9,7 @@ using XNode;
 
 namespace LevelGenerator.Surfaces
 {
-	public class TerrainSurfaceNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class TerrainSurfaceNode : PreviewCalcNode
 	{
 		[FormerlySerializedAs("Surface")]
 		public TerrainSurfaceData Terrain;
@@ -17,8 +17,6 @@ namespace LevelGenerator.Surfaces
 		public SurfacePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
-		[Header("Gizmos")]
-		public GizmosOptions GizmosOptions;
 		
 		[Output] public List<PointData> Results;
 		[Output] public TerrainSurfaceData Surface;
@@ -71,17 +69,17 @@ namespace LevelGenerator.Surfaces
 			Terrain.GetPoints(_results, PointMode, Count, Seed);
 		}
 
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
-
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
+			var gizmosOptions = GetGizmosOptions();
+			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if (results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, GizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

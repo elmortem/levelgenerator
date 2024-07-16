@@ -12,7 +12,7 @@ namespace LevelGenerator.Points
 		XY
 	}
 
-	public class SplitPointsByNoiseNode : BasePointsNode
+	public class SplitPointsByNoiseNode : PreviewCalcNode
 	{
 		[Input] public List<PointData> Points = new();
 		[Input(connectionType = ConnectionType.Override)] public NoiseData Noise = new();
@@ -84,6 +84,8 @@ namespace LevelGenerator.Points
 				return;
 			
 			var noise = GetInputValue(nameof(Noise), Noise);
+            if(noise == null)
+				return;
 			
 			if (_insidePoints == null)
 				_insidePoints = new();
@@ -97,7 +99,7 @@ namespace LevelGenerator.Points
 
 			_noiseSize = CalculateNoiseSize(pointsList);
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			_lastNoise = Noise;
 			_lastNoiseAxes = NoiseAxes;
@@ -158,7 +160,7 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
 			if (ShowInsidePoints)
 			{
@@ -167,7 +169,7 @@ namespace LevelGenerator.Points
 				if (results == null || results.Count <= 0)
 					return;
 
-				GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+				GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 			}
 			else
 			{
@@ -176,7 +178,7 @@ namespace LevelGenerator.Points
 				if (results == null || results.Count <= 0)
 					return;
 
-				GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+				GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 			}
 			
 			if (ShowNoise && _noiseSize != Rect.zero)
@@ -185,7 +187,7 @@ namespace LevelGenerator.Points
 				if (noise != null)
 				{
 					const int maxCount = 100;
-					var segment = _gizmosOptions?.NoiseSegment ?? 1f;
+					var segment = gizmosOptions.NoiseSegment;
 					var width = Mathf.CeilToInt(_noiseSize.width / segment);
 					if (width > maxCount)
 					{
@@ -202,9 +204,9 @@ namespace LevelGenerator.Points
 
 					Gizmos.matrix = transform.localToWorldMatrix;
 
-					Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+					Gizmos.color = gizmosOptions.Color;
 
-					var sz = _gizmosOptions?.NoiseSize ?? 0.1f;
+					var sz = gizmosOptions.NoiseSize;
 					var size = new Vector3(sz, sz, sz);
 					for (int i = 0; i <= width; i++)
 					{
@@ -217,8 +219,8 @@ namespace LevelGenerator.Points
 							var inside = value >= MinValue && value <= MaxValue;
 
 							var color = inside
-								? _gizmosOptions?.Color ?? Color.white
-								: Color.white - (_gizmosOptions?.Color ?? Color.white);
+								? gizmosOptions.Color
+								: Color.white - (gizmosOptions.Color);
 							color.a = 1f;
 							
 							Gizmos.color = color;

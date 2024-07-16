@@ -5,7 +5,7 @@ using XNode;
 
 namespace LevelGenerator.Points
 {
-	public class ChangePointsNode : BasePointsNode
+	public class ChangePointsNode : PreviewCalcNode
 	{
 		[Input] public List<PointData> Points = new();
 		public int Seed = -1;
@@ -13,7 +13,6 @@ namespace LevelGenerator.Points
 		public ChangeNormalItem Normal = new();
 		public ChangeRotationItem Rotation = new();
 		public ChangeScaleItem Scale = new();
-
 		[Output] public List<PointData> Results = new();
 
 		private int _lastSeed;
@@ -85,7 +84,7 @@ namespace LevelGenerator.Points
 			else
 				_results.Clear();
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			_lastSeed = Seed;
 			
@@ -124,16 +123,16 @@ namespace LevelGenerator.Points
 					var newPoint = point;
 					
 					//position
-					var position = equalPositions
+					var positionValue = equalPositions
 						? Position.Min
 						: new Vector3(
 							Random.Range(Position.Min.x, Position.Max.x),
 							Random.Range(Position.Min.y, Position.Max.y), 
 							Random.Range(Position.Min.z, Position.Max.z));
 					if(Position.Mode == ChangePositionMode.Add)
-						newPoint.Position += position;
+						newPoint.Position += positionValue;
 					else if(Position.Mode == ChangePositionMode.Mult)
-						newPoint.Position = newPoint.Position.Mult(position);
+						newPoint.Position = newPoint.Position.Mult(positionValue);
 					
 					// normal
 					var normal = equalNormals
@@ -194,14 +193,14 @@ namespace LevelGenerator.Points
 		
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

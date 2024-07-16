@@ -1,6 +1,5 @@
 using System.Linq;
 using LevelGenerator.Mazes.Graphs;
-using LevelGenerator.Points;
 using LevelGenerator.Splines;
 using LevelGenerator.Splines.Utilities;
 using Unity.Mathematics;
@@ -10,7 +9,7 @@ using XNode;
 
 namespace LevelGenerator.Mazes
 {
-	public class GraphToSplineNode : BasePointsNode
+	public class GraphToSplineNode : PreviewCalcNode
 	{
 		[Input] public Graph Graph;
 		[Output] public SplineContainerData Spline;
@@ -49,7 +48,7 @@ namespace LevelGenerator.Mazes
 			if (graph == null)
 				return;
 			
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			// Add splines
 			if (_splineContainer == null)
@@ -73,12 +72,14 @@ namespace LevelGenerator.Mazes
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
+			var gizmosOptions = GetGizmosOptions();
+			
 			var splinePort = GetOutputPort(nameof(Spline));
 			var spline = (SplineContainerData)GetValue(splinePort);
 			if(spline == null)
 				return;
 
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			SplinesGizmoUtility.DrawGizmos(spline, transform);
 		}
 #endif

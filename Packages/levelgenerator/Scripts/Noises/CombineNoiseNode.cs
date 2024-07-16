@@ -1,10 +1,9 @@
-using LevelGenerator.Points;
 using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator.Noises
 {
-	public class CombineNoiseNode : BasePointsNode
+	public class CombineNoiseNode : PreviewCalcNode
 	{
 		[Input] public NoiseData Noises;
 		public NoiseChangeMode Mode;

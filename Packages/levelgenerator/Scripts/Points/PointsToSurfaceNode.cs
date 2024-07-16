@@ -6,7 +6,7 @@ using XNode;
 
 namespace LevelGenerator.Points
 {
-	public class PointsToSurfaceNode : BasePointsNode
+	public class PointsToSurfaceNode : PreviewCalcNode, IPointCount
 	{
 		[Input(connectionType = ConnectionType.Override)] public BaseSurfaceData Surface = new();
 		[Input] public List<PointData> Points = new();
@@ -67,7 +67,7 @@ namespace LevelGenerator.Points
 			if(surface == null)
 				return;
 			
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			_lastProjectionMode = ProjectionMode;
 
@@ -80,14 +80,14 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if (results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

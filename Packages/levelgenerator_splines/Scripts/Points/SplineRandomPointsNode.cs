@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Splines.Points
 {
-	public class SplineRandomPointsNode : BasePointsNode
+	public class SplineRandomPointsNode : PreviewCalcNode
 	{
 		[Input] public SplineContainerData SplineContainer;
 		public int Count = 100;
@@ -60,7 +60,7 @@ namespace LevelGenerator.Splines.Points
 			if (splineContainer == null || splineContainer.Splines.Count <= 0)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			_lastCount = Count;
 			_lastSeed = Seed;
@@ -87,14 +87,14 @@ namespace LevelGenerator.Splines.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Points));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

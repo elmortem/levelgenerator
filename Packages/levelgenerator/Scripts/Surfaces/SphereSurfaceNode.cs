@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using LevelGenerator.NodeGizmos;
 using LevelGenerator.Points;
 using LevelGenerator.Surfaces.Datas;
 using LevelGenerator.Utility;
@@ -8,16 +7,13 @@ using XNode;
 
 namespace LevelGenerator.Surfaces
 {
-	public class SphereSurfaceNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class SphereSurfaceNode : PreviewCalcNode
 	{
 		public SphereSurfaceData Sphere;
 		[NodeEnum]
 		public SurfacePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
-		[Header("Gizmos")]
-		public GizmosOptions GizmosOptions;
-		
 		[Output] public List<PointData> Results;
 
 		private SurfacePointMode _lastPointMode;
@@ -63,8 +59,6 @@ namespace LevelGenerator.Surfaces
 			
 			Sphere.GetPoints(_results, PointMode, Count, Seed);
 		}
-
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
 
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)

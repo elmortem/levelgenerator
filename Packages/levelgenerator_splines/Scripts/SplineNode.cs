@@ -9,12 +9,9 @@ namespace LevelGenerator.Splines
 {
 	public class SplineNode : PreviewCalcNode, IGizmosOptionsProvider
 	{
-		public GizmosOptions GizmosOptions;
 		[Output] public SplineContainerData Result;
 		
 		private Transform _editContainer;
-		
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
 
 		public override object GetValue(NodePort port)
 		{
@@ -58,12 +55,14 @@ namespace LevelGenerator.Splines
 			}
 			else
 			{
+				var gizmosOptions = GetGizmosOptions();
+				
 				var resultsPort = GetOutputPort(nameof(Result));
 				var result = (SplineContainerData)GetValue(resultsPort);
 				if(result == null)
 					return;
 				
-				Gizmos.color = GizmosOptions.Color;
+				Gizmos.color = gizmosOptions.Color;
 				SplinesGizmoUtility.DrawGizmos(result, transform);
 			}
 		}

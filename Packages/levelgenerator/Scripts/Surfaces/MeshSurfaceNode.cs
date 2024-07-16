@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using LevelGenerator.NodeGizmos;
 using LevelGenerator.Points;
 using LevelGenerator.Surfaces.Datas;
 using LevelGenerator.Utility;
@@ -8,15 +7,13 @@ using XNode;
 
 namespace LevelGenerator.Surfaces
 {
-	public class MeshSurfaceNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class MeshSurfaceNode : PreviewCalcNode
 	{
 		public MeshSurfaceData Mesh;
 		[NodeEnum]
 		public SurfacePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
-		[Header("Gizmos")]
-		public GizmosOptions GizmosOptions;
 		
 		[Output] public List<PointData> Results;
 
@@ -64,11 +61,11 @@ namespace LevelGenerator.Surfaces
 			Mesh.GetPoints(_results, PointMode, Count, Seed);
 		}
 
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
-
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
+			var gizmosOptions = GetGizmosOptions();
+			
 			Gizmos.DrawWireMesh(Mesh.Mesh, transform.position + Mesh.Offset, transform.rotation);
 			
 			var resultsPort = GetOutputPort(nameof(Results));
@@ -76,7 +73,7 @@ namespace LevelGenerator.Surfaces
 			if (results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, GizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using LevelGenerator.NodeGizmos;
 using LevelGenerator.Utility;
 using UnityEngine;
 using XNode;
 
 namespace LevelGenerator.Points
 {
-	public class IntersectPointsNode : BasePointsNode
+	public class IntersectPointsNode : PreviewCalcNode
 	{
 		[Input] public List<PointData> Points = new();
 		[Input] public List<PointData> OtherPoints = new();
@@ -21,7 +20,7 @@ namespace LevelGenerator.Points
 		private float _lastRadius;
 		private bool _lastRemoveThemselves;
 		private bool _lastUseScale;
-		private List<PointData> _otherPoints = new();
+		private readonly List<PointData> _otherPoints = new();
 		private List<PointData> _results;
 		private List<PointData> _nearPoints;
 		
@@ -88,10 +87,11 @@ namespace LevelGenerator.Points
 			else
 				_nearPoints.Clear();
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			_lastRadius = Radius;
 			_lastRemoveThemselves = RemoveThemselves;
+			_lastUseScale = UseScale;
 			
 			_otherPoints.Clear();
 			var otherPointsList = GetInputValues(nameof(OtherPoints), OtherPoints);
@@ -145,7 +145,7 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
 			if (ShowResults)
 			{
@@ -154,7 +154,7 @@ namespace LevelGenerator.Points
 				if (results == null || results.Count <= 0)
 					return;
 				
-				GizmosUtility.DrawWirePoints(results, Radius, _gizmosOptions?.Color ?? Color.white, transform);
+				GizmosUtility.DrawWirePoints(results, Radius, gizmosOptions?.Color ?? Color.white, transform);
 			}
 			else
 			{
@@ -163,8 +163,8 @@ namespace LevelGenerator.Points
 				if (results == null || results.Count <= 0)
 					return;
 				
-				GizmosUtility.DrawPoints(_nearPoints, _gizmosOptions?.PointSize ?? 0.2f, _gizmosOptions?.DrawNormals??false,
-					_gizmosOptions?.DrawRotation??false, Color.red, transform);
+				GizmosUtility.DrawPoints(_nearPoints, gizmosOptions.PointSize, gizmosOptions.DrawNormals,
+					gizmosOptions.DrawRotation, Color.red, transform);
 			}
 		}
 #endif

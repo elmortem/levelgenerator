@@ -1,24 +1,19 @@
 using System;
 using LevelGenerator.Bounds.Datas;
-using LevelGenerator.NodeGizmos;
 using UnityEngine;
 using XNode;
 
 namespace LevelGenerator.Bounds
 {
 	[Obsolete]
-	public class SphereBoundsNode : PreviewNode, IGizmosOptionsProvider
+	public class SphereBoundsNode : PreviewNode
 	{
 		public Vector3 Offset;
 		public Vector3 Scale = Vector3.one;
 		public float Radius;
-		[Header("Gizmos")] 
-		public GizmosOptions GizmosOptions;
 		[Output] public BoundData Result;
 		
 		private SphereBoundData _result;
-		
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
 
 		public override object GetValue(NodePort port)
 		{
@@ -59,7 +54,8 @@ namespace LevelGenerator.Bounds
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			Gizmos.color = GizmosOptions.Color;
+			var gizmosOptions = GetGizmosOptions();
+			Gizmos.color = gizmosOptions.Color;
 			Gizmos.DrawWireSphere(transform.position + Offset, Radius);
 		}
 #endif

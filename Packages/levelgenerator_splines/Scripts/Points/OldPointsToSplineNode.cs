@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using LevelGenerator.Points;
 using LevelGenerator.Splines.Utilities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -10,7 +9,7 @@ using XNode;
 namespace LevelGenerator.Splines.Points
 {
 	[Obsolete("Use PointsToSplineNode instead")]
-	public class OldPointsToSplineNode : BasePointsNode
+	public class OldPointsToSplineNode : PreviewCalcNode
 	{
 		[Input] public List<Vector3> Points;
 		[Output] public SplineContainerData Result;
@@ -41,7 +40,7 @@ namespace LevelGenerator.Splines.Points
 			if (LockCalc && Result != null)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			if(Result == null)
 				Result = new();
@@ -71,9 +70,9 @@ namespace LevelGenerator.Splines.Points
 			if(results == null)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			SplinesGizmoUtility.DrawGizmos(results, transform);
 		}
 #endif

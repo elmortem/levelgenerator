@@ -8,7 +8,7 @@ using XNode;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use PercentPointsNode instead")]
-	public class OldPercentPointsNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class OldPercentPointsNode : PreviewCalcNode, IPointCount
 	{
 		[Input] public List<Vector3> Points = new();
 		public float Percent = 0.5f;
@@ -18,7 +18,6 @@ namespace LevelGenerator.Points
 		private float _lastPercent = -1;
 		private List<Vector3> _results;
 		private List<Vector3> _removedPoints;
-		private GizmosOptions _gizmosOptions;
 
 		public int PointsCount => _results?.Count ?? 0;
 		
@@ -84,24 +83,6 @@ namespace LevelGenerator.Points
 				}
 			}
 		}
-		
-		private void UpdateGizmosOptions()
-		{
-			if (_gizmosOptions == null)
-			{
-				foreach (var provider in this.GetNodeInParent<IGizmosOptionsProvider>())
-				{
-					_gizmosOptions = provider.GetGizmosOptions();
-					break;
-				}
-			}
-		}
-		
-		public GizmosOptions GetGizmosOptions()
-		{
-			UpdateGizmosOptions();
-			return _gizmosOptions;
-		}
 
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
@@ -111,9 +92,9 @@ namespace LevelGenerator.Points
 			if(results == null || results.Count <= 0)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+			GizmosUtility.DrawPoints(results, gizmosOptions.PointSize, transform, gizmosOptions);
 		}
 #endif
 	}

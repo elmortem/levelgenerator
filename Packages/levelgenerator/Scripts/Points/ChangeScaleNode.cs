@@ -25,7 +25,7 @@ namespace LevelGenerator.Points
 		[FormerlySerializedAs("LockScale")] public bool Lock = true;
 	}
 	
-	public class ChangeScaleNode : BasePointsNode
+	public class ChangeScaleNode : PreviewCalcNode
 	{
 		[Input] public List<PointData> Points = new();
 		[NodeEnum]
@@ -74,7 +74,7 @@ namespace LevelGenerator.Points
 			
 			if (LockCalc && _results != null)
 				return;
-			if (!force && _lastMode == Mode && _lastScaleMin == ScaleMin && _lastScaleMax == ScaleMax && _lastSeed == Seed && _results != null)
+			if (!force && _lastMode == Mode && _lastScaleMin == ScaleMin && _lastScaleMax == ScaleMax && _lastLockScale == LockScale && _lastSeed == Seed && _results != null)
 				return;
 			
 			var pointsList = GetInputValues(nameof(Points), Points);
@@ -86,7 +86,7 @@ namespace LevelGenerator.Points
 			else
 				_results.Clear();
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			_lastScaleMin = ScaleMin;
 			_lastScaleMax = ScaleMax;
@@ -111,9 +111,9 @@ namespace LevelGenerator.Points
 							? new Vector3(rndX, rndX, rndX)
 							: new Vector3(rndX, Random.Range(ScaleMin.y, ScaleMax.y), Random.Range(ScaleMin.z, ScaleMax.z));
 					
-					if(Mode == ChangeScaleMode.Add)
+					if (Mode == ChangeScaleMode.Add)
 						newPoint.Scale += scale;
-					else if(Mode == ChangeScaleMode.Mult)
+					else if (Mode == ChangeScaleMode.Mult)
 						newPoint.Scale = newPoint.Scale.Mult(scale);
 					else if (Mode == ChangeScaleMode.Set)
 						newPoint.Scale = scale;
@@ -139,14 +139,14 @@ namespace LevelGenerator.Points
 
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

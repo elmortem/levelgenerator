@@ -6,14 +6,18 @@ namespace LevelGenerator
 	{
 		public override void OnCreateConnection(NodePort from, NodePort to)
 		{
-			if(to.IsInput && !LockCalc)
-				CalcResults(true);
+			base.OnCreateConnection(from, to);
+			
+			if(!LockCalc && to.IsInput && to.node == this)
+				ApplyChange();
 		}
 
 		public override void OnRemoveConnection(NodePort port)
 		{
-			if(port.IsInput && !LockCalc)
-				CalcResults(true);
+			base.OnRemoveConnection(port);
+
+			if (!LockCalc && port.IsInput && port.node == this)
+				ApplyChange();
 		}
 
 		protected override void ApplyChange()

@@ -10,7 +10,8 @@ namespace LevelGenerator.Points
 	public enum ChangePositionMode
 	{
 		Add,
-		Mult
+		Mult,
+		Set
 	}
 
 	[Serializable]
@@ -21,7 +22,7 @@ namespace LevelGenerator.Points
 		public Vector3 Max = Vector3.one;
 	}
 	
-	public class ChangePositionNode : BasePointsNode
+	public class ChangePositionNode : PreviewCalcNode
 	{
 		[Input] public List<PointData> Points = new();
 		public ChangePositionMode Mode = ChangePositionMode.Add;
@@ -79,7 +80,7 @@ namespace LevelGenerator.Points
 			if(points == null)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			_lastMode = Mode;
 			_lastMin = Min;
@@ -92,7 +93,9 @@ namespace LevelGenerator.Points
 			foreach (var point in points)
 			{
 				var p = point;
-				if(Mode == ChangePositionMode.Add)
+				if(Mode == ChangePositionMode.Set)
+					p.Position = new Vector3(Random.Range(Min.x, Max.x), Random.Range(Min.y, Max.y), Random.Range(Min.z, Max.z));
+				else if(Mode == ChangePositionMode.Add)
 					p.Position += new Vector3(Random.Range(Min.x, Max.x), Random.Range(Min.y, Max.y), Random.Range(Min.z, Max.z));
 				else if(Mode == ChangePositionMode.Mult)
 					p.Position = p.Position.Mult(new Vector3(Random.Range(Min.x, Max.x), Random.Range(Min.y, Max.y), Random.Range(Min.z, Max.z)));
@@ -105,14 +108,14 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

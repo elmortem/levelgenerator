@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using LevelGenerator.Points;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Splines;
@@ -10,11 +9,11 @@ namespace LevelGenerator.Splines.Points
 {
 	[MovedFrom("LevelGenerator.Splines")]
 	[Obsolete("Use SplineDistancePointsNode instead")]
-	public class OldSplineDistancePointsNode : BasePointsNode
+	public class OldSplineDistancePointsNode : PreviewCalcNode
 	{
-		[Input] public SplineContainerData SplineContainer;
+		[Node.Input] public SplineContainerData SplineContainer;
 		public float Distance = 5f;
-		[Output] public List<Vector3> Points;
+		[Node.Output] public List<Vector3> Points;
 
 		private float _lastDistance;
 		
@@ -54,7 +53,7 @@ namespace LevelGenerator.Splines.Points
 			if (splineContainer == null || splineContainer.Splines.Count <= 0)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			_lastDistance = Distance;
 			
@@ -80,16 +79,16 @@ namespace LevelGenerator.Splines.Points
 			if(results == null || results.Count <= 0)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
 			var pos = transform.position;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			var maxCount = Mathf.Min(10000, results.Count);
 			for (int i = 0; i < maxCount; i++)
 			{
 				var point = results[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
+				Gizmos.DrawSphere(pos + point, gizmosOptions.PointSize);
 			}
 		}
 #endif

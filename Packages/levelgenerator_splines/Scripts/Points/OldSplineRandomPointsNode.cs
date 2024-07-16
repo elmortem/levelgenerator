@@ -11,7 +11,7 @@ namespace LevelGenerator.Splines.Points
 {
 	[MovedFrom("LevelGenerator.Splines")]
 	[Obsolete("Use SplineRandomPointsNode instead")]
-	public class OldSplineRandomPointsNode : BasePointsNode
+	public class OldSplineRandomPointsNode : PreviewCalcNode
 	{
 		[Input] public SplineContainerData SplineContainer;
 		public int Count = 100;
@@ -60,7 +60,7 @@ namespace LevelGenerator.Splines.Points
 			if (splineContainer == null || splineContainer.Splines.Count <= 0)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			_lastCount = Count;
 			_lastSeed = Seed;
@@ -86,16 +86,16 @@ namespace LevelGenerator.Splines.Points
 			if(results == null || results.Count <= 0)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
 			var pos = transform.position;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			var maxCount = Mathf.Min(10000, results.Count);
 			for (int i = 0; i < maxCount; i++)
 			{
 				var point = results[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
+				Gizmos.DrawSphere(pos + point, gizmosOptions.PointSize);
 			}
 		}
 #endif

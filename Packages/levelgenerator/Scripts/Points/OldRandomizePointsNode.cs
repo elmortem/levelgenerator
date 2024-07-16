@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use RandomizePointsNode instead")]
-	public class OldRandomizePointsNode : BasePointsNode
+	public class OldRandomizePointsNode : PreviewCalcNode
 	{
 		[Input] public List<Vector3> Points;
 		public Vector3 Min = new Vector3(-1f, -1f, -1f);
@@ -61,7 +61,7 @@ namespace LevelGenerator.Points
 			if(points == null)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 			
 			_lastSeed = Seed;
 			
@@ -85,9 +85,9 @@ namespace LevelGenerator.Points
 			if(results == null || results.Count <= 0)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+			GizmosUtility.DrawPoints(results, gizmosOptions.PointSize, transform, gizmosOptions);
 		}
 #endif
 	}

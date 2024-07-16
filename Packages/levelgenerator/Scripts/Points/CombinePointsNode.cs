@@ -6,13 +6,12 @@ using XNode;
 
 namespace LevelGenerator.Points
 {
-	public class CombinePointsNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class CombinePointsNode : PreviewCalcNode, IPointCount
 	{
 		[Input] public List<PointData> Points = new();
 		[Output] public List<PointData> Results = new();
 		
 		private List<PointData> _results;
-		private GizmosOptions _gizmosOptions;
 
 		public int PointsCount => _results?.Count ?? 0;
 		
@@ -58,36 +57,18 @@ namespace LevelGenerator.Points
 				_results.AddRange(points);
 			}
 		}
-		
-		private void UpdateGizmosOptions()
-		{
-			if (_gizmosOptions == null)
-			{
-				foreach (var provider in this.GetNodeInParent<IGizmosOptionsProvider>())
-				{
-					_gizmosOptions = provider.GetGizmosOptions();
-					break;
-				}
-			}
-		}
-		
-		public GizmosOptions GetGizmosOptions()
-		{
-			UpdateGizmosOptions();
-			return _gizmosOptions;
-		}
 
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Mazes
 {
-	public class MazeMSTNode : BasePointsNode
+	public class MazeMSTNode : PreviewCalcNode
 	{
 		[Input] public Graph Graph;
 		public int Seed = -1;
@@ -58,16 +58,17 @@ namespace LevelGenerator.Mazes
 				return;
 			}
 			
-			if(LockCalc && _mstGraph != null && _endPoints != null)
+			if(LockCalc && _mstGraph != null && _mstGraph.Edges.Count > 0 && _endPoints != null)
 				return;
-			if(!force && _lastSeed == Seed && _mstGraph != null && _endPoints != null)
+			if(!force && _lastSeed == Seed && _mstGraph != null && _mstGraph.Edges.Count > 0 && _endPoints != null)
 				return;
 			
 			var graph = GetInputValue(nameof(Graph), Graph);
 			if (graph == null)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
+			
 			_lastSeed = Seed;
 			
 			var state = Random.state;
@@ -101,21 +102,21 @@ namespace LevelGenerator.Mazes
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var graphPort = GetOutputPort(nameof(MstGraph));
 			var graph = (Graph)GetValue(graphPort);
 			if(graph == null)
 				return;
 
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			Gizmos.matrix = transform.localToWorldMatrix;
 
 			GraphGizmos.DrawGraph(graph);
 
 			Gizmos.matrix = Matrix4x4.identity;
 
-			GizmosUtility.DrawPoints(_endPoints, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(_endPoints, gizmosOptions, transform);
 		}
 #endif
 	}

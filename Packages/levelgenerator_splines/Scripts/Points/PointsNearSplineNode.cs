@@ -8,7 +8,7 @@ using XNode;
 
 namespace LevelGenerator.Splines.Points
 {
-	public class PointsNearSplineNode : BasePointsNode
+	public class PointsNearSplineNode : PreviewCalcNode
 	{
 		[Input] public List<PointData> Points;
 		[FormerlySerializedAs("SplineContainer")]
@@ -53,6 +53,16 @@ namespace LevelGenerator.Splines.Points
 			{
 				_farPoints = null;
 				_nearPoints = null;
+				_pointsCache.Clear();
+				return;
+			}
+			
+			port = GetInputPort(nameof(SplineContainers));
+			if (port == null || !port.IsConnected)
+			{
+				_farPoints = null;
+				_nearPoints = null;
+				_pointsCache.Clear();
 				return;
 			}
 
@@ -82,12 +92,16 @@ namespace LevelGenerator.Splines.Points
 			if (splines == null || splines.Length <= 0)
 				return;
 
+			ResetGizmosOptions();
 			_lastDistance = Distance;
 			
 			_pointsCache.Clear();
 
 			foreach (var points in pointsList)
 			{
+				if(points == null)
+					continue;
+				
 				foreach (var point in points)
 				{
 					if(!CheckNearSpline(point, splines))
@@ -140,7 +154,7 @@ namespace LevelGenerator.Splines.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
 			if (ShowFarPoints)
 			{
@@ -149,7 +163,7 @@ namespace LevelGenerator.Splines.Points
 				if (farPoints == null || farPoints.Count <= 0)
 					return;
 
-				GizmosUtility.DrawPoints(farPoints, _gizmosOptions, transform);
+				GizmosUtility.DrawPoints(farPoints, gizmosOptions, transform);
 			}
 			else
 			{
@@ -158,12 +172,12 @@ namespace LevelGenerator.Splines.Points
 				if (nearPoints == null || nearPoints.Count <= 0)
 					return;
 
-				GizmosUtility.DrawPoints(nearPoints, _gizmosOptions, transform);
+				GizmosUtility.DrawPoints(nearPoints, gizmosOptions, transform);
 			}
 
 			if (ShowNearZone && _pointsCache.Count > 0)
 			{
-				Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+				Gizmos.color = gizmosOptions.Color;
 				foreach (var point in _pointsCache)
 				{
 					Gizmos.DrawWireSphere(point, Distance);

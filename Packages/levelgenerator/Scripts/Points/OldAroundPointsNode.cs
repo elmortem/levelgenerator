@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use AroundPointsNode instead")]
-	public class OldAroundPointsNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class OldAroundPointsNode : PreviewCalcNode, IPointCount
 	{
 		[Input] public List<Vector3> Points = new();
 		public float RadiusMin = 0.5f;
@@ -83,29 +83,11 @@ namespace LevelGenerator.Points
 
 			Random.state = state;
 		}
-		
-		private void UpdateGizmosOptions()
-		{
-			if (_gizmosOptions == null)
-			{
-				foreach (var provider in this.GetNodeInParent<IGizmosOptionsProvider>())
-				{
-					_gizmosOptions = provider.GetGizmosOptions();
-					break;
-				}
-			}
-		}
-		
-		public GizmosOptions GetGizmosOptions()
-		{
-			UpdateGizmosOptions();
-			return _gizmosOptions;
-		}
 
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<Vector3>)GetValue(resultsPort);
@@ -114,12 +96,12 @@ namespace LevelGenerator.Points
 
 			var pos = transform.position;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			var maxCount = Mathf.Min(10000, results.Count);
 			for (int i = 0; i < maxCount; i++)
 			{
 				var point = results[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
+				Gizmos.DrawSphere(pos + point, gizmosOptions.PointSize);
 			}
 		}
 #endif

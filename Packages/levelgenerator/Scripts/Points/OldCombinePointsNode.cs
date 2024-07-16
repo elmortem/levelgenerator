@@ -8,13 +8,12 @@ using XNode;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use CombinePointsNode instead")]
-	public class OldCombinePointsNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class OldCombinePointsNode : PreviewCalcNode, IPointCount
 	{
 		[Input] public List<Vector3> Points;
 		[Output] public List<Vector3> Results;
 		
 		private List<Vector3> _results;
-		private GizmosOptions _gizmosOptions;
 
 		public int PointsCount => _results?.Count ?? 0;
 		
@@ -53,29 +52,11 @@ namespace LevelGenerator.Points
 				_results.AddRange(points);
 			}
 		}
-		
-		private void UpdateGizmosOptions()
-		{
-			if (_gizmosOptions == null)
-			{
-				foreach (var provider in this.GetNodeInParent<IGizmosOptionsProvider>())
-				{
-					_gizmosOptions = provider.GetGizmosOptions();
-					break;
-				}
-			}
-		}
-		
-		public GizmosOptions GetGizmosOptions()
-		{
-			UpdateGizmosOptions();
-			return _gizmosOptions;
-		}
 
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<Vector3>)GetValue(resultsPort);
@@ -84,12 +65,12 @@ namespace LevelGenerator.Points
 
 			var pos = transform.position;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			var maxCount = Mathf.Min(10000, results.Count);
 			for (int i = 0; i < maxCount; i++)
 			{
 				var point = results[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
+				Gizmos.DrawSphere(pos + point, gizmosOptions.PointSize);
 			}
 		}
 #endif

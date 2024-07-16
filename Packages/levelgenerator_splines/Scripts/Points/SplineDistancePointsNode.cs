@@ -7,7 +7,7 @@ using XNode;
 
 namespace LevelGenerator.Splines.Points
 {
-	public class SplineDistancePointsNode : BasePointsNode
+	public class SplineDistancePointsNode : PreviewCalcNode, IPointCount
 	{
 		[Input] public SplineContainerData SplineContainer;
 		public float Distance = 5f;
@@ -40,6 +40,13 @@ namespace LevelGenerator.Splines.Points
 			if (Distance < 0.0001f)
 				return;
 			
+			var port = GetInputPort(nameof(SplineContainer));
+			if (port == null || !port.IsConnected)
+			{
+				_points = null;
+				return;
+			}
+			
 			if(LockCalc && _points != null)
 				return;
 			if (!force && Mathf.Approximately(_lastDistance, Distance) && _points != null)
@@ -54,7 +61,7 @@ namespace LevelGenerator.Splines.Points
 			if (splineContainer == null || splineContainer.Splines.Count <= 0)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			_lastDistance = Distance;
 			
@@ -81,14 +88,14 @@ namespace LevelGenerator.Splines.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Points));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

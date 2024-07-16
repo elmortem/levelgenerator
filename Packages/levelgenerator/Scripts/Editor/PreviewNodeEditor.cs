@@ -1,3 +1,4 @@
+using LevelGenerator.Points;
 using UnityEditor;
 using UnityEngine;
 using XNodeEditor;
@@ -19,6 +20,11 @@ namespace LevelGenerator.Editor
 			if (_node == null)
 				_node = (PreviewNode)target;
 
+			if (_node is IPointCount pointCount)
+			{
+				NodeEditorGUI.DrawResult("Points", pointCount.PointsCount);
+			}
+			
 			NodeEditorGUI.DrawPreviewAndLock(_node);
 		}
 	}

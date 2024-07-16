@@ -10,7 +10,7 @@ using XNode;
 
 namespace LevelGenerator.Mazes
 {
-	public class TriangulatePointsGraphNode : BasePointsNode
+	public class TriangulatePointsGraphNode : PreviewCalcNode, IPointCount
 	{
 		[Input] public List<PointData> Points;
 		public float MinDistance = 100f;
@@ -24,6 +24,8 @@ namespace LevelGenerator.Mazes
 		private float _lastMinRatio;
 		private Graph _graph;
 		private List<PointData> _centerPoints;
+		
+		public int PointsCount => _centerPoints?.Count ?? 0;
 
 		public override object GetValue(NodePort port)
 		{
@@ -54,16 +56,17 @@ namespace LevelGenerator.Mazes
 				return;
 			}
 
-			if (LockCalc && _graph != null)
+			if (LockCalc && _graph != null && _graph.Edges.Count > 0 && _centerPoints != null)
 				return;
-			if (!force && _graph != null && _centerPoints != null && Mathf.Approximately(_lastMinDistance, MinDistance) && Mathf.Approximately(_lastMinRatio, MinRation))
+			if (!force && _graph != null && _graph.Edges.Count > 0 && _centerPoints != null && Mathf.Approximately(_lastMinDistance, MinDistance) && Mathf.Approximately(_lastMinRatio, MinRation))
 				return;
 			
 			var pointsList = GetInputValues(nameof(Points), Points);
 			if (pointsList == null || pointsList.Length <= 0)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
+			
 			_lastMinDistance = MinDistance;
 			_lastMinRatio = MinRation;
 
@@ -175,9 +178,9 @@ namespace LevelGenerator.Mazes
 			if (centerPoints == null || centerPoints.Count <= 0)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			Gizmos.matrix = transform.localToWorldMatrix;
 			
 			GraphGizmos.DrawGraph(result);
@@ -186,7 +189,7 @@ namespace LevelGenerator.Mazes
 
 			if (ShowCenterPoints)
 			{
-				GizmosUtility.DrawPoints(centerPoints, _gizmosOptions?.PointSize * 2f ?? 1f, false, false, Color.cyan, transform);
+				GizmosUtility.DrawPoints(centerPoints, gizmosOptions.PointSize * 2f, false, false, Color.cyan, transform);
 			}
 		}
 #endif

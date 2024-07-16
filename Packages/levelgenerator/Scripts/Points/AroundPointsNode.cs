@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using LevelGenerator.NodeGizmos;
 using LevelGenerator.Utility;
 using UnityEngine;
 using XNode;
@@ -8,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Points
 {
-	public class AroundPointsNode : BasePointsNode
+	public class AroundPointsNode : PreviewCalcNode, IPointCount
 	{
 		[Input] public List<PointData> Points = new();
 		public float RadiusMin = 0.5f;
@@ -65,7 +63,7 @@ namespace LevelGenerator.Points
 			if (pointsList == null || pointsList.Length == 0)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			var state = Random.state;
 			_lastSeed = Seed;
@@ -98,14 +96,14 @@ namespace LevelGenerator.Points
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if(results == null || results.Count <= 0)
 				return;
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

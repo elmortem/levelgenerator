@@ -11,7 +11,7 @@ namespace LevelGenerator.Editor
 			node.ShowPreview = EditorGUILayout.Toggle(node.ShowPreview, GUILayout.Width(12), GUILayout.Height(12));
 			EditorGUI.BeginChangeCheck();
 			node.LockCalc = EditorGUILayout.Toggle(node.LockCalc, GUILayout.Width(12), GUILayout.Height(12));
-			if (EditorGUI.EndChangeCheck())
+			if (EditorGUI.EndChangeCheck() && !node.LockCalc)
 			{
 				node.RaiseChanged();
 			}
@@ -24,7 +24,7 @@ namespace LevelGenerator.Editor
 			EditorGUILayout.BeginHorizontal();
 			EditorGUI.BeginChangeCheck();
 			node.LockCalc = EditorGUILayout.Toggle(node.LockCalc, GUILayout.Width(12), GUILayout.Height(12));
-			if (EditorGUI.EndChangeCheck())
+			if (EditorGUI.EndChangeCheck() && !node.LockCalc)
 			{
 				node.RaiseChanged();
 			}

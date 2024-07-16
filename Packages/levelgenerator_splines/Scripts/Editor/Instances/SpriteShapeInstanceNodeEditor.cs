@@ -1,5 +1,3 @@
-using XNodeEditor;
-
 namespace LevelGenerator.Splines.Editor.Instances
 {
 	[CustomNodeEditor(typeof(SpriteShapeInstanceNode))]

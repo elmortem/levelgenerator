@@ -7,7 +7,7 @@ using XNode;
 
 namespace LevelGenerator.Mazes
 {
-	public class GraphMinusGraphNode : BasePointsNode
+	public class GraphMinusGraphNode : PreviewCalcNode
 	{
 		[Input] public Graph Graph;
 		[Input] public Graph Minus;
@@ -45,9 +45,9 @@ namespace LevelGenerator.Mazes
 				return;
 			}
 			
-			if(LockCalc && _result != null)
+			if(LockCalc && _result != null && _result.Edges.Count > 0)
 				return;
-			if(!force && _result != null)
+			if(!force && _result != null && _result.Edges.Count > 0)
 				return;
 			
 			var graph = GetInputValue(nameof(Graph), Graph);
@@ -58,20 +58,18 @@ namespace LevelGenerator.Mazes
 			if (minus == null)
 				return;
 			
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			if (_result == null)
 				_result = new();
 			else
 				_result.Clear();
 			
-			// Копируем все узлы
 			foreach (var node in graph.Nodes)
 			{
 				_result.Nodes.Add(new GraphNode(node.Point));
 			}
 
-			// Копируем только те ребра, которые не пересекаются с ребрами графа Minus
 			foreach (var edge in graph.Edges)
 			{
 				bool intersects = false;
@@ -109,14 +107,14 @@ namespace LevelGenerator.Mazes
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var resultPort = GetOutputPort(nameof(Result));
-			var result = (Graphs.Graph)GetValue(resultPort);
+			var result = (Graph)GetValue(resultPort);
 			if(result == null)
 				return;
 
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			Gizmos.matrix = transform.localToWorldMatrix;
 
 			GraphGizmos.DrawGraph(result);

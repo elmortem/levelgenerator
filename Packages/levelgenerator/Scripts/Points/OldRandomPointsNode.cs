@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 namespace LevelGenerator.Points
 {
 	[Obsolete]
-	public class OldRandomPointsNode : PreviewNode, IGizmosOptionsProvider
+	public class OldRandomPointsNode : PreviewNode, IPointCount
 	{
 		[Input(connectionType:ConnectionType.Override, typeConstraint = TypeConstraint.Inherited)] public BoundData BoundData;
 		[Output] public List<Vector3> Points;
@@ -22,7 +22,6 @@ namespace LevelGenerator.Points
 		private int _lastSeed = -1;
 		private int _lastCount = -1;
 		private List<Vector3> _points;
-		private GizmosOptions _gizmosOptions;
 		
 		public int PointsCount => _points?.Count ?? 0;
 
@@ -91,7 +90,7 @@ namespace LevelGenerator.Points
 			if(bound == null)
 				return;
 
-			_gizmosOptions = null;
+			ResetGizmosOptions();
 
 			_lastSeed = Seed;
 			_lastCount = Count;
@@ -121,8 +120,8 @@ namespace LevelGenerator.Points
 			var max = bound.Max;
 
 			var genCount = 0;
-			var _tryCount = 0;
-			while(genCount < count && _tryCount++ < MaxIterations)
+			var tryCount = 0;
+			while(genCount < count && tryCount++ < MaxIterations)
 			{
 				var point = new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y),
 					Random.Range(min.z, max.z));
@@ -133,29 +132,11 @@ namespace LevelGenerator.Points
 				}
 			}
 		}
-		
-		private void UpdateGizmosOptions()
-		{
-			if (_gizmosOptions == null)
-			{
-				foreach (var provider in this.GetNodeInParent<IGizmosOptionsProvider>())
-				{
-					_gizmosOptions = provider.GetGizmosOptions();
-					break;
-				}
-			}
-		}
-		
-		public GizmosOptions GetGizmosOptions()
-		{
-			UpdateGizmosOptions();
-			return _gizmosOptions;
-		}
 
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 			
 			var pointsPort = GetOutputPort(nameof(Points));
 			var points = (List<Vector3>)GetValue(pointsPort);
@@ -164,12 +145,12 @@ namespace LevelGenerator.Points
 
 			var pos = transform.position;
 			
-			Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+			Gizmos.color = gizmosOptions.Color;
 			var maxCount = Mathf.Min(10000, points.Count);
 			for (int i = 0; i < maxCount; i++)
 			{
 				var point = points[i];
-				Gizmos.DrawSphere(pos + point, _gizmosOptions?.PointSize ?? 0.2f);
+				Gizmos.DrawSphere(pos + point, gizmosOptions.PointSize);
 			}
 		}
 #endif

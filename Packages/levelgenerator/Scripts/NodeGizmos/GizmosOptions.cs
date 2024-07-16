@@ -7,6 +7,7 @@ namespace LevelGenerator.NodeGizmos
 	[Serializable]
 	public class GizmosOptions
 	{
+		public bool Override = false;
 		public float NoiseHeight = 10f;
 		public float NoiseSegment = 1f;
 		public float NoiseSize = 0.1f;

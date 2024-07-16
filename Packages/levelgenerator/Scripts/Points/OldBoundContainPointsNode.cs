@@ -7,7 +7,7 @@ using XNode;
 namespace LevelGenerator.Points
 {
 	[Obsolete]
-	public class OldBoundContainPointsNode : BasePointsNode
+	public class OldBoundContainPointsNode : PreviewCalcNode
 	{
 		[Input] public List<Vector3> Points;
 		[Input] public BoundData Bound;

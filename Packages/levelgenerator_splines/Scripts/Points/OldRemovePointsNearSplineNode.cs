@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using LevelGenerator.Points;
 using LevelGenerator.Utility;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
@@ -12,7 +11,7 @@ namespace LevelGenerator.Splines.Points
 {
 	[MovedFrom("LevelGenerator.Splines")]
 	[Obsolete("Use PointsNearSplineNode instead")]
-	public class OldRemovePointsNearSplineNode : BasePointsNode
+	public class OldRemovePointsNearSplineNode : PreviewCalcNode
 	{
 		[Input] public List<Vector3> Points;
 		[FormerlySerializedAs("SplineContainer")]
@@ -168,13 +167,13 @@ namespace LevelGenerator.Splines.Points
 			if (results == null || results.Count <= 0)
 				return;
 			
-			UpdateGizmosOptions();
+			var gizmosOptions = GetGizmosOptions();
 
-			GizmosUtility.DrawPoints(results, _gizmosOptions?.PointSize ?? 0.2f, transform, _gizmosOptions);
+			GizmosUtility.DrawPoints(results, gizmosOptions.PointSize, transform, gizmosOptions);
 
 			if (_pointsCache.Count > 0)
 			{
-				Gizmos.color = _gizmosOptions?.Color ?? Color.white;
+				Gizmos.color = gizmosOptions.Color;
 				foreach (var point in _pointsCache)
 				{
 					Gizmos.DrawWireSphere(point, Distance);

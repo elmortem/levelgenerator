@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Splines
 {
-	public class RandomSplineNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class RandomSplineNode : PreviewCalcNode
 	{
 		public Vector3 StartPoint = new(-50f, 0f, -50f);
 		public Vector3 FinishPoint = new(50f, 0f, 50f);
@@ -20,8 +20,6 @@ namespace LevelGenerator.Splines
 		public float HeightMin = 3f;
 		public float HeightMax = 5f;
 		public int Seed = -1;
-
-		public GizmosOptions GizmosOptions;
 		
 		[Output] public SplineContainerData Result;
 
@@ -39,8 +37,6 @@ namespace LevelGenerator.Splines
 			if (Seed == -1)
 				Seed = Random.Range(1, int.MaxValue);
 		}
-
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
 
 		public override object GetValue(NodePort port)
 		{
@@ -131,15 +127,17 @@ namespace LevelGenerator.Splines
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
+			var gizmosOptions = GetGizmosOptions();
+			
 			var resultsPort = GetOutputPort(nameof(Result));
 			var result = (SplineContainerData)GetValue(resultsPort);
 			if(result == null)
 				return;
 				
-			Gizmos.color = GizmosOptions.Color;
+			Gizmos.color = gizmosOptions.Color;
 			SplinesGizmoUtility.DrawGizmos(result, transform);
-			GizmosUtility.DrawPoint(StartPoint, GizmosOptions.PointSize, transform, GizmosOptions);
-			GizmosUtility.DrawPoint(FinishPoint, GizmosOptions.PointSize, transform, GizmosOptions);
+			GizmosUtility.DrawPoint(StartPoint, gizmosOptions.PointSize, transform, gizmosOptions);
+			GizmosUtility.DrawPoint(FinishPoint, gizmosOptions.PointSize, transform, gizmosOptions);
 		}
 #endif
 	}

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using LevelGenerator.NodeGizmos;
 using LevelGenerator.Points;
 using LevelGenerator.Surfaces.Datas;
 using LevelGenerator.Utility;
@@ -8,15 +7,13 @@ using XNode;
 
 namespace LevelGenerator.Surfaces
 {
-	public class PlaneSurfaceNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class PlaneSurfaceNode : PreviewCalcNode
 	{
 		public PlaneSurfaceData Plane;
 		[NodeEnum]
 		public SurfacePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
-		[Header("Gizmos")]
-		public GizmosOptions GizmosOptions;
 		
 		[Output] public List<PointData> Results;
 		[Output] public TerrainSurfaceData Surface;
@@ -69,19 +66,19 @@ namespace LevelGenerator.Surfaces
 			Plane.GetPoints(_results, PointMode, Count, Seed);
 		}
 
-		public GizmosOptions GetGizmosOptions() => GizmosOptions;
-
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			GizmosUtility.DrawPlane(Plane.Size, Plane.Up, Plane.Offset, transform, GizmosOptions);
+			var gizmosOptions = GetGizmosOptions();
+			
+			GizmosUtility.DrawPlane(Plane.Size, Plane.Up, Plane.Offset, transform, gizmosOptions);
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if (results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, GizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}
