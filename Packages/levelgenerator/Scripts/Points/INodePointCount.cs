@@ -1,6 +1,6 @@
 namespace LevelGenerator.Points
 {
-	public interface IPointCount
+	public interface INodePointCount
 	{
 		int PointsCount { get; }
 	}

@@ -1,27 +1,24 @@
 using System.Collections.Generic;
-using LevelGenerator.NodeGizmos;
 using LevelGenerator.Points;
 using LevelGenerator.Surfaces.Datas;
 using LevelGenerator.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
 using XNode;
 
 namespace LevelGenerator.Surfaces
 {
 	public class TerrainSurfaceNode : PreviewCalcNode
 	{
-		[FormerlySerializedAs("Surface")]
-		public TerrainSurfaceData Terrain;
+		[Input(connectionType = ConnectionType.Override)] public TerrainSurfaceData Terrain = new();
 		[NodeEnum]
-		public SurfacePointMode PointMode;
+		public GeneratePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
 		
 		[Output] public List<PointData> Results;
 		[Output] public TerrainSurfaceData Surface;
 
-		private SurfacePointMode _lastPointMode;
+		private GeneratePointMode _lastPointMode;
 		private int _lastCount;
 		private int _lastSeed;
 		private List<PointData> _results;
@@ -66,7 +63,8 @@ namespace LevelGenerator.Surfaces
 			else
 				_results.Clear();
 			
-			Terrain.GetPoints(_results, PointMode, Count, Seed);
+			var terrain = GetInputValue(nameof(Terrain), Terrain);
+			terrain.GetPoints(_results, PointMode, Count, Seed);
 		}
 
 #if UNITY_EDITOR

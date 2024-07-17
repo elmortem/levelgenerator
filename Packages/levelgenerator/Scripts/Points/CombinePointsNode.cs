@@ -6,7 +6,7 @@ using XNode;
 
 namespace LevelGenerator.Points
 {
-	public class CombinePointsNode : PreviewCalcNode, IPointCount
+	public class CombinePointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public List<PointData> Points = new();
 		[Output] public List<PointData> Results = new();

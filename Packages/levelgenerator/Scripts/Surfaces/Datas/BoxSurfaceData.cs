@@ -22,23 +22,23 @@ namespace LevelGenerator.Surfaces.Datas
 		[NodeEnum]
 		public BoxSurfaceNormalMode NormalMode = BoxSurfaceNormalMode.Up;
 		
-		public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
+		public override void GetPoints(List<PointData> points, GeneratePointMode mode, int count, int seed = 0)
 		{
 			if(count <= 0)
 				return;
 			
 			switch (mode)
 			{
-				case SurfacePointMode.SurfaceRegular:
+				case GeneratePointMode.SurfaceRegular:
 					GetRegularSurfacePoints(points, count);
 					break;
-				case SurfacePointMode.VolumeRegular:
+				case GeneratePointMode.VolumeRegular:
 					GetRegularVolumePoints(points, count);
 					break;
-				case SurfacePointMode.SurfaceRandom:
+				case GeneratePointMode.SurfaceRandom:
 					GetRandomSurfacePoints(points, count, seed);
 					break;
-				case SurfacePointMode.VolumeRandom:
+				case GeneratePointMode.VolumeRandom:
 					GetRandomVolumePoints(points, count, seed);
 					break;
 			}
@@ -48,6 +48,16 @@ namespace LevelGenerator.Surfaces.Datas
 		{
 			Debug.Log("Not supported yet.");
 			results.AddRange(points);
+		}
+
+		public override bool Inside(PointData point)
+		{
+			var halfSize = Size / 2f;
+			var localPoint = point.Position - Offset;
+
+			return localPoint.x >= -halfSize.x && localPoint.x <= halfSize.x &&
+			       localPoint.y >= -halfSize.y && localPoint.y <= halfSize.y &&
+			       localPoint.z >= -halfSize.z && localPoint.z <= halfSize.z;
 		}
 
 		private void GetRegularSurfacePoints(List<PointData> points, int count)
@@ -215,6 +225,11 @@ namespace LevelGenerator.Surfaces.Datas
 				default:
 					return Vector3.up;
 			}
+		}
+
+		public override void DrawGizmos(Transform transform)
+		{
+			Gizmos.DrawWireCube(transform.position + Offset, Size);
 		}
 	}
 }

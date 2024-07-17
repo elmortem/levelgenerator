@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bfa77e1d9f541b4ab143038d682c81d, type: 3}
+  m_Name: SplineGenGraph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 3348321544924966043}
+  - {fileID: 8889482298566748913}
+  - {fileID: 518315874786827625}
+--- !u!114 &518315874786827625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297c3efc8d3743e8b72b241e134a7615, type: 3}
+  m_Name: Points Grid Inside Spline
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -600, y: 344}
+  ports:
+    keys:
+    - SplineContainer
+    - Points
+    - GizmosOptions
+    values:
+    - _fieldName: SplineContainer
+      _node: {fileID: 518315874786827625}
+      _typeQualifiedName: LevelGenerator.Splines.SplineContainerData, LevelGenerator-Splines,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Result
+        node: {fileID: 8889482298566748913}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Points
+      _node: {fileID: 518315874786827625}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 518315874786827625}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 1
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 0.9056604, g: 0.86225134, b: 0.14951938, a: 1}
+    PointSize: 36.49
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 1
+  LockCalc: 0
+  SplineContainer:
+    Splines: []
+    Knots:
+      m_KnotsLink: []
+  CellWidth: 400
+  CellHeight: 400
+  Points: []
+--- !u!114 &3348321544924966043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc416a2f21f46cc88e72bcea908e17e, type: 3}
+  m_Name: Result
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 968, y: 264}
+  ports:
+    keys:
+    - Instances
+    values:
+    - _fieldName: Instances
+      _node: {fileID: 3348321544924966043}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Instances.InstanceData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  Instances: []
+  AutoGenerate: 1
+--- !u!114 &8889482298566748913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5241df6492f4776b1d4ef8716e30fb7, type: 3}
+  m_Name: Get Spline
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -936, y: 552}
+  ports:
+    keys:
+    - Result
+    - GizmosOptions
+    values:
+    - _fieldName: Result
+      _node: {fileID: 8889482298566748913}
+      _typeQualifiedName: LevelGenerator.Splines.SplineContainerData, LevelGenerator-Splines,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: SplineContainer
+        node: {fileID: 518315874786827625}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 8889482298566748913}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 0.09825563, g: 0.23530255, b: 0.9056604, a: 1}
+    PointSize: 5
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 1
+  LockCalc: 0
+  Name: TestSpline
+  Result:
+    Splines: []
+    Knots:
+      m_KnotsLink: []

@@ -10,25 +10,25 @@ namespace LevelGenerator.Surfaces.Datas
 	[Serializable]
 	public class PlaneSurfaceData : BaseSurfaceData
 	{
-		public Vector3 Up = Vector3.up;
 		public Vector3 Offset = Vector3.zero;
+		public Vector3 Up = Vector3.up;
 		public Vector2 Size = new(100, 100);
 		[NodeEnum]
 		public SurfaceNormalMode NormalNode;
 		
-		public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
+		public override void GetPoints(List<PointData> points, GeneratePointMode mode, int count, int seed = 0)
 		{
 			if(count <= 0)
 				return;
 			
 			switch (mode)
 			{
-				case SurfacePointMode.SurfaceRegular:
-				case SurfacePointMode.VolumeRegular:
+				case GeneratePointMode.SurfaceRegular:
+				case GeneratePointMode.VolumeRegular:
 					GetRegularPoints(points, count);
 					break;
-				case SurfacePointMode.SurfaceRandom:
-				case SurfacePointMode.VolumeRandom:
+				case GeneratePointMode.SurfaceRandom:
+				case GeneratePointMode.VolumeRandom:
 					GetRandomPoints(points, count, seed);
 					break;
 			}
@@ -51,6 +51,17 @@ namespace LevelGenerator.Surfaces.Datas
 					ProjectionPointsSurface(points, results);
 					break;
 			}
+		}
+
+		public override bool Inside(PointData point)
+		{
+			var halfSize = Size / 2f;
+			var inverseRotation = Quaternion.Inverse(Quaternion.FromToRotation(Vector3.up, Up));
+			var localPoint = inverseRotation * (point.Position - Offset);
+
+			return localPoint.x >= -halfSize.x && localPoint.x <= halfSize.x &&
+			       localPoint.z >= -halfSize.y && localPoint.z <= halfSize.y;/* &&
+			       Mathf.Approximately(localPoint.y, 0);*/
 		}
 
 		private void ProjectionPointsNormal(List<PointData> points, List<PointData> results)
@@ -131,8 +142,8 @@ namespace LevelGenerator.Surfaces.Datas
 					var pos = new Vector3
 					{
 						x = -half.x + i * wstep + Offset.x,
-						y = 0f,
-						z = -half.y + j * hstep + Offset.y
+						y = Offset.y,
+						z = -half.y + j * hstep + Offset.z
 					};
 
 					pos = rot * pos;
@@ -162,8 +173,8 @@ namespace LevelGenerator.Surfaces.Datas
 				var pos = new Vector3
 				{
 					x = -half.x + Random.Range(0, Size.x) + Offset.x,
-					y = 0f,
-					z = -half.y + Random.Range(0, Size.y) + Offset.y
+					y = Offset.y,
+					z = -half.y + Random.Range(0, Size.y) + Offset.z
 				};
 
 				pos = rot * pos;
@@ -178,6 +189,11 @@ namespace LevelGenerator.Surfaces.Datas
 				points.Add(point);
 			}
 			Random.state = state;
+		}
+
+		public override void DrawGizmos(Transform transform)
+		{
+			GizmosUtility.DrawPlane(Size, Up, Offset, transform);
 		}
 	}
 }

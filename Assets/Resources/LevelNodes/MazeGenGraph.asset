@@ -1,5 +1,100 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8615769837899206287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8286dbb1af974837b8ff322252651388, type: 3}
+  m_Name: Intersect Points
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 616, y: 152}
+  ports:
+    keys:
+    - Points
+    - OtherPoints
+    - Results
+    - NearPoints
+    - GizmosOptions
+    values:
+    - _fieldName: Points
+      _node: {fileID: -8615769837899206287}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Points
+        node: {fileID: -3676028293684790028}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: OtherPoints
+      _node: {fileID: -8615769837899206287}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Results
+      _node: {fileID: -8615769837899206287}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: NearPoints
+      _node: {fileID: -8615769837899206287}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -8615769837899206287}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 1
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 0.18039213, g: 0.85882354, b: 0.20448586, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 1
+  LockCalc: 0
+  Points: []
+  OtherPoints: []
+  Radius: 20
+  RemoveThemselves: 1
+  UseScale: 1
+  ShowIntersect: 0
+  Results: []
+  NearPoints: []
 --- !u!114 &-7019339251910706370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,7 +193,7 @@ MonoBehaviour:
   Radius: 80
   RemoveThemselves: 1
   UseScale: 1
-  ShowResults: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
 --- !u!114 &-7012945920129689497
@@ -525,7 +620,7 @@ MonoBehaviour:
   Radius: 50
   RemoveThemselves: 1
   UseScale: 1
-  ShowResults: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
 --- !u!114 &-5445090131630317360
@@ -794,9 +889,180 @@ MonoBehaviour:
   Radius: 20
   RemoveThemselves: 1
   UseScale: 1
-  ShowResults: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
+--- !u!114 &-3676028293684790028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671c455779104a0e9f6fdb14d047d8d2, type: 3}
+  m_Name: Spline Offset Points
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 344, y: 184}
+  ports:
+    keys:
+    - SplineContainer
+    - Points
+    - GizmosOptions
+    values:
+    - _fieldName: SplineContainer
+      _node: {fileID: -3676028293684790028}
+      _typeQualifiedName: LevelGenerator.Splines.SplineContainerData, LevelGenerator-Splines,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Spline
+        node: {fileID: -2156568963037199212}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Points
+      _node: {fileID: -3676028293684790028}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Points
+        node: {fileID: -8615769837899206287}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -3676028293684790028}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 0
+  LockCalc: 0
+  SplineContainer:
+    Splines: []
+    Knots:
+      m_KnotsLink: []
+  Offset: -20
+  PointDistance: 20
+  BothSides: 1
+  UpNormal: 0
+  NoRotation: 0
+  Points: []
+--- !u!114 &-2205014533974903741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c2581c49c94406912efb5ddb75136d, type: 3}
+  m_Name: Surface Select Points
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1224, y: -424}
+  ports:
+    keys:
+    - Surface
+    - Points
+    - InsidePoints
+    - OutsidePoints
+    - GizmosOptions
+    values:
+    - _fieldName: Surface
+      _node: {fileID: -2205014533974903741}
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.BaseSurfaceData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Surface
+        node: {fileID: 3301170681626633189}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Points
+      _node: {fileID: -2205014533974903741}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Results
+        node: {fileID: 5045942481058030198}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: InsidePoints
+      _node: {fileID: -2205014533974903741}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: OutsidePoints
+      _node: {fileID: -2205014533974903741}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -2205014533974903741}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 1
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 0.6415094, g: 0.22603075, b: 0.075649686, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 0
+  LockCalc: 0
+  Points: []
+  ShowInside: 1
+  ShowOutside: 1
+  InsidePoints: []
+  OutsidePoints: []
 --- !u!114 &-2156568963037199212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +1106,9 @@ MonoBehaviour:
       - fieldName: SplineContainers
         node: {fileID: 1795709353560822023}
         reroutePoints: []
+      - fieldName: SplineContainer
+        node: {fileID: -3676028293684790028}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -864,7 +1133,7 @@ MonoBehaviour:
     PointSize: 0.3
     DrawNormals: 1
     DrawRotation: 1
-  ShowPreview: 0
+  ShowPreview: 1
   LockCalc: 1
   Spline:
     Splines: []
@@ -1064,6 +1333,9 @@ MonoBehaviour:
   - {fileID: -1206764606876619493}
   - {fileID: 7696634187670402899}
   - {fileID: -7012945920129689497}
+  - {fileID: -3676028293684790028}
+  - {fileID: -8615769837899206287}
+  - {fileID: -2205014533974903741}
 --- !u!114 &1795709353560822023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1154,7 +1426,7 @@ MonoBehaviour:
     PointSize: 0.3
     DrawNormals: 1
     DrawRotation: 1
-  ShowPreview: 1
+  ShowPreview: 0
   LockCalc: 0
   Points: []
   SplineContainers:
@@ -1162,8 +1434,8 @@ MonoBehaviour:
     Knots:
       m_KnotsLink: []
   Distance: 20
-  ShowFarPoints: 0
-  ShowNearZone: 1
+  ShowFarPoints: 1
+  ShowNearZone: 0
   FarPoints: []
   NearPoints: []
 --- !u!114 &3148562851331614452
@@ -1287,6 +1559,7 @@ MonoBehaviour:
     - Results
     - Surface
     - GizmosOptions
+    - Plane
     values:
     - _fieldName: Results
       _node: {fileID: 3301170681626633189}
@@ -1303,9 +1576,12 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Surface
       _node: {fileID: 3301170681626633189}
-      _typeQualifiedName: LevelGenerator.Surfaces.Datas.TerrainSurfaceData, LevelGenerator,
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Surface
+        node: {fileID: -2205014533974903741}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -1319,6 +1595,15 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 1
       _dynamic: 0
+    - _fieldName: Plane
+      _node: {fileID: 3301170681626633189}
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
   GizmosOptions:
     Override: 0
     NoiseHeight: 10
@@ -1331,10 +1616,10 @@ MonoBehaviour:
     DrawNormals: 1
     DrawRotation: 1
   ShowPreview: 0
-  LockCalc: 1
+  LockCalc: 0
   Plane:
-    Up: {x: 0, y: 1, z: 0}
-    Offset: {x: 0, y: 0, z: 0}
+    Offset: {x: 1000, y: 0, z: 1000}
+    Up: {x: 0, y: 0, z: 1}
     Size: {x: 2000, y: 2000}
     NormalNode: 2
   PointMode: 1
@@ -1342,8 +1627,9 @@ MonoBehaviour:
   Seed: 223710702
   Results: []
   Surface:
-    Terrain: {fileID: 0}
     Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 100, y: 100}
     NormalNode: 0
 --- !u!114 &3978795752704068206
 MonoBehaviour:
@@ -1430,6 +1716,7 @@ MonoBehaviour:
     - Results
     - Surface
     - GizmosOptions
+    - Plane
     values:
     - _fieldName: Results
       _node: {fileID: 5045942481058030198}
@@ -1440,13 +1727,16 @@ MonoBehaviour:
       - fieldName: Points
         node: {fileID: 3148562851331614452}
         reroutePoints: []
+      - fieldName: Points
+        node: {fileID: -2205014533974903741}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Surface
       _node: {fileID: 5045942481058030198}
-      _typeQualifiedName: LevelGenerator.Surfaces.Datas.TerrainSurfaceData, LevelGenerator,
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections: []
       _direction: 1
@@ -1462,6 +1752,15 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 1
       _dynamic: 0
+    - _fieldName: Plane
+      _node: {fileID: 5045942481058030198}
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
   GizmosOptions:
     Override: 0
     NoiseHeight: 10
@@ -1476,8 +1775,8 @@ MonoBehaviour:
   ShowPreview: 0
   LockCalc: 1
   Plane:
-    Up: {x: 0, y: 1, z: 0}
     Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
     Size: {x: 2500, y: 2500}
     NormalNode: 2
   PointMode: 1
@@ -1485,8 +1784,9 @@ MonoBehaviour:
   Seed: 223717945
   Results: []
   Surface:
-    Terrain: {fileID: 0}
     Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 100, y: 100}
     NormalNode: 0
 --- !u!114 &6757913963393168101
 MonoBehaviour:
@@ -1553,7 +1853,7 @@ MonoBehaviour:
     PointSize: 0.3
     DrawNormals: 1
     DrawRotation: 1
-  ShowPreview: 1
+  ShowPreview: 0
   LockCalc: 0
   SplineContainer:
     Splines: []

@@ -9,16 +9,16 @@ namespace LevelGenerator.Surfaces
 {
 	public class PlaneSurfaceNode : PreviewCalcNode
 	{
-		public PlaneSurfaceData Plane;
+		[Input(connectionType = ConnectionType.Override)] public PlaneSurfaceData Plane = new();
 		[NodeEnum]
-		public SurfacePointMode PointMode;
+		public GeneratePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
 		
 		[Output] public List<PointData> Results;
-		[Output] public TerrainSurfaceData Surface;
+		[Output] public PlaneSurfaceData Surface;
 
-		private SurfacePointMode _lastPointMode;
+		private GeneratePointMode _lastPointMode;
 		private int _lastCount;
 		private int _lastSeed;
 		private List<PointData> _results;
@@ -63,7 +63,8 @@ namespace LevelGenerator.Surfaces
 			else
 				_results.Clear();
 			
-			Plane.GetPoints(_results, PointMode, Count, Seed);
+			var plane = GetInputValue(nameof(Plane), Plane);
+			plane.GetPoints(_results, PointMode, Count, Seed);
 		}
 
 #if UNITY_EDITOR
@@ -71,7 +72,9 @@ namespace LevelGenerator.Surfaces
 		{
 			var gizmosOptions = GetGizmosOptions();
 			
-			GizmosUtility.DrawPlane(Plane.Size, Plane.Up, Plane.Offset, transform, gizmosOptions);
+			var plane = GetInputValue(nameof(Plane), Plane);
+			Gizmos.color = gizmosOptions.Color;
+			plane.DrawGizmos(transform);
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);

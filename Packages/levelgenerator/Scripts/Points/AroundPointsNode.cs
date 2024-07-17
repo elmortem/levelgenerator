@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Points
 {
-	public class AroundPointsNode : PreviewCalcNode, IPointCount
+	public class AroundPointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public List<PointData> Points = new();
 		public float RadiusMin = 0.5f;

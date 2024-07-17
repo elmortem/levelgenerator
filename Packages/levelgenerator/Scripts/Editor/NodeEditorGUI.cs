@@ -44,5 +44,15 @@ namespace LevelGenerator.Editor
 			
 			GUI.color = color;
 		}
+		
+		public static void DrawInfo(object value)
+		{
+			var color = GUI.color;
+			GUI.color = Color.yellow;
+			
+			GUILayout.Box(value.ToString());
+			
+			GUI.color = color;
+		}
 	}
 }

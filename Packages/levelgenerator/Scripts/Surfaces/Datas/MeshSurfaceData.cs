@@ -23,7 +23,7 @@ namespace LevelGenerator.Surfaces.Datas
         [NodeEnum]
         public MeshProjectionMode ProjectionMode = MeshProjectionMode.Sphere;
 
-        public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
+        public override void GetPoints(List<PointData> points, GeneratePointMode mode, int count, int seed = 0)
         {
             if (Mesh == null)
             {
@@ -36,16 +36,16 @@ namespace LevelGenerator.Surfaces.Datas
 
             switch (mode)
             {
-                case SurfacePointMode.SurfaceRegular:
+                case GeneratePointMode.SurfaceRegular:
                     GetSurfacePoints(points, count);
                     break;
-                case SurfacePointMode.VolumeRegular:
+                case GeneratePointMode.VolumeRegular:
                     GetRegularVolumePoints(points, count);
                     break;
-                case SurfacePointMode.SurfaceRandom:
+                case GeneratePointMode.SurfaceRandom:
                     GetRandomSurfacePoints(points, count, seed);
                     break;
-                case SurfacePointMode.VolumeRandom:
+                case GeneratePointMode.VolumeRandom:
                     GetRandomVolumePoints(points, count, seed);
                     break;
             }
@@ -119,6 +119,11 @@ namespace LevelGenerator.Surfaces.Datas
                     new MeshBoxProjection(Mesh, Offset, NormalMode).GetRandomVolumePoints(points, count, seed);
                     break;
             }
+        }
+
+        public override void DrawGizmos(Transform transform)
+        {
+            Gizmos.DrawWireMesh(Mesh, transform.position + Offset, transform.rotation);
         }
     }
 }

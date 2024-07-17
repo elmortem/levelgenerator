@@ -15,7 +15,7 @@ namespace LevelGenerator.Surfaces.Datas
 		[NodeEnum]
 		public SurfaceNormalMode NormalNode;
 
-		public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
+		public override void GetPoints(List<PointData> points, GeneratePointMode mode, int count, int seed = 0)
 		{
 			if (Terrain == null)
 			{
@@ -28,12 +28,12 @@ namespace LevelGenerator.Surfaces.Datas
 
 			switch (mode)
 			{
-				case SurfacePointMode.SurfaceRegular:
-				case SurfacePointMode.VolumeRegular:
+				case GeneratePointMode.SurfaceRegular:
+				case GeneratePointMode.VolumeRegular:
 					GetRegularPoints(points, count);
 					break;
-				case SurfacePointMode.SurfaceRandom:
-				case SurfacePointMode.VolumeRandom:
+				case GeneratePointMode.SurfaceRandom:
+				case GeneratePointMode.VolumeRandom:
 					GetRandomPoints(points, count, seed);
 					break;
 			}

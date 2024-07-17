@@ -8,7 +8,7 @@ using XNode;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use PercentPointsNode instead")]
-	public class OldPercentPointsNode : PreviewCalcNode, IPointCount
+	public class OldPercentPointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public List<Vector3> Points = new();
 		public float Percent = 0.5f;

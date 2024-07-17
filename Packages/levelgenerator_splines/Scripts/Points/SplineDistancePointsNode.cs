@@ -7,7 +7,7 @@ using XNode;
 
 namespace LevelGenerator.Splines.Points
 {
-	public class SplineDistancePointsNode : PreviewCalcNode, IPointCount
+	public class SplineDistancePointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public SplineContainerData SplineContainer;
 		public float Distance = 5f;
@@ -16,6 +16,8 @@ namespace LevelGenerator.Splines.Points
 		[Output] public List<PointData> Points = new();
 
 		private float _lastDistance;
+		private bool _lastUpNormal;
+		private bool _lastNoRotation;
 		private List<PointData> _points;
 
 		public int PointsCount => _points?.Count ?? 0;
@@ -49,7 +51,7 @@ namespace LevelGenerator.Splines.Points
 			
 			if(LockCalc && _points != null)
 				return;
-			if (!force && Mathf.Approximately(_lastDistance, Distance) && _points != null)
+			if (!force && Mathf.Approximately(_lastDistance, Distance) && _lastUpNormal == UpNormal && _lastNoRotation == NoRotation && _points != null)
 				return;
 			
 			if(_points == null)
@@ -64,6 +66,8 @@ namespace LevelGenerator.Splines.Points
 			ResetGizmosOptions();
 
 			_lastDistance = Distance;
+			_lastUpNormal = UpNormal;
+			_lastNoRotation = NoRotation;
 			
 			foreach (var spline in splineContainer.Splines)
 			{

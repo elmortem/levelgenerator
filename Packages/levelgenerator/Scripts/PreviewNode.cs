@@ -37,9 +37,10 @@ namespace LevelGenerator
 		
 		public GizmosOptions GetGizmosOptions()
 		{
-			if (_gizmosOptions == null && GetPort(nameof(GizmosOptions)) != null)
+			var gizmosOptionsPort = GetPort(nameof(GizmosOptions));
+			if (_gizmosOptions == null && gizmosOptionsPort != null && gizmosOptionsPort.IsConnected)
 			{
-				_gizmosOptions = GetInputValue<GizmosOptions>(nameof(GizmosOptions), null);
+				_gizmosOptions = GetInputValue<GizmosOptions>(nameof(GizmosOptions));
 			}
 			
 			if(GizmosOptions.Override)

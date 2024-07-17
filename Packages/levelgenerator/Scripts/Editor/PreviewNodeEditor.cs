@@ -20,9 +20,14 @@ namespace LevelGenerator.Editor
 			if (_node == null)
 				_node = (PreviewNode)target;
 
-			if (_node is IPointCount pointCount)
+			if (_node is INodePointCount pointCount)
 			{
 				NodeEditorGUI.DrawResult("Points", pointCount.PointsCount);
+			}
+			
+			if (_node is INodeInfo nodeInfo && nodeInfo.HasNodeInfo())
+			{
+				NodeEditorGUI.DrawInfo(nodeInfo.GetNodeInfo());
 			}
 			
 			NodeEditorGUI.DrawPreviewAndLock(_node);

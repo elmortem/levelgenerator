@@ -46,7 +46,7 @@ namespace LevelGenerator.Points
 		private void Awake()
 		{
 			if(Seed == -1)
-				Seed = Random.Range(0, int.MaxValue);
+				Seed = Random.Range(1, int.MaxValue);
 		}
 
 		public override object GetValue(NodePort port)

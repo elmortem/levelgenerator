@@ -8,7 +8,7 @@ using XNode;
 
 namespace LevelGenerator.Mazes
 {
-	public class GridGraphNode :  PreviewCalcNode, IPointCount
+	public class GridGraphNode :  PreviewCalcNode, INodePointCount
 	{
 		public int Width = 10;
 		public int Height = 10;

@@ -1,6 +1,6 @@
 namespace LevelGenerator.Surfaces.Datas
 {
-	public enum SurfacePointMode
+	public enum GeneratePointMode
 	{
 		None,
 		SurfaceRandom,

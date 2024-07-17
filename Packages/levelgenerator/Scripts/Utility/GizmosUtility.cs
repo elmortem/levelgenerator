@@ -99,7 +99,7 @@ namespace LevelGenerator.Utility
 			Gizmos.matrix = Matrix4x4.identity;
 		}
 
-		public static void DrawPlane(Vector2 size, Vector3 up, Vector3 offset, Transform transform, GizmosOptions gizmosOptions)
+		public static void DrawPlane(Vector2 size, Vector3 up, Vector3 offset, Transform transform)
 		{
 			var rotation = Quaternion.FromToRotation(Vector3.up, up);
 			var halfSize = size / 2f;
@@ -114,8 +114,6 @@ namespace LevelGenerator.Utility
 			{
 				corners[i] = rotation * corners[i] + offset + transform.position;
 			}
-
-			Gizmos.color = gizmosOptions.Color;
 
 			Gizmos.DrawLine(corners[0], corners[1]);
 			Gizmos.DrawLine(corners[1], corners[2]);

@@ -9,14 +9,15 @@ namespace LevelGenerator.Surfaces
 {
 	public class SphereSurfaceNode : PreviewCalcNode
 	{
-		public SphereSurfaceData Sphere;
+		[Input(connectionType = ConnectionType.Override)] public SphereSurfaceData Sphere = new();
 		[NodeEnum]
-		public SurfacePointMode PointMode;
+		public GeneratePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
 		[Output] public List<PointData> Results;
+		[Output] public SphereSurfaceData Surface;
 
-		private SurfacePointMode _lastPointMode;
+		private GeneratePointMode _lastPointMode;
 		private int _lastCount;
 		private int _lastSeed;
 		private List<PointData> _results;
@@ -36,6 +37,10 @@ namespace LevelGenerator.Surfaces
 			{
 				CalcResults();
 				return _results;
+			}
+			if (port.fieldName == nameof(Surface))
+			{
+				return Sphere;
 			}
 			
 			return null;
@@ -57,21 +62,25 @@ namespace LevelGenerator.Surfaces
 			else
 				_results.Clear();
 			
-			Sphere.GetPoints(_results, PointMode, Count, Seed);
+			var sphere = GetInputValue(nameof(Sphere), Sphere);
+			sphere.GetPoints(_results, PointMode, Count, Seed);
 		}
 
 #if UNITY_EDITOR
 		public override void DrawGizmos(Transform transform)
 		{
-			Gizmos.color = GizmosOptions.Color;
-			Gizmos.DrawWireSphere(transform.position + Sphere.Offset, Sphere.Radius);
+			var gizmosOptions = GetGizmosOptions();
+			
+			var sphere = GetInputValue(nameof(Sphere), Sphere);
+			Gizmos.color = gizmosOptions.Color;
+			sphere.DrawGizmos(transform);
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);
 			if (results == null || results.Count <= 0)
 				return;
 			
-			GizmosUtility.DrawPoints(results, GizmosOptions, transform);
+			GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 		}
 #endif
 	}

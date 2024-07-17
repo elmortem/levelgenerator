@@ -1,4 +1,4 @@
-# Level Generator
+# Level Generator (PCG for Unity)
 
 [![color:ff69b4](https://img.shields.io/badge/licence-MIT-blue)](https://opensource.org/license/mit)
 ![color:ff69b4](https://img.shields.io/badge/Unity-2022.3.x-red)
@@ -66,7 +66,7 @@ Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more
 
 ## Screenshots
 
-<img src="screenshot2.png" height="160"> <img src="screenshot3.png" height="160"> <img src="screenshot.png" height="160"> <img src="screenshot4.png" height="160"> <img src="screenshot5.png" height="160">
+<img src="screenshot2.png" height="160"> <img src="screenshot3.png" height="160"> <img src="screenshot.png" height="160"> <img src="screenshot4.png" height="160"> <img src="screenshot5.png" height="160"> <img src="screenshot6.png" height="160">
 
 ### Other
 

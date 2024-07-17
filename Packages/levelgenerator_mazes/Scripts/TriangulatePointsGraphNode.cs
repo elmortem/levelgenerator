@@ -10,7 +10,7 @@ using XNode;
 
 namespace LevelGenerator.Mazes
 {
-	public class TriangulatePointsGraphNode : PreviewCalcNode, IPointCount
+	public class TriangulatePointsGraphNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public List<PointData> Points;
 		public float MinDistance = 100f;

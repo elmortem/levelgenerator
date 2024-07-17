@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 namespace LevelGenerator.Points
 {
 	[Obsolete]
-	public class OldRandomPointsNode : PreviewNode, IPointCount
+	public class OldRandomPointsNode : PreviewNode, INodePointCount
 	{
 		[Input(connectionType:ConnectionType.Override, typeConstraint = TypeConstraint.Inherited)] public BoundData BoundData;
 		[Output] public List<Vector3> Points;

@@ -6,7 +6,7 @@ using XNode;
 
 namespace LevelGenerator.Points
 {
-	public class PointsToSurfaceNode : PreviewCalcNode, IPointCount
+	public class PointsToSurfaceNode : PreviewCalcNode, INodePointCount
 	{
 		[Input(connectionType = ConnectionType.Override)] public BaseSurfaceData Surface = new();
 		[Input] public List<PointData> Points = new();

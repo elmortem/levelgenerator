@@ -7,7 +7,7 @@ using XNode;
 
 namespace LevelGenerator.Splines
 {
-	public class SplineNode : PreviewCalcNode, IGizmosOptionsProvider
+	public class SplineNode : PreviewCalcNode
 	{
 		[Output] public SplineContainerData Result;
 		

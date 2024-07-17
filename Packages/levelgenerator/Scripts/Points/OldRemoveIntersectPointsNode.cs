@@ -8,7 +8,7 @@ using XNode;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use IntersectPointsNode instead")]
-	public class OldRemoveIntersectPointsNode : PreviewNode, IPointCount
+	public class OldRemoveIntersectPointsNode : PreviewNode, INodePointCount
 	{
 		[Input] public List<Vector3> Points = new();
 		[Input] public List<Vector3> OtherPoints = new();

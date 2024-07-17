@@ -13,7 +13,7 @@ namespace LevelGenerator.Points
 		public bool RemoveThemselves = true;
 		public bool UseScale = true; 
 		[Header("Gizmos")]
-		public bool ShowResults = true;
+		public bool ShowIntersect = true;
 		[Output] public List<PointData> Results = new();
 		[Output] public List<PointData> NearPoints = new();
 		
@@ -147,24 +147,33 @@ namespace LevelGenerator.Points
 		{
 			var gizmosOptions = GetGizmosOptions();
 
-			if (ShowResults)
+			if (!ShowIntersect)
 			{
 				var resultsPort = GetOutputPort(nameof(Results));
 				var results = (List<PointData>)GetValue(resultsPort);
 				if (results == null || results.Count <= 0)
 					return;
 				
-				GizmosUtility.DrawWirePoints(results, Radius, gizmosOptions?.Color ?? Color.white, transform);
+				GizmosUtility.DrawPoints(results, gizmosOptions, transform);
 			}
 			else
 			{
-				var resultsPort = GetOutputPort(nameof(NearPoints));
+				var resultsPort = GetOutputPort(nameof(Results));
 				var results = (List<PointData>)GetValue(resultsPort);
 				if (results == null || results.Count <= 0)
 					return;
 				
-				GizmosUtility.DrawPoints(_nearPoints, gizmosOptions.PointSize, gizmosOptions.DrawNormals,
-					gizmosOptions.DrawRotation, Color.red, transform);
+				GizmosUtility.DrawWirePoints(results, Radius, gizmosOptions.Color, transform);
+				
+				var nearPort = GetOutputPort(nameof(NearPoints));
+				var nearPoints = (List<PointData>)GetValue(nearPort);
+				if (nearPoints == null || nearPoints.Count <= 0)
+					return;
+				
+				var pointsColor = Color.white - gizmosOptions.Color;
+				pointsColor.a = 1f;
+				GizmosUtility.DrawPoints(nearPoints, gizmosOptions.PointSize, gizmosOptions.DrawNormals,
+					gizmosOptions.DrawRotation, pointsColor, transform);
 			}
 		}
 #endif

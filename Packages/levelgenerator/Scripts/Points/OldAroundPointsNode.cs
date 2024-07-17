@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use AroundPointsNode instead")]
-	public class OldAroundPointsNode : PreviewCalcNode, IPointCount
+	public class OldAroundPointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public List<Vector3> Points = new();
 		public float RadiusMin = 0.5f;

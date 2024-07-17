@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using UnityEngine;
+using UnityEngine.Splines;
 
 namespace LevelGenerator.Splines.Utilities
 {
@@ -16,6 +17,9 @@ namespace LevelGenerator.Splines.Utilities
 			{
 				if(spline == null || spline.Count < 2)
 					continue;
+
+				var bounds = spline.GetBounds(transform.localToWorldMatrix);
+				Gizmos.DrawWireCube(bounds.center, bounds.size);
 
 				Vector3[] positions;
 				SplinesCache.GetCachedPositions(spline, 16, out positions);

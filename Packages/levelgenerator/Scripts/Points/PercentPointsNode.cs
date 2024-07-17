@@ -6,7 +6,7 @@ using XNode;
 
 namespace LevelGenerator.Points
 {
-	public class PercentPointsNode : PreviewCalcNode, IPointCount
+	public class PercentPointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public List<PointData> Points = new();
 		public float Percent = 0.5f;
@@ -29,7 +29,7 @@ namespace LevelGenerator.Points
 				CalcResults();
 				return _results ?? Results;
 			}
-			else if (port.fieldName == nameof(RemovedPoints))
+			if (port.fieldName == nameof(RemovedPoints))
 			{
 				CalcResults();
 				return _removedPoints ?? RemovedPoints;
@@ -71,6 +71,9 @@ namespace LevelGenerator.Points
 
 			foreach (var points in pointsList)
 			{
+				if(points == null || points.Count <= 0)
+					continue;
+				
 				var count = Mathf.RoundToInt(points.Count * Percent);
 				for (int i = 0; i < points.Count; i++)
 				{

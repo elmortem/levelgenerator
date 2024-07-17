@@ -22,23 +22,23 @@ namespace LevelGenerator.Surfaces.Datas
         [NodeEnum]
         public SphereSurfaceNormalMode NormalMode = SphereSurfaceNormalMode.Up;
 
-        public override void GetPoints(List<PointData> points, SurfacePointMode mode, int count, int seed = 0)
+        public override void GetPoints(List<PointData> points, GeneratePointMode mode, int count, int seed = 0)
         {
             if(count <= 0)
                 return;
             
             switch (mode)
             {
-                case SurfacePointMode.SurfaceRegular:
+                case GeneratePointMode.SurfaceRegular:
                     GetRegularSurfacePoints(points, count);
                     break;
-                case SurfacePointMode.VolumeRegular:
+                case GeneratePointMode.VolumeRegular:
                     GetRegularVolumePoints(points, count);
                     break;
-                case SurfacePointMode.SurfaceRandom:
+                case GeneratePointMode.SurfaceRandom:
                     GetRandomSurfacePoints(points, count, seed);
                     break;
-                case SurfacePointMode.VolumeRandom:
+                case GeneratePointMode.VolumeRandom:
                     GetRandomVolumePoints(points, count, seed);
                     break;
             }
@@ -189,6 +189,11 @@ namespace LevelGenerator.Surfaces.Datas
                 default:
                     return Vector3.up;
             }
+        }
+
+        public override void DrawGizmos(Transform transform)
+        {
+            Gizmos.DrawWireSphere(transform.position + Offset, Radius);
         }
     }
 }

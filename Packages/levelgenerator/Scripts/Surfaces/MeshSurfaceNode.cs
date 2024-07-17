@@ -9,15 +9,16 @@ namespace LevelGenerator.Surfaces
 {
 	public class MeshSurfaceNode : PreviewCalcNode
 	{
-		public MeshSurfaceData Mesh;
+		[Input(connectionType = ConnectionType.Override)] public MeshSurfaceData Mesh = new();
 		[NodeEnum]
-		public SurfacePointMode PointMode;
+		public GeneratePointMode PointMode;
 		public int Count = 100;
 		public int Seed = -1;
 		
 		[Output] public List<PointData> Results;
+		[Output] public MeshSurfaceData Surface;
 
-		private SurfacePointMode _lastPointMode;
+		private GeneratePointMode _lastPointMode;
 		private int _lastCount;
 		private int _lastSeed;
 		private List<PointData> _results;
@@ -37,6 +38,10 @@ namespace LevelGenerator.Surfaces
 			{
 				CalcResults();
 				return _results;
+			}
+			if (port.fieldName == nameof(Surface))
+			{
+				return Mesh;
 			}
 			
 			return null;
@@ -58,7 +63,8 @@ namespace LevelGenerator.Surfaces
 			else
 				_results.Clear();
 			
-			Mesh.GetPoints(_results, PointMode, Count, Seed);
+			var mesh = GetInputValue(nameof(Mesh), Mesh);
+			mesh.GetPoints(_results, PointMode, Count, Seed);
 		}
 
 #if UNITY_EDITOR
@@ -66,7 +72,8 @@ namespace LevelGenerator.Surfaces
 		{
 			var gizmosOptions = GetGizmosOptions();
 			
-			Gizmos.DrawWireMesh(Mesh.Mesh, transform.position + Mesh.Offset, transform.rotation);
+			var mesh = GetInputValue(nameof(Mesh), Mesh);
+			mesh.DrawGizmos(transform);
 			
 			var resultsPort = GetOutputPort(nameof(Results));
 			var results = (List<PointData>)GetValue(resultsPort);

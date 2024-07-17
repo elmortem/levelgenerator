@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace LevelGenerator.Splines.Points
 {
-	public class SplineRandomPointsNode : PreviewCalcNode
+	public class SplineRandomPointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public SplineContainerData SplineContainer;
 		public int Count = 100;
@@ -19,6 +19,8 @@ namespace LevelGenerator.Splines.Points
 
 		private int _lastCount;
 		private int _lastSeed = -1;
+		private bool _lastUpNormal;
+		private bool _lastNoRotation;
 		private List<PointData> _points;
 		
 		public int PointsCount => _points?.Count ?? 0;
@@ -42,20 +44,21 @@ namespace LevelGenerator.Splines.Points
 			
 			return null;
 		}
-
-
+		
 		protected override void CalcResults(bool force = false)
 		{
+			var port = GetInputPort(nameof(SplineContainer));
+			if (port == null || !port.IsConnected)
+			{
+				_points = null;
+				return;
+			}
+			
 			if(LockCalc && _points != null)
 				return;
-			if (!force && _lastSeed == Seed && _lastCount == Count && _points != null)
+			if (!force && _lastSeed == Seed && _lastCount == Count && _lastUpNormal == UpNormal && _lastNoRotation == NoRotation && _points != null)
 				return;
 			
-			if(_points == null)
-				_points = new();
-			else
-				_points.Clear();
-
 			var splineContainer = GetInputValue(nameof(SplineContainer), SplineContainer);
 			if (splineContainer == null || splineContainer.Splines.Count <= 0)
 				return;
@@ -64,9 +67,16 @@ namespace LevelGenerator.Splines.Points
 
 			_lastCount = Count;
 			_lastSeed = Seed;
+			_lastUpNormal = UpNormal;
+			_lastNoRotation = NoRotation;
 			
 			var lastState = Random.state;
 			Random.InitState(_lastSeed);
+			
+			if(_points == null)
+				_points = new();
+			else
+				_points.Clear();
 			
 			for (int i = 0; i < Count; i++)
 			{

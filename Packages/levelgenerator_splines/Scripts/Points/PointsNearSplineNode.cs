@@ -73,6 +73,10 @@ namespace LevelGenerator.Splines.Points
 				return;
 			if (!force && Mathf.Approximately(_lastDistance, Distance) && _farPoints != null && _nearPoints != null)
 				return;
+			
+			var pointsList = GetInputValues(nameof(Points), Points);
+			if (pointsList == null || pointsList.Length <= 0)
+				return;
 
 			if (_farPoints == null)
 				_farPoints = new();
@@ -83,10 +87,6 @@ namespace LevelGenerator.Splines.Points
 				_nearPoints = new();
 			else
 				_nearPoints.Clear();
-
-			var pointsList = GetInputValues(nameof(Points), Points);
-			if (pointsList == null || pointsList.Length <= 0)
-				return;
 
 			var splines = GetInputValues(nameof(SplineContainers), SplineContainers);
 			if (splines == null || splines.Length <= 0)

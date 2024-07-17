@@ -8,7 +8,7 @@ using XNode;
 namespace LevelGenerator.Points
 {
 	[Obsolete("Use CombinePointsNode instead")]
-	public class OldCombinePointsNode : PreviewCalcNode, IPointCount
+	public class OldCombinePointsNode : PreviewCalcNode, INodePointCount
 	{
 		[Input] public List<Vector3> Points;
 		[Output] public List<Vector3> Results;
