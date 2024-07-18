@@ -19,11 +19,24 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.elmortem.levelgenerator_parameters": {
+      "version": "file:levelgenerator_parameters",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.elmortem.levelgenerator_splines": {
       "version": "file:levelgenerator_splines",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
+    },
+    "com.elmortem.serializereferenceeditor": {
+      "version": "https://github.com/elmortem/serializereferenceeditor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "655e2beec040cae85fc4a15f12db97bc89dcee49"
     },
     "com.github.siccity.xnode": {
       "version": "https://github.com/siccity/xNode.git",

@@ -54,7 +54,10 @@ namespace LevelGenerator.Splines.Points
 			
 			var pointsList = GetInputValues(nameof(Points), Points);
 			if (pointsList == null || pointsList.Length <= 0)
+			{
+				_result = null;
 				return;
+			}
 
 			ResetGizmosOptions();
 			_lastMode = Mode;

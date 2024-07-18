@@ -46,8 +46,11 @@ namespace LevelGenerator.Mazes
 			
 			var graph = GetInputValue(nameof(Graph), Graph);
 			if (graph == null)
+			{
+				_splineContainer = null;
 				return;
-			
+			}
+
 			ResetGizmosOptions();
 			
 			// Add splines

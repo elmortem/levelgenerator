@@ -60,8 +60,7 @@ namespace LevelGenerator.Surfaces.Datas
 			var localPoint = inverseRotation * (point.Position - Offset);
 
 			return localPoint.x >= -halfSize.x && localPoint.x <= halfSize.x &&
-			       localPoint.z >= -halfSize.y && localPoint.z <= halfSize.y;/* &&
-			       Mathf.Approximately(localPoint.y, 0);*/
+			       localPoint.z >= -halfSize.y && localPoint.z <= halfSize.y;
 		}
 
 		private void ProjectionPointsNormal(List<PointData> points, List<PointData> results)
@@ -79,7 +78,6 @@ namespace LevelGenerator.Surfaces.Datas
 
 					var worldPoint = Quaternion.FromToRotation(Vector3.up, Up) * localPoint + Offset;
 
-					// Apply projection along the normal
 					var projectedPoint = worldPoint + direction * localPoint.y;
 
 					var p = new PointData

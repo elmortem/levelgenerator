@@ -3,13 +3,7 @@
 [![color:ff69b4](https://img.shields.io/badge/licence-MIT-blue)](https://opensource.org/license/mit)
 ![color:ff69b4](https://img.shields.io/badge/Unity-2022.3.x-red)
 
-Node-based (xNode) procedural level generator.
-
-## Last Changes
-
-Translate all nodes to PointData structure. Old node mark Obsolete and have "Old" prefix. Its will be removed in next updates.
-
-BoundData is obsolete too. Use Surface for make points. Now support Plane, Box, Sphere, Terrain and Mesh surfaces.
+Node-based procedural content generator.
 
 ## Installation
 
@@ -17,7 +11,9 @@ BoundData is obsolete too. Use Surface for make points. Now support Plane, Box, 
 
 Install xNode from https://github.com/siccity/xNode
 
-For **Maze Addon** install Triangulation Delone from https://github.com/elmortem/triangulation-delone
+For **Mazes Addon** install Triangulation Delone from https://github.com/elmortem/triangulation-delone
+
+For **Parameters Addon** install Unity SerializeReference Property Drawer from https://github.com/elmortem/serializereferenceeditor
 
 ### Packages
 
@@ -50,6 +46,15 @@ https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_maze
 "com.elmortem.levelgenerator_mazes": "https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_mazes",
 ```
 
+#### Paramaters Addon
+Support external parameters for nodes. Not support for all nodes yet, in progress...
+```
+https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_parameters
+```
+```
+"com.elmortem.levelgenerator_parameters": "https://github.com/elmortem/levelgenerator.git?path=Packages/levelgenerator_parameters",
+```
+
 ## LevelGeneratorGraph asset
 
 Create asset from Create menu selected Level Generator/Graph 
@@ -66,7 +71,7 @@ Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more
 
 ## Screenshots
 
-<img src="screenshot2.png" height="160"> <img src="screenshot3.png" height="160"> <img src="screenshot.png" height="160"> <img src="screenshot4.png" height="160"> <img src="screenshot5.png" height="160"> <img src="screenshot6.png" height="160">
+<img src="screenshot2.png" height="160"> <img src="screenshot3.png" height="160"> <img src="screenshot.png" height="160"> <img src="screenshot4.png" height="160"> <img src="screenshot5.png" height="160"> <img src="screenshot6.png" height="160"> <img src="screenshot5.png" height="160"> <img src="screenshot7.png" height="160">
 
 ### Other
 

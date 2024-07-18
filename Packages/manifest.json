@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.elmortem.delone": "https://github.com/elmortem/triangulation-delone.git?path=Packages/triangulation-delone",
+    "com.elmortem.serializereferenceeditor": "https://github.com/elmortem/serializereferenceeditor.git",
     "com.github.siccity.xnode": "https://github.com/siccity/xNode.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.spriteshape": "9.0.4",

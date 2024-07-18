@@ -61,7 +61,10 @@ namespace LevelGenerator.Splines.Points
 			
 			var splineContainer = GetInputValue(nameof(SplineContainer), SplineContainer);
 			if (splineContainer == null || splineContainer.Splines.Count <= 0)
+			{
+				_points = null;
 				return;
+			}
 
 			ResetGizmosOptions();
 

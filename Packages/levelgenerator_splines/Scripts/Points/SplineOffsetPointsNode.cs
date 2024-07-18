@@ -59,15 +59,18 @@ namespace LevelGenerator.Splines.Points
 			if (!force && Mathf.Approximately(_lastOffsetDistance, Offset) &&
 			    Mathf.Approximately(_lastPointDistance, PointDistance) && _lastBothSides == BothSides && _lastUpNormal == UpNormal && _lastNoRotation == NoRotation && _points != null)
 				return;
+			
+			var splineContainer = GetInputValue(nameof(SplineContainer), SplineContainer);
+			if (splineContainer == null || splineContainer.Splines.Count <= 0)
+			{
+				_points = null;
+				return;
+			}
 
 			if (_points == null)
 				_points = new();
 			else
 				_points.Clear();
-
-			var splineContainer = GetInputValue(nameof(SplineContainer), SplineContainer);
-			if (splineContainer == null || splineContainer.Splines.Count <= 0)
-				return;
 
 			ResetGizmosOptions();
 

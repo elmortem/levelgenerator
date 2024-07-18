@@ -1,0 +1,22 @@
+{
+    "name": "LevelGenerator-Parameters",
+    "rootNamespace": "LevelGenerator.Parameters",
+    "references": [
+        "XNode",
+        "LevelGenerator",
+        "Unity.Splines",
+        "Unity.Splines.Editor",
+        "Unity.Mathematics",
+        "Unity.2D.SpriteShape.Runtime",
+		"SREditor"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -67,7 +67,12 @@ namespace LevelGenerator.Splines.Points
 			}
 
 			if (Distance < 0.0001f)
+			{
+				_farPoints = null;
+				_nearPoints = null;
+				_pointsCache.Clear();
 				return;
+			}
 
 			if (LockCalc && _farPoints != null && _nearPoints != null)
 				return;
@@ -76,7 +81,21 @@ namespace LevelGenerator.Splines.Points
 			
 			var pointsList = GetInputValues(nameof(Points), Points);
 			if (pointsList == null || pointsList.Length <= 0)
+			{
+				_farPoints = null;
+				_nearPoints = null;
+				_pointsCache.Clear();
 				return;
+			}
+			
+			var splines = GetInputValues(nameof(SplineContainers), SplineContainers);
+			if (splines == null || splines.Length <= 0)
+			{
+				_farPoints = null;
+				_nearPoints = null;
+				_pointsCache.Clear();
+				return;
+			}
 
 			if (_farPoints == null)
 				_farPoints = new();
@@ -87,10 +106,6 @@ namespace LevelGenerator.Splines.Points
 				_nearPoints = new();
 			else
 				_nearPoints.Clear();
-
-			var splines = GetInputValues(nameof(SplineContainers), SplineContainers);
-			if (splines == null || splines.Length <= 0)
-				return;
 
 			ResetGizmosOptions();
 			_lastDistance = Distance;

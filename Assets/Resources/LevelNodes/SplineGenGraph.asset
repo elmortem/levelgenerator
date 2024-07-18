@@ -29,7 +29,7 @@ MonoBehaviour:
   m_Name: Points Grid Inside Spline
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -600, y: 344}
+  position: {x: -600, y: 552}
   ports:
     keys:
     - SplineContainer
@@ -164,11 +164,11 @@ MonoBehaviour:
     NoiseSize: 0.1
     BoundPoints: 100
     DrawIncorrects: 1
-    Color: {r: 0.09825563, g: 0.23530255, b: 0.9056604, a: 1}
+    Color: {r: 0.14428759, g: 0.90588236, b: 0.09803922, a: 1}
     PointSize: 5
     DrawNormals: 1
     DrawRotation: 1
-  ShowPreview: 1
+  ShowPreview: 0
   LockCalc: 0
   Name: TestSpline
   Result:

@@ -18,6 +18,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: -8767950571388183835}
@@ -45,6 +46,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -8767950571388183835}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
@@ -67,6 +88,101 @@ MonoBehaviour:
     Max: {x: 1, y: 1, z: 1}
     Lock: 1
   Results: []
+--- !u!114 &-8115457154119459111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6daa9f959044eeb638876dda332b37, type: 3}
+  m_Name: Get Game Objects
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -264, y: 2456}
+  ports:
+    keys:
+    - Name
+    - Tag
+    - Points
+    - GizmosOptions
+    values:
+    - _fieldName: Name
+      _node: {fileID: -8115457154119459111}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Points
+        node: {fileID: -3386325813376129354}
+        reroutePoints: []
+      - fieldName: Points
+        node: {fileID: -3386325813376129354}
+        reroutePoints: []
+      - fieldName: Points
+        node: {fileID: -3386325813376129354}
+        reroutePoints: []
+      - fieldName: Points
+        node: {fileID: -3386325813376129354}
+        reroutePoints: []
+      - fieldName: Points
+        node: {fileID: -3386325813376129354}
+        reroutePoints: []
+      - fieldName: Points
+        node: {fileID: -3386325813376129354}
+        reroutePoints: []
+      - fieldName: Points
+        node: {fileID: -3386325813376129354}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Tag
+      _node: {fileID: -8115457154119459111}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Points
+      _node: {fileID: -8115457154119459111}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -8115457154119459111}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 1
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 14.59
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 1
+  LockCalc: 0
+  Name: Point
+  Tag: 
+  Points: []
 --- !u!114 &-7863397143817257657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +201,8 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
+    - Prefab
     values:
     - _fieldName: Points
       _node: {fileID: -7863397143817257657}
@@ -112,12 +230,41 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -7863397143817257657}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Prefab
+      _node: {fileID: -7863397143817257657}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
+  Prefab: {fileID: 2689125556395130229, guid: 2a66466868438844e8bb135fb1c75f84, type: 3}
   Enabled: 1
   Results: []
-  Prefab: {fileID: 2689125556395130229, guid: 2a66466868438844e8bb135fb1c75f84, type: 3}
 --- !u!114 &-7527683045506303596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +283,8 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
+    - Prefab
     values:
     - _fieldName: Points
       _node: {fileID: -7527683045506303596}
@@ -163,12 +312,41 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -7527683045506303596}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Prefab
+      _node: {fileID: -7527683045506303596}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
+  Prefab: {fileID: 6588211484117090047, guid: 89e12b6ff7908b64fa8a5f8c7f3d0124, type: 3}
   Enabled: 1
   Results: []
-  Prefab: {fileID: 6588211484117090047, guid: 89e12b6ff7908b64fa8a5f8c7f3d0124, type: 3}
 --- !u!114 &-7410851486259363626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +365,8 @@ MonoBehaviour:
     keys:
     - Results
     - Surface
+    - Plane
+    - GizmosOptions
     values:
     - _fieldName: Results
       _node: {fileID: -7410851486259363626}
@@ -206,24 +386,33 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Surface
       _node: {fileID: -7410851486259363626}
-      _typeQualifiedName: LevelGenerator.Surfaces.Datas.TerrainSurfaceData, LevelGenerator,
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  ShowPreview: 0
-  LockCalc: 1
-  Plane:
-    Up: {x: 0, y: 1, z: 0}
-    Offset: {x: 0, y: 0, z: 0}
-    Size: {x: 200, y: 200}
-    NormalNode: 2
-  PointMode: 1
-  Count: 1000
-  Seed: 940137609
+    - _fieldName: Plane
+      _node: {fileID: -7410851486259363626}
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -7410851486259363626}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
   GizmosOptions:
+    Override: 0
     NoiseHeight: 10
     NoiseSegment: 1
     NoiseSize: 0.1
@@ -233,10 +422,21 @@ MonoBehaviour:
     PointSize: 0.3
     DrawNormals: 1
     DrawRotation: 1
+  ShowPreview: 0
+  LockCalc: 1
+  Plane:
+    Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 200, y: 200}
+    NormalNode: 2
+  PointMode: 1
+  Count: 1000
+  Seed: 940137609
   Results: []
   Surface:
-    Terrain: {fileID: 0}
     Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 100, y: 100}
     NormalNode: 0
 --- !u!114 &-6167835966622555980
 MonoBehaviour:
@@ -258,6 +458,7 @@ MonoBehaviour:
     - OtherPoints
     - Results
     - NearPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: -6167835966622555980}
@@ -317,13 +518,34 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -6167835966622555980}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
   OtherPoints: []
   Radius: 1
   RemoveThemselves: 1
-  ShowResults: 1
+  UseScale: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
 --- !u!114 &-4449902368008301868
@@ -392,6 +614,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: -4331403002187934830}
@@ -419,6 +642,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -4331403002187934830}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 1
   LockCalc: 1
   Points: []
@@ -441,6 +684,70 @@ MonoBehaviour:
     Max: {x: 1, y: 1, z: 1}
     Lock: 1
   Results: []
+--- !u!114 &-3386325813376129354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a121abaa01a4c59a8c9827f3525be05, type: 3}
+  m_Name: Parameter
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -552, y: 2440}
+  ports:
+    keys:
+    - GizmosOptions
+    - Points
+    values:
+    - _fieldName: GizmosOptions
+      _node: {fileID: -3386325813376129354}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Points
+      _node: {fileID: -3386325813376129354}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Name
+        node: {fileID: -8115457154119459111}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 1
+      _dynamic: 1
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 1
+  LockCalc: 0
+  Name: Points
+  _parameter:
+    rid: 3193257060484513814
+  references:
+    version: 2
+    RefIds:
+    - rid: 3193257060484513814
+      type: {class: StringParameter, ns: LevelGenerator.Parameters.Types, asm: LevelGenerator-Parameters}
+      data:
+        Name: Points
+        Value: TownPoint
 --- !u!114 &-2346612703830536672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +768,7 @@ MonoBehaviour:
     - OtherPoints
     - Results
     - NearPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: -2346612703830536672}
@@ -520,13 +828,34 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -2346612703830536672}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
   OtherPoints: []
   Radius: 1
   RemoveThemselves: 1
-  ShowResults: 1
+  UseScale: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
 --- !u!114 &-1719744333485488653
@@ -547,6 +876,8 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
+    - Prefab
     values:
     - _fieldName: Points
       _node: {fileID: -1719744333485488653}
@@ -574,12 +905,41 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -1719744333485488653}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Prefab
+      _node: {fileID: -1719744333485488653}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
+  Prefab: {fileID: 4389714111392263400, guid: da3ad5004c0661649bb70e6925939409, type: 3}
   Enabled: 1
   Results: []
-  Prefab: {fileID: 4389714111392263400, guid: da3ad5004c0661649bb70e6925939409, type: 3}
 --- !u!114 &-1485723254391895475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +958,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: -1485723254391895475}
@@ -625,6 +986,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -1485723254391895475}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
@@ -652,6 +1033,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: -1314933291551346790}
@@ -679,6 +1061,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -1314933291551346790}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 1
   LockCalc: 1
   Points: []
@@ -719,6 +1121,8 @@ MonoBehaviour:
     keys:
     - Results
     - Surface
+    - Plane
+    - GizmosOptions
     values:
     - _fieldName: Results
       _node: {fileID: -624535704351338569}
@@ -735,24 +1139,33 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Surface
       _node: {fileID: -624535704351338569}
-      _typeQualifiedName: LevelGenerator.Surfaces.Datas.TerrainSurfaceData, LevelGenerator,
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  ShowPreview: 0
-  LockCalc: 1
-  Plane:
-    Up: {x: 0, y: 1, z: 0}
-    Offset: {x: 0, y: 0, z: 0}
-    Size: {x: 200, y: 200}
-    NormalNode: 2
-  PointMode: 1
-  Count: 500
-  Seed: 940187476
+    - _fieldName: Plane
+      _node: {fileID: -624535704351338569}
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: -624535704351338569}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
   GizmosOptions:
+    Override: 0
     NoiseHeight: 10
     NoiseSegment: 1
     NoiseSize: 0.1
@@ -762,10 +1175,21 @@ MonoBehaviour:
     PointSize: 0.3
     DrawNormals: 1
     DrawRotation: 1
+  ShowPreview: 0
+  LockCalc: 1
+  Plane:
+    Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 200, y: 200}
+    NormalNode: 2
+  PointMode: 1
+  Count: 500
+  Seed: 940187476
   Results: []
   Surface:
-    Terrain: {fileID: 0}
     Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 100, y: 100}
     NormalNode: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -810,6 +1234,9 @@ MonoBehaviour:
   - {fileID: 2748986254656438465}
   - {fileID: 258988767735478620}
   - {fileID: 8584350662344078706}
+  - {fileID: -8115457154119459111}
+  - {fileID: -3386325813376129354}
+  - {fileID: 573657239011313277}
 --- !u!114 &53885813087740677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,6 +1255,8 @@ MonoBehaviour:
     keys:
     - Results
     - Surface
+    - Plane
+    - GizmosOptions
     values:
     - _fieldName: Results
       _node: {fileID: 53885813087740677}
@@ -844,24 +1273,33 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Surface
       _node: {fileID: 53885813087740677}
-      _typeQualifiedName: LevelGenerator.Surfaces.Datas.TerrainSurfaceData, LevelGenerator,
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  ShowPreview: 0
-  LockCalc: 1
-  Plane:
-    Up: {x: 0, y: 1, z: 0}
-    Offset: {x: 0, y: 0, z: 0}
-    Size: {x: 200, y: 200}
-    NormalNode: 0
-  PointMode: 1
-  Count: 10000
-  Seed: 940013505
+    - _fieldName: Plane
+      _node: {fileID: 53885813087740677}
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 53885813087740677}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
   GizmosOptions:
+    Override: 0
     NoiseHeight: 10
     NoiseSegment: 1
     NoiseSize: 0.1
@@ -871,10 +1309,21 @@ MonoBehaviour:
     PointSize: 0.3
     DrawNormals: 1
     DrawRotation: 1
+  ShowPreview: 0
+  LockCalc: 1
+  Plane:
+    Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 200, y: 200}
+    NormalNode: 0
+  PointMode: 1
+  Count: 10000
+  Seed: 940013505
   Results: []
   Surface:
-    Terrain: {fileID: 0}
     Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 100, y: 100}
     NormalNode: 0
 --- !u!114 &230694663552067057
 MonoBehaviour:
@@ -892,24 +1341,24 @@ MonoBehaviour:
   position: {x: -552, y: 552}
   ports:
     keys:
-    - Data
+    - Noise
     values:
-    - _fieldName: Data
+    - _fieldName: Noise
       _node: {fileID: 230694663552067057}
       _typeQualifiedName: LevelGenerator.Noises.NoiseData, LevelGenerator, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Noise
-        node: {fileID: 5141151143039018424}
+        node: {fileID: 5058386070773522096}
         reroutePoints: []
       - fieldName: Noise
-        node: {fileID: 5058386070773522096}
+        node: {fileID: 5141151143039018424}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  NoiseData:
+  PerlinNoise:
     Offset: {x: 0, y: 0}
     Scale: 0.05
 --- !u!114 &258988767735478620
@@ -930,6 +1379,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 258988767735478620}
@@ -957,6 +1407,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 258988767735478620}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
@@ -999,6 +1469,7 @@ MonoBehaviour:
     - OtherPoints
     - Results
     - NearPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 390363282680595835}
@@ -1046,15 +1517,90 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 390363282680595835}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
   OtherPoints: []
   Radius: 0.5
   RemoveThemselves: 1
-  ShowResults: 1
+  UseScale: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
+--- !u!114 &573657239011313277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a04dc1e7bd4dcab234394bdca1ee3f, type: 3}
+  m_Name: Input Points
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -552, y: 2728}
+  ports:
+    keys:
+    - Results
+    - GizmosOptions
+    values:
+    - _fieldName: Results
+      _node: {fileID: 573657239011313277}
+      _typeQualifiedName: System.Collections.Generic.List`1[[LevelGenerator.Points.PointData,
+        LevelGenerator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 573657239011313277}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 1
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 0.6981132, g: 0.09549664, b: 0.5219435, a: 1}
+    PointSize: 2.67
+    DrawNormals: 1
+    DrawRotation: 1
+  ShowPreview: 1
+  LockCalc: 0
+  Graph: {fileID: 11400000, guid: 223ceb8c5f4b4fc40b373df20e35bee0, type: 2}
+  Name: RoadPoints
+  Results: []
 --- !u!114 &2352742598255323375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,6 +1619,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 2352742598255323375}
@@ -1103,6 +1650,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 2352742598255323375}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
@@ -1125,6 +1692,8 @@ MonoBehaviour:
     keys:
     - Results
     - Surface
+    - Plane
+    - GizmosOptions
     values:
     - _fieldName: Results
       _node: {fileID: 2748986254656438465}
@@ -1141,24 +1710,33 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Surface
       _node: {fileID: 2748986254656438465}
-      _typeQualifiedName: LevelGenerator.Surfaces.Datas.TerrainSurfaceData, LevelGenerator,
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  ShowPreview: 0
-  LockCalc: 1
-  Plane:
-    Up: {x: 0, y: 1, z: 0}
-    Offset: {x: 0, y: 0, z: 0}
-    Size: {x: 200, y: 200}
-    NormalNode: 2
-  PointMode: 1
-  Count: 200
-  Seed: 940208834
+    - _fieldName: Plane
+      _node: {fileID: 2748986254656438465}
+      _typeQualifiedName: LevelGenerator.Surfaces.Datas.PlaneSurfaceData, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 2748986254656438465}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
   GizmosOptions:
+    Override: 0
     NoiseHeight: 10
     NoiseSegment: 1
     NoiseSize: 0.1
@@ -1168,10 +1746,21 @@ MonoBehaviour:
     PointSize: 0.3
     DrawNormals: 1
     DrawRotation: 1
+  ShowPreview: 0
+  LockCalc: 1
+  Plane:
+    Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 200, y: 200}
+    NormalNode: 2
+  PointMode: 1
+  Count: 200
+  Seed: 940208834
   Results: []
   Surface:
-    Terrain: {fileID: 0}
     Offset: {x: 0, y: 0, z: 0}
+    Up: {x: 0, y: 1, z: 0}
+    Size: {x: 100, y: 100}
     NormalNode: 0
 --- !u!114 &4035589477043852700
 MonoBehaviour:
@@ -1191,6 +1780,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 4035589477043852700}
@@ -1218,6 +1808,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 4035589477043852700}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
@@ -1248,6 +1858,7 @@ MonoBehaviour:
     - Noise
     - InsidePoints
     - OutsidePoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 5058386070773522096}
@@ -1267,11 +1878,11 @@ MonoBehaviour:
       _typeQualifiedName: LevelGenerator.Noises.NoiseData, LevelGenerator, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: Data
+      - fieldName: Noise
         node: {fileID: 230694663552067057}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: InsidePoints
@@ -1297,6 +1908,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 5058386070773522096}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
@@ -1327,6 +1958,7 @@ MonoBehaviour:
     - Noise
     - InsidePoints
     - OutsidePoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 5141151143039018424}
@@ -1346,11 +1978,11 @@ MonoBehaviour:
       _typeQualifiedName: LevelGenerator.Noises.NoiseData, LevelGenerator, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: Data
+      - fieldName: Noise
         node: {fileID: 230694663552067057}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: InsidePoints
@@ -1376,6 +2008,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 5141151143039018424}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 0
   Points: []
@@ -1405,6 +2057,7 @@ MonoBehaviour:
     - Points
     - Results
     - RemovedPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 5408160587776763747}
@@ -1445,6 +2098,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 5408160587776763747}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
@@ -1471,6 +2144,7 @@ MonoBehaviour:
     - OtherPoints
     - Results
     - NearPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 5532235558566744550}
@@ -1524,13 +2198,34 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 5532235558566744550}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
   OtherPoints: []
   Radius: 0.5
   RemoveThemselves: 1
-  ShowResults: 1
+  UseScale: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
 --- !u!114 &5571628093307784590
@@ -1553,6 +2248,7 @@ MonoBehaviour:
     - OtherPoints
     - Results
     - NearPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 5571628093307784590}
@@ -1603,13 +2299,34 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 5571628093307784590}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
   OtherPoints: []
   Radius: 1
   RemoveThemselves: 0
-  ShowResults: 1
+  UseScale: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
 --- !u!114 &8020256909704648098
@@ -1630,6 +2347,8 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
+    - Prefab
     values:
     - _fieldName: Points
       _node: {fileID: 8020256909704648098}
@@ -1657,12 +2376,41 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 8020256909704648098}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Prefab
+      _node: {fileID: 8020256909704648098}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 0
   Points: []
+  Prefab: {fileID: 3757331509153960075, guid: 638225bcd3f7636409848bac438fe4c9, type: 3}
   Enabled: 1
   Results: []
-  Prefab: {fileID: 3757331509153960075, guid: 638225bcd3f7636409848bac438fe4c9, type: 3}
 --- !u!114 &8394779828331227685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1681,6 +2429,7 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 8394779828331227685}
@@ -1708,6 +2457,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 8394779828331227685}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 0
   Points: []
@@ -1748,6 +2517,8 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
+    - Prefab
     values:
     - _fieldName: Points
       _node: {fileID: 8528028979371360108}
@@ -1775,12 +2546,41 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 8528028979371360108}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Prefab
+      _node: {fileID: 8528028979371360108}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
+  Prefab: {fileID: 439295686982577974, guid: 9895697b628ccef43b216adb33cc36bd, type: 3}
   Enabled: 1
   Results: []
-  Prefab: {fileID: 439295686982577974, guid: 9895697b628ccef43b216adb33cc36bd, type: 3}
 --- !u!114 &8584350662344078706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1799,6 +2599,8 @@ MonoBehaviour:
     keys:
     - Points
     - Results
+    - GizmosOptions
+    - Prefab
     values:
     - _fieldName: Points
       _node: {fileID: 8584350662344078706}
@@ -1826,12 +2628,41 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 8584350662344078706}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: Prefab
+      _node: {fileID: 8584350662344078706}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
+  Prefab: {fileID: 7147751027858209465, guid: 2d421eeb3b3f76d479186ef14e11c2bd, type: 3}
   Enabled: 1
   Results: []
-  Prefab: {fileID: 7147751027858209465, guid: 2d421eeb3b3f76d479186ef14e11c2bd, type: 3}
 --- !u!114 &8848831892962154198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1852,6 +2683,7 @@ MonoBehaviour:
     - OtherPoints
     - Results
     - NearPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 8848831892962154198}
@@ -1914,13 +2746,34 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 8848831892962154198}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
   OtherPoints: []
   Radius: 1
   RemoveThemselves: 1
-  ShowResults: 1
+  UseScale: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []
 --- !u!114 &9144059649617648886
@@ -1943,6 +2796,7 @@ MonoBehaviour:
     - OtherPoints
     - Results
     - NearPoints
+    - GizmosOptions
     values:
     - _fieldName: Points
       _node: {fileID: 9144059649617648886}
@@ -1999,12 +2853,33 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: GizmosOptions
+      _node: {fileID: 9144059649617648886}
+      _typeQualifiedName: LevelGenerator.NodeGizmos.GizmosOptions, LevelGenerator,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  GizmosOptions:
+    Override: 0
+    NoiseHeight: 10
+    NoiseSegment: 1
+    NoiseSize: 0.1
+    BoundPoints: 100
+    DrawIncorrects: 1
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    PointSize: 0.3
+    DrawNormals: 1
+    DrawRotation: 1
   ShowPreview: 0
   LockCalc: 1
   Points: []
   OtherPoints: []
   Radius: 2.2
   RemoveThemselves: 1
-  ShowResults: 1
+  UseScale: 1
+  ShowIntersect: 1
   Results: []
   NearPoints: []

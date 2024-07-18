@@ -1,0 +1,22 @@
+{
+  "displayName": "Parameters Addon for Level Generator",
+  "name": "com.elmortem.levelgenerator_parameters",
+  "author": "Makar Osokin",
+  "version": "0.0.1",
+  "unity": "2022.3",
+  "description": "External parameters support for node-based procedural content generator.",
+  "keywords": [
+    "parameters",
+	"PCG",
+    "world",
+    "generator",
+    "generation",
+    "level",
+    "level generator",
+    "world generator",
+    "procedural",
+    "procedural generator",
+    "xNode"
+  ],
+  "category": "Utility"
+}
