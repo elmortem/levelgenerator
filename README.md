@@ -71,7 +71,7 @@ Relax and [read wiki](https://github.com/elmortem/levelgenerator/wiki/) for more
 
 ## Screenshots
 
-<img src="screenshot2.png" height="160"> <img src="screenshot3.png" height="160"> <img src="screenshot.png" height="160"> <img src="screenshot4.png" height="160"> <img src="screenshot5.png" height="160"> <img src="screenshot6.png" height="160"> <img src="screenshot5.png" height="160"> <img src="screenshot7.png" height="160">
+<img src="screenshot2.png" height="160"> <img src="screenshot3.png" height="160"> <img src="screenshot.png" height="160"> <img src="screenshot4.png" height="160"> <img src="screenshot5.png" height="160"> <img src="screenshot6.png" height="160"> <img src="screenshot7.png" height="160">
 
 ### Other
 
